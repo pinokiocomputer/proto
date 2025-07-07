@@ -4,8 +4,8 @@ module.exports = {
   menu: async (kernel, info) => {
     let installed = info.exists("app/node_modules")
     let running = {
-      install: info.running("install.js"),
-      start: info.running("start.js"),
+      install: info.running("install.json"),
+      start: info.running("start.json"),
       update: info.running("update.js"),
       reset: info.running("reset.js"),
     }
@@ -13,16 +13,16 @@ module.exports = {
       return [{
         icon: "fa-solid fa-plug",
         text: "Installing",
-        href: "install.js",
+        href: "install.json",
       }]
     } else if (installed) {
       if (running.start) {
-        let local = info.local("start.js")
+        let local = info.local("start.json")
         if (local && local.url) {
           return [{
             icon: "fa-solid fa-power-off",
             text: "Server",
-            href: "start.js",
+            href: "start.json",
           }, {
             default: true,
             icon: "fa-solid fa-rocket",
@@ -48,7 +48,7 @@ module.exports = {
         return [{
           icon: "fa-solid fa-power-off",
           text: "Start",
-          href: "start.js",
+          href: "start.json",
         }, {
           icon: "fa-solid fa-rocket",
           text: "Update",
@@ -56,7 +56,7 @@ module.exports = {
         }, {
           icon: "fa-solid fa-plug",
           text: "Install",
-          href: "install.js",
+          href: "install.json",
         }, {
           icon: "fa-regular fa-circle-xmark",
           text: "<div><strong>Reset</strong><div>Revert to pre-install state</div></div>",
@@ -69,7 +69,7 @@ module.exports = {
         default: true,
         icon: "fa-solid fa-plug",
         text: "Install",
-        href: "install.js",
+        href: "install.json",
       }]
     }
   }
