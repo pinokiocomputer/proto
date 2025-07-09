@@ -22,3 +22,11 @@
 # Tools
 - When installing python packages, use UV, it's already installed.
 - When installing NPM packages, use pnpm, it's already installed.
+
+# Debugging with Logs
+- To troubleshoot the app, check the logs folder.
+- Log files are named using timestamps for each session.
+- In most cases, only the latest log file is needed (i.e. the one with the most recent timestamp), but you can review the full history if necessary.
+- logs/api contains logs for launcher scripts: start.js / start.json for running the app, install.js / install.json for installing, etc. Use these to identify what’s breaking.
+- logs/dev contains logs for AI coding tools, organized by tool name. Since users may run multiple tools at once, check all folders if needed.
+- logs/shell contains logs of direct user interactions—useful for diagnosing interaction issues.
