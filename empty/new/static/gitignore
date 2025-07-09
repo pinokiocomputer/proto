@@ -4,6 +4,7 @@ GEMINI.md
 AGENT.md
 PINOKIO.md
 node_modules
+logs
 .env
 cache
 .*
