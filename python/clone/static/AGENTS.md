@@ -26,13 +26,13 @@
 
 # Tools
 - When installing python packages, use UV, it's already installed.
-- When installing NPM packages, use pnpm, it's already installed.
 
 # Logs
-- Reference the log files for context in addition to user input (for fixing bugs, making sense of things, building new features, etc.).
-- To troubleshoot the app, check the logs folder.
-- Log files are named using timestamps for each session.
-- In most cases, only the latest log file is needed (i.e. the one with the most recent timestamp), but you can review the full history if necessary.
+- Refer to the logs folder to get more context (bugs, project build progress, etc.)
+- Log files are named using unix timestamps for each session, so you can get the most recent log file by looking at the file with the highest number.
+- Also there is a special log file named "latest" which contains the logs for the latest session for each category.
+- In most cases, only refer to the latest logs (i.e. the 'latest' file)
+- But sometimes you may need the full history, in this case review the full logs, sorted by timestamps.
 - logs/api contains logs for launcher scripts: start.js / start.json for running the app, install.js / install.json for installing, etc. Use these to identify what’s breaking.
 - logs/dev contains logs for AI coding tools, organized by tool name. Since users may run multiple tools at once, check all folders if needed.
 - logs/shell contains logs of direct user interactions—useful for diagnosing interaction issues.
