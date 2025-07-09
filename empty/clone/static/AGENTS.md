@@ -27,7 +27,8 @@
 - When installing python packages, use UV, it's already installed.
 - When installing NPM packages, use pnpm, it's already installed.
 
-# Debugging with Logs
+# Logs
+- Reference the log files for context in addition to user input (for fixing bugs, making sense of things, building new features, etc.).
 - To troubleshoot the app, check the logs folder.
 - Log files are named using timestamps for each session.
 - In most cases, only the latest log file is needed (i.e. the one with the most recent timestamp), but you can review the full history if necessary.
