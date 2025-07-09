@@ -5,6 +5,7 @@ AGENT.md
 PINOKIO.md
 node_modules
 logs
+venv
 .env
 cache
 .*
