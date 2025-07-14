@@ -47,22 +47,21 @@ Logs can be used to troubleshoot issues or gather information for interacting wi
 
 # Available System Capabilities
 
-Assume the following capabilities, since if you're seeing this document, it means Pinokio is installed on the user's machine.
+Always assume the following capabilities are available on the system:
 
-- **Package managers:** The following package managers are already installed:
-  - **UV:** UV is already installed through pinokio, so When installing python packages, use UV instead of pip.
-  - **Conda:** Conda is already installed.
-    - When installing python packages, do NOT use Conda. Use UV.
-    - Use Conda for 3rd party packages that cannot be installed through pip or uv.
-    - Try to use conda as much as possible when you need to install 3rd party packages, since conda is often cross platform. However.
-  - **Brew:** Brew is already installed on macs, so if you cannot find a conda package, try the brew package manager to install 3rd party modules on mac.
-- **Automatic HTTPS:** Pinokio automatically starts an HTTPS proxy for all running HTTP server ports, so when you need to use HTTPS for any given app (for example for OAuth, etc.), assume the HTTPS endpoints are automatically available for every running web app. Here is the convention:
-  - For every `http://localhost:<PORT>` that's running, Pinokio automatically creates an HTTPS endpoint at `https://<PORT>.localhost`
-- **Pinokio CLI:** You can access a lot of powerful system features through Pinokio CLI. For advanced usage, refer to the `CLI.md` file in the project root folder. Here are some example features available through CLI:
-  - **Desktop notification:** Send push notifications when the user needs to be alerted about certain events. you can send notification with `pinokio push <message>`
-  - **Run pinokio scripts:** To test that the launcher scripts are running fine, you can test by running `pinokio start <script_path>`. After the test is over, simply quitting the terminal session will stop the script. Or you may call `pinokio stop <script_path>`
-  - **Let the user submit files and folders through Filepicker:** Whenever you need a way for the user to interactively provide a list of file paths or folder paths, use the built-in filepicker from Pinokio.
-    - When you need the user to submit custom files or folders, run `pinokio filepicker --type=file` or `pinokio filepicker --type==folder` to ask the user to submit the files. The CLI program will print the selected files or folders line by line and halt.
-    - When you need to allow multiple path selection, pass `--multiple`, for example `pinokio filepicker --type=file --multiple`.
-- **Git:** git is installed, so it's possible to run all git operations.
-- **Github:** The system is connected to github, so it's possible to clone from or push to github, even private repos.
+- **When you need to install 3rd party binaries or packages:** The following package managers are already installed on the system:
+  - **Use UV for python packages:** UV is available, so when installing python packages, use UV instead of pip.
+  - **Use NPM for node.js packages:** NPM is available, so when installing node.js packages, use npm.
+  - **Use Conda for 3rd party binaries:** Use Conda for 3rd party packages that cannot be installed through pip, uv, or npm. Try to use conda as much as possible when you need to install 3rd party packages, since conda is often cross platform.
+  - **Use brew on macs if no other option is avilable:** In case you can't find any other way to install and you're on a Mac, use `brew`.
+  - **Include the install instructions in the install script:** To make sure the installation can be replicated on every machine, don't just install but include the install commands into the pinokio install script (You can try replicating by running `pinokio start install.js` for example).
+- **Access HTTPS endpoints for ALL locally running servers:** Pinokio automatically starts an HTTPS proxy for all running HTTP server ports, so when you need to use HTTPS for any given app (for example for OAuth, etc.), assume the HTTPS endpoints are automatically available for every running web app.
+  - The convention for the HTTPS endpoint is: for every `http://localhost:<PORT>` that's running, you can access its HTTPS endpoint at `https://<PORT>.localhost`
+  - Additionally, the full available list of HTTPS proxies can be found at http://localhost:2019/config/ which is powered by Caddy.
+- **Powerful system features through CLI:** While developing, you can access a lot of powerful system features through Pinokio CLI. For advanced usage, refer to the `CLI.md` file in the project root folder. Here are some example features available through CLI:
+  - **When you need to alert the user on anything:** Send desktop push notifications when the user needs to be alerted about certain events by running a pinokio CLI command. Refer to the `push` section in the `CLI.md` file in the project root folder.
+  - **When you need to automate things by running pinokio scripts:** To test that the launcher scripts are running fine, you can do this by running a pinokio CLI command. Refer to the `start` section in the `CLI.md` file in the project root folder.
+  - **When you need to let the user submit files or folders:** Whenever you need a way for the user to interactively submit files or folders instead of directly uploading, let them submit the file paths. You can do this with the built-in filepicker pinokio CLI command. Refer to the `filepicker` section in the `CLI.md` file in the project root folder.
+- **When you need to clone some git repository:** git is already installed, so include a `shell.run` API call that runs `git clone <repo url>` commands in the install script and run it to pull in the repository. 
+- **When you need to publish to Github:** The system is connected to github, so it's possible to publish to github using the native git command.
+- **When you need to interact various non-git-native Github features:** It is possible to interact with Github using the built-in official Github CLI program (Examples: `gh repo fork`, `gh issue create`, etc.). The entire documentation is available at https://cli.github.com/manual/
