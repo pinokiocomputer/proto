@@ -60,6 +60,10 @@ project-root/
 - ALWAYS make sure the scripts are as cross platform as possible. This means do NOT use commands that only work on the current platform. Pinokio (see the `PINOKIO.md` documentation) provides various APIs for cross-platform way of calling commonly used system functions, or lets you selectively run commands depending on `platform`, `arch`, etc.
 - When building launchers for existing projects cloned from a repository, try to stay away from modifying the project folder (the `app` folder), even if installations are failing. Instead, try to work around it by creating additional files OUTSIDE of the project folder `app`, and using those files IN ADDITION to the default project.
 - The only exception when you may need to make changes to the project folder is when the user explicitly wants to modify the existing project. Otherwise if the purpose is to simply write a launcher, the app logic folder should never be touched.
+- Do NOT assume pinokio API, refer to the `PINOKIO.md` documentation file's `API` section for the list of available APIs. 
+- When running shell commands, take full advantage of the Pinokio `shell.run` API, which provides features like `env`, `venv`, `input`, `path`, `sudo`, `on`, etc. (See the `PINOKIO.md` file) instead of writing raw commands.
+
+**Pinokio API
 
 ## System Capabilities
 
