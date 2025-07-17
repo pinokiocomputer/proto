@@ -24,6 +24,7 @@ project-root/
 - Keep app code in `/app` folder only (never in root)
 - Store all launcher files in project root (never in `/app`)
 - `/app` folder should be self-contained and publishable
+- Always send desktop push notifications with Pinokio `push` API whenever you need to let the user know you have finished writing coe, or when you need user interaction.
 
 ## Key Rules for writing launchers
 - Even if the install instruction says to launch at 0.0.0.0, do not use those custom IP and let the app launch with default IP (in most cases it's just localhost)
