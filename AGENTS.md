@@ -66,6 +66,7 @@ project-root/
 - When running shell commands, take full advantage of the Pinokio `shell.run` API, which provides features like `env`, `venv`, `input`, `path`, `sudo`, `on`, etc. (See the `PINOKIO.md` file) instead of writing raw commands.
 - In `pinokio.js`, it determines a launcher as "installed" if all the dependencies are ready and the app can actually run. For example, it may detect whether `app/node_modules` exists, or `app/venv` exsts, etc. but you may use any other measures if needed.
 - When an app is running, try to set the `default` attribute for the web app's URL in the `pinokio.js` file, so that link is displayed at top level by default.
+- Prefer to launch apps WITHOUT specifying custom ports even if the install documentation has those examples. If you must use a custom port, instead of hardcoding the port, use the Pinokio `port` variable to use the dynamically available port, for example `"python app.py --port {{port}}".
 
 
 ## AI Libraries (Pytorch, Xformers, Triton, Sageattention, etc.)
