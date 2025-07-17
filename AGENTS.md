@@ -1,6 +1,6 @@
 # Development Guide for Pinokio Projects
 
-Make sure to keep this entire document in memory with high priority before making any decision.
+Make sure to keep this entire document and `PINOKIO.md` in memory with high priority before making any decision. Pinokio is a system that makes it easy to write launchers through scripting by providing various cross-platform APIs, so whenever possible you should prioritize using Pinokio API over lower level APIs.
 
 ## Project Structure
 
@@ -20,10 +20,15 @@ project-root/
 └── pinokio.json       # Metadata (title, description, icon)
 ```
 
-**Key Rules:**
+## Key Rules
 - Keep app code in `/app` folder only (never in root)
 - Store all launcher files in project root (never in `/app`)
 - `/app` folder should be self-contained and publishable
+
+## Key Rules for writing launchers
+- Even if the install instruction says to launch at 0.0.0.0, do not use those custom IP and let the app launch with default IP (in most cases it's just localhost)
+- Try best to NOT use custom ports when launching apps, even if the install documentation has those examples.
+- If you can't possibly figure out a way to launch WITHOUT a custom port, do not use hardcoded ports, but use the Pinokio `port` variable to use the dynamically available port, for example `"python app.py --port {{port}}".
 
 ## Development Workflow
 
@@ -66,7 +71,6 @@ project-root/
 - When running shell commands, take full advantage of the Pinokio `shell.run` API, which provides features like `env`, `venv`, `input`, `path`, `sudo`, `on`, etc. (See the `PINOKIO.md` file) instead of writing raw commands.
 - In `pinokio.js`, it determines a launcher as "installed" if all the dependencies are ready and the app can actually run. For example, it may detect whether `app/node_modules` exists, or `app/venv` exsts, etc. but you may use any other measures if needed.
 - When an app is running, try to set the `default` attribute for the web app's URL in the `pinokio.js` file, so that link is displayed at top level by default.
-- Prefer to launch apps WITHOUT specifying custom ports even if the install documentation has those examples. If you must use a custom port, instead of hardcoding the port, use the Pinokio `port` variable to use the dynamically available port, for example `"python app.py --port {{port}}".
 
 
 ## AI Libraries (Pytorch, Xformers, Triton, Sageattention, etc.)
