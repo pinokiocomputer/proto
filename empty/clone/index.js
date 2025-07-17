@@ -25,8 +25,9 @@ module.exports = async (req, ondata, kernel) => {
 
   // 0. COPY STATIC FILES
   await fs.promises.cp(path.resolve(__dirname, "static"), req.cwd, { recursive: true, force: true })
-  await fs.promises.cp(path.resolve(__dirname, "static/AGENTS.md"), path.resolve(req.cwd, "CLAUDE.md"))
-  await fs.promises.cp(path.resolve(__dirname, "static/AGENTS.md"), path.resolve(req.cwd, "GEMINI.md"))
+  await fs.promises.cp(path.resolve(__dirname, "../../AGENTS.md"), path.resolve(req.cwd, "AGENTS.md"))
+  await fs.promises.cp(path.resolve(__dirname, "../../AGENTS.md"), path.resolve(req.cwd, "CLAUDE.md"))
+  await fs.promises.cp(path.resolve(__dirname, "../../AGENTS.md"), path.resolve(req.cwd, "GEMINI.md"))
 
   // 1. INSTALL SCRIPT
   let install = {
