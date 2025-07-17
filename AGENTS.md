@@ -1,5 +1,7 @@
 # Development Guide for Pinokio Projects
 
+Make sure to keep this entire document in memory with high priority before making any decision.
+
 ## Project Structure
 
 Pinokio projects follow a standardized structure with app logic separated from launcher scripts:
@@ -62,8 +64,48 @@ project-root/
 - The only exception when you may need to make changes to the project folder is when the user explicitly wants to modify the existing project. Otherwise if the purpose is to simply write a launcher, the app logic folder should never be touched.
 - Do NOT assume pinokio API, refer to the `PINOKIO.md` documentation file's `API` section for the list of available APIs. 
 - When running shell commands, take full advantage of the Pinokio `shell.run` API, which provides features like `env`, `venv`, `input`, `path`, `sudo`, `on`, etc. (See the `PINOKIO.md` file) instead of writing raw commands.
+- In `pinokio.js`, it determines a launcher as "installed" if all the dependencies are ready and the app can actually run. For example, it may detect whether `app/node_modules` exists, or `app/venv` exsts, etc. but you may use any other measures if needed.
+- When an app is running, try to set the `default` attribute for the web app's URL in the `pinokio.js` file, so that link is displayed at top level by default.
 
-**Pinokio API
+
+## AI Libraries (Pytorch, Xformers, Triton, Sageattention, etc.)
+
+If the launcher has a dedicated built-in script named `torch.js`, it can be used as follows:
+
+```
+// install.js
+module.exports = {
+  run: [
+    // Delete this step if your project does not use torch
+    {
+      method: "script.start",
+      params: {
+        uri: "torch.js",
+        params: {
+          path: "app",
+          venv: "venv",                // Edit this to customize the venv folder path
+          // xformers: true   // uncomment this line if your project requires xformers
+          // triton: true   // uncomment this line if your project requires triton
+          // sageattention: true   // uncomment this line if your project requires sageattention
+        }
+      }
+    },
+    // Edit this step with your custom install commands
+    {
+      method: "shell.run",
+      params: {
+        venv: "venv",                // Edit this to customize the venv folder path
+        path: "app",
+        message: [
+          "uv pip install -r requirements.txt"
+        ],
+      }
+    },
+  ]
+}
+```
+
+The `torch.js` script also includes ways to install pytorch dependent libraries such as xformers, triton, sagetattention. If any of these libraries need to be installed, use the torch.js to install in order to install them cross platform.
 
 ## System Capabilities
 
