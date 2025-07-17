@@ -55,9 +55,9 @@ project-root/
 - Install scripts should work for each specific operating system, so ignore Docker related instructions. Instead use install/launch instructions for each platform.
 
 **Pinokio script**
-- Pinokio accepts both JSON and JS script files.
 - Before modifying, creating, or removing any script files, first look at `pinokio.js` to understand which script files are actually used in the launcher. The only script files used are the ones mentioned in the `pinokio.js` file. The `pinokio.js` file is the file that constructs the UI dynamically.
 - Do not create a redundant script file that does something that already exists. Instead modify the existing script file for the feature. For example, do not create an `install.json` file for installation if `install.js` already exists. Instead, modify the `install.js` file.
+- Pinokio accepts both JSON and JS script files, so when determining whether a script for a specific purpose already exists, check both JSON and JS files mentioned in the `pinokio.js` file. Do not create script files for rendundant purpose.
 - When installing python packages, use `uv` instead of `pip` even if the install instruction says to use pip. Instead of `pip install -r requirements.txt`, you can simply use `uv pip install -r requirements.txt` for example.
 - ALWAYS make sure the scripts are as cross platform as possible. This means do NOT use commands that only work on the current platform. Pinokio (see the `PINOKIO.md` documentation) provides various APIs for cross-platform way of calling commonly used system functions, or lets you selectively run commands depending on `platform`, `arch`, etc.
 - When building launchers for existing projects cloned from a repository, try to stay away from modifying the project folder (the `app` folder), even if installations are failing. Instead, try to work around it by creating additional files OUTSIDE of the project folder `app`, and using those files IN ADDITION to the default project.
