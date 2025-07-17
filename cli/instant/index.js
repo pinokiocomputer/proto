@@ -12,7 +12,7 @@ module.exports = async (req, ondata, kernel) => {
       params: {
         input: true,
         chain: true,
-        message: req.input.launchCommand,
+        message: req.input.launchCommand || "",
         path: req.input.launchPath || req.cwd
       }
     }]

@@ -63,6 +63,7 @@ project-root/
 - Full proxy list available at: `http://localhost:2019/config/`
 
 ### CLI Features:
+- **Clipboard Access:** Read from or Write to system clipboard via pinokio CLI (`pinokio clipboard` command.)
 - **Notifications:** Send desktop alerts via pinokio CLI (`pinokio push` command.)
 - **Script Testing:** Run launcher scripts via CLI (`pinokio start` command.)
 - **File Selection:** Use built-in filepicker for user file/folder input (`pinokio filepicker` command.)

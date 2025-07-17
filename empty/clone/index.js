@@ -45,7 +45,7 @@ module.exports = async (req, ondata, kernel) => {
           path: "app",
           chain: true,
           input: req.input.allowInstallUserInput,
-          message: req.input.cloneInstallCommand,
+          message: req.input.cloneInstallCommand || "",
         }
       },
     ]
@@ -64,7 +64,7 @@ module.exports = async (req, ondata, kernel) => {
           chain: true,
           env: { },                   // Edit this to customize environment variables (see documentation)
           input: req.input.allowStartUserInput,
-          message: req.input.cloneStartCommand,
+          message: req.input.cloneStartCommand || "",
           on: [{
             // The regular expression pattern to monitor.
             // When this pattern occurs in the shell terminal, the shell will return,

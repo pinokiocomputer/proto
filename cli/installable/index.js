@@ -13,7 +13,7 @@ module.exports = async (req, ondata, kernel) => {
       method: "shell.run",
       params: {
         chain: true,
-        message: req.input.installCommand,
+        message: req.input.installCommand || "",
         path: req.input.installPath || req.cwd
       }
     }]
@@ -30,7 +30,7 @@ module.exports = async (req, ondata, kernel) => {
       params: {
         input: true,
         chain: true,
-        message: req.input.installableLaunchCommand,
+        message: req.input.installableLaunchCommand || "",
         path: req.input.launchPath || req.cwd
       }
     }]
