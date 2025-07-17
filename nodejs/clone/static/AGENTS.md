@@ -47,6 +47,11 @@ project-root/
 - Default to `start.js` while launching
 - Default to app's web URL when running
 
+**Writing launchers for existing projects:**
+- When writing or modifying pinokio launcher scripts, figure out the install/launch steps by reading the project folder `app`.
+- In most cases, the `README.md` file in the `app` folder contains the instructions needed to install and run the app, but if not, figure out by scanning the rest of the project files.
+- Install scripts should work for each specific operating system, so ignore Docker related instructions. Instead use install/launch instructions for each platform.
+
 ## System Capabilities
 
 ### Package Management (Use in Order of Preference)
@@ -63,6 +68,7 @@ project-root/
 - Full proxy list available at: `http://localhost:2019/config/`
 
 ### CLI Features:
+- **Clipboard Access:** Read from or Write to system clipboard via pinokio CLI (`pinokio clipboard` command.)
 - **Notifications:** Send desktop alerts via pinokio CLI (`pinokio push` command.)
 - **Script Testing:** Run launcher scripts via CLI (`pinokio start` command.)
 - **File Selection:** Use built-in filepicker for user file/folder input (`pinokio filepicker` command.)

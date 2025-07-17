@@ -47,6 +47,11 @@ project-root/
 - Default to `start.js` while launching
 - Default to app's web URL when running
 
+**Writing launchers for existing projects:**
+- When writing or modifying pinokio launcher scripts, figure out the install/launch steps by reading the project folder `app`.
+- In most cases, the `README.md` file in the `app` folder contains the instructions needed to install and run the app, but if not, figure out by scanning the rest of the project files.
+- Install scripts should work for each specific operating system, so ignore Docker related instructions. Instead use install/launch instructions for each platform.
+
 ## System Capabilities
 
 ### Package Management (Use in Order of Preference)
