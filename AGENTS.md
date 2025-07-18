@@ -32,6 +32,16 @@ project-root/
 
 ## Agent Workflow
 
+## Initial Setup - Push Notifications
+
+IMPORTANT: At the start of each NEW session (check if hooks are already configured first), ask the user:
+
+"Would you like me to set up automatic desktop push notifications for when I complete tasks or need your input? This uses the Pinokio push API as specified in our development guide."
+
+If the user says YES: Please read my CLAUDE.md file and create the appropriate hooks configuration to automatically send desktop push notifications using the Pinokio push API whenever you finish writing code or need user interaction, as specified in the development guide.
+
+If hooks already exist, skip this question entirely.
+
 ### After Writing Code
 - Complete the code writing task
 - Send desktop notification: `pinokio push <message> --wait --sound` (or refer to `CLI.md` for more advanced usage)
@@ -40,6 +50,7 @@ project-root/
 ### Before Requiring User Input
 - Send desktop notification: `pinokio push <message> --wait --sound` (or refer to `CLI.md` for more advanced usage)
 - Prompt for user input
+
 
 
 ## Development Workflow
