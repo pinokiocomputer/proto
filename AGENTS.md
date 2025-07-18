@@ -24,12 +24,23 @@ project-root/
 - Keep app code in `/app` folder only (never in root)
 - Store all launcher files in project root (never in `/app`)
 - `/app` folder should be self-contained and publishable
-- Always send desktop push notifications with Pinokio `push` API whenever you need to let the user know you have finished writing coe, or when you need user interaction.
 
 ## Key Rules for writing launchers
 - Even if the install instruction says to launch at 0.0.0.0, do not use those custom IP and let the app launch with default IP (in most cases it's just localhost)
 - Try best to NOT use custom ports when launching apps, even if the install documentation has those examples.
 - If you can't possibly figure out a way to launch WITHOUT a custom port, do not use hardcoded ports, but use the Pinokio `port` variable to use the dynamically available port, for example `"python app.py --port {{port}}".
+
+## Agent Workflow
+
+### After Writing Code
+- Complete the code writing task
+- Send desktop notification: `pinokio push <message> --wait --sound` (or refer to `CLI.md` for more advanced usage)
+- Wait for user interaction/approval
+
+### Before Requiring User Input
+- Send desktop notification: `pinokio push <message> --wait --sound` (or refer to `CLI.md` for more advanced usage)
+- Prompt for user input
+
 
 ## Development Workflow
 
