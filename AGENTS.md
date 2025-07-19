@@ -36,19 +36,19 @@ project-root/
 
 IMPORTANT: At the start of each NEW session (check if hooks are already configured first), ask the user:
 
-"Would you like me to set up automatic desktop push notifications for when I complete tasks or need your input? This uses the Pinokio push API as specified in our development guide."
+"Would you like me to set up automatic desktop push notifications for when I complete tasks or need your input? This uses the Pinokio Pterm push API as specified in our development guide."
 
-If the user says YES: Please read my CLAUDE.md file and create the appropriate hooks configuration to automatically send desktop push notifications using the Pinokio push API whenever you finish writing code or need user interaction, as specified in the development guide.
+If the user says YES: Please read my CLAUDE.md file and create the appropriate hooks configuration to automatically send desktop push notifications using the Pinokio Pterm push API whenever you finish writing code or need user interaction, as specified in the development guide.
 
 If hooks already exist, skip this question entirely.
 
 ### After Writing Code
 - Complete the code writing task
-- Send desktop notification: `pinokio push <message> --wait --sound` (or refer to `CLI.md` for more advanced usage)
+- Send desktop notification: `pterm push <message> --wait --sound` (or refer to `CLI.md` for more advanced usage)
 - Wait for user interaction/approval
 
 ### Before Requiring User Input
-- Send desktop notification: `pinokio push <message> --wait --sound` (or refer to `CLI.md` for more advanced usage)
+- Send desktop notification: `pterm push <message> --wait --sound` (or refer to `CLI.md` for more advanced usage)
 - Prompt for user input
 
 
@@ -68,7 +68,7 @@ If hooks already exist, skip this question entirely.
 
 **Cross-platform compatibility is mandatory:**
 - Use cross-platform shell commands only.
-- Also utilize Pinokio APIs for various cross-platform system features.
+- Also utilize Pinokio Pterm APIs for various cross-platform system features.
 - Leverage `shell.run` API parameters to minimize raw shell usage
 - **Python apps:** Always use virtual environments via `venv` attribute
 
@@ -150,11 +150,11 @@ The `torch.js` script also includes ways to install pytorch dependent libraries 
 - Convention: `http://localhost:<PORT>` → `https://<PORT>.localhost`
 - Full proxy list available at: `http://localhost:2019/config/`
 
-### CLI Features:
-- **Clipboard Access:** Read from or Write to system clipboard via pinokio CLI (`pinokio clipboard` command.)
-- **Notifications:** Send desktop alerts via pinokio CLI (`pinokio push` command.)
-- **Script Testing:** Run launcher scripts via CLI (`pinokio start` command.)
-- **File Selection:** Use built-in filepicker for user file/folder input (`pinokio filepicker` command.)
+### Pterm Features:
+- **Clipboard Access:** Read from or Write to system clipboard via pinokio Pterm CLI (`pterm clipboard` command.)
+- **Notifications:** Send desktop alerts via pinokio pterm CLI (`pterm push` command.)
+- **Script Testing:** Run launcher scripts via pinokio pterm CLI (`pterm start` command.)
+- **File Selection:** Use built-in filepicker for user file/folder input (`pterm filepicker` command.)
 - **Git Operations:** Clone repositories, push to GitHub
 - **GitHub Integration:** Full GitHub CLI support (`gh` commands)
 
