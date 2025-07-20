@@ -1,0 +1,13 @@
+ENVIRONMENT
+CLAUDE.md
+GEMINI.md
+AGENT.md
+PINOKIO.md
+PTERM.md
+node_modules
+logs
+venv
+.env
+cache
+.*
+~*

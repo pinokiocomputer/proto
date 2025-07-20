@@ -44,11 +44,11 @@ If hooks already exist, skip this question entirely.
 
 ### After Writing Code
 - Complete the code writing task
-- Send desktop notification: `pterm push <message> --wait --sound` (or refer to `CLI.md` for more advanced usage)
+- Send desktop notification: `pterm push <message> --wait --sound` (or refer to `PTERM.md` for more advanced usage)
 - Wait for user interaction/approval
 
 ### Before Requiring User Input
-- Send desktop notification: `pterm push <message> --wait --sound` (or refer to `CLI.md` for more advanced usage)
+- Send desktop notification: `pterm push <message> --wait --sound` (or refer to `PTERM.md` for more advanced usage)
 - Prompt for user input
 
 
@@ -179,7 +179,7 @@ logs/
 ### Essential Documentation
 - **Pinokio Programming:** See `PINOKIO.md` → "Programming Pinokio" section
 - **Dynamic Menus:** See `PINOKIO.md` → "Dynamic menu rendering" section  
-- **CLI Commands:** See `CLI.md` in project root
+- **CLI Commands:** See `PTERM.md` in project root
 
 ### Common Patterns
 - **Python Virtual Env:** `shell.run` with `venv` attribute
