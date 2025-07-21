@@ -93,8 +93,18 @@ If hooks already exist, skip this question entirely.
 - Do NOT assume pinokio API, refer to the `PINOKIO.md` documentation file's `API` section for the list of available APIs. 
 - When running shell commands, take full advantage of the Pinokio `shell.run` API, which provides features like `env`, `venv`, `input`, `path`, `sudo`, `on`, etc. (See the `PINOKIO.md` file) instead of writing raw commands.
 - In `pinokio.js`, it determines a launcher as "installed" if all the dependencies are ready and the app can actually run. For example, it may detect whether `app/node_modules` exists, or `app/venv` exsts, etc. but you may use any other measures if needed.
-- When an app is running, try to set the `default` attribute for the web app's URL in the `pinokio.js` file, so that link is displayed at top level by default.
+- The launcher should be replicable everywhere, not just the user's own machine. This means:
+  - When writing `shell.run` API requests, always use relative paths (no absolute paths) for the `path` field. For example, if you need to run a command from `app` folder, the `path` attribute should simply be `app`, instead of its full absolute path.
+  - Do not write machine-specific, environment-specific commands. Make them cross-platform.
+- Refer to `PINOKIO.md` for the up-to-date script API syntax. Whenever you need to make sure the API syntax is correct, search in the `PINOKIO.md` file to verify the syntax and browse usage examples.
 
+**pinokio.js**
+- `pinokio.js` does NOT need a separate `stop` script. Every script that can be started can also be stopped through the UI, therefore you do not need a separate stop script for start script, for example.
+- The `menu` should return an array of menu items for every stage of the execution, and for each stage, try to set `default: true` for one of the menu items, so that menu item will be selected by default when the user visits the app page. For example, when `install.js` is running, the `install.js` menu item should be `default: true`, and when the app is starting with `start.js`, the `start.js` menu item should have the `default: true` set, and when the app has finally launched, the web UI for the app should have the `default: true` set.
+
+**pinokio.json**
+- Do not touch the `version` field since the version is the script schema version and the one pre-set in `pinokio.js` must be used.
+- `icon`: If the git repository for the `app` folder points to GitHub (for example https://github.com/<USERNAME>/<REPO_NAME>`, ask the user if they want to download the icon from GitHub, and if approved, get the `avatar_url` by fetching `https://api.github.com/users/<USERNAME>`, and then download the image to the root folder as `icon.png`, and set `icon.png` as the `icon` field of the `pinokio.json`. 
 
 ## AI Libraries (Pytorch, Xformers, Triton, Sageattention, etc.)
 
