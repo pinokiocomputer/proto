@@ -14,9 +14,11 @@ module.exports = async (req, ondata, kernel) => {
         input: true,
         chain: true,
         message: req.input.launchCommand || "",
-        path: req.input.launchPath || req.cwd
       }
     }]
+  }
+  if (req.input.launchPath) {
+    start.run[0].params.path = req.input.launchPath
   }
   if (req.input.useVenv) {
     start.run[0].params.venv = "venv"

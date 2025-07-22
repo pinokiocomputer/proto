@@ -15,9 +15,11 @@ module.exports = async (req, ondata, kernel) => {
       params: {
         chain: true,
         message: req.input.installCommand || "",
-        path: req.input.installPath || req.cwd
       }
     }]
+  }
+  if (req.input.installPath) {
+    install.run[0].params.path = req.input.installPath
   }
   if (req.input.useVenv) {
     install.run[0].params.venv = "venv"
@@ -32,9 +34,11 @@ module.exports = async (req, ondata, kernel) => {
         input: true,
         chain: true,
         message: req.input.installableLaunchCommand || "",
-        path: req.input.launchPath || req.cwd
       }
     }]
+  }
+  if (req.input.launchPath) {
+    start.run[0].params.path = req.input.launchPath
   }
   if (req.input.useVenv) {
     start.run[0].params.venv = "venv"
