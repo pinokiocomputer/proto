@@ -1,7 +1,7 @@
 ---
-title: copy any app
-description: given a web url, analyize the app and build a clone.
-url: the url of the website to copy
+title: Copy any app
+description: Given a web url, analyize the app and build a clone.
+url: Enter the url of the website to copy
 ---
 
 # App Clone Specification

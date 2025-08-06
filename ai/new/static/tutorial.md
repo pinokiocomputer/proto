@@ -1,16 +1,18 @@
 ---
-title: implment any tutorial
-description: given a tutorial url, understand its content and build a minimal app that works.
-url: the url of the tutorial website to read and build the app from
+title: Build anything from any tutorial
+description: Given a tutorial url, understand its content and build a minimal app that works.
+url: Enter the url of the tutorial website to read and build the app from
+prompt: Enter the description of the app you would like to build based on this tutorial
 ---
 
 # Tutorial Implementation Specification
 
 ## Source Material
 **URL**: {{url}}
+**Prompt**: {{prompt}}
 
 ## Objective
-Visit the provided URL, understand the concept or technique being explained, and build a minimal working implementation based on the content.
+Visit the provided URL, understand the concept or technique being explained, and build a minimal working implementation based on the content. Build what the user requested through the provided prompt.
 
 ## Analysis Task
 1. Read through the entire page/tutorial
