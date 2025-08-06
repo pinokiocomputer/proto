@@ -1,3 +1,5 @@
+const path = require('path')
+const fs = require("fs')
 const agents = [
   "AGENTS.md",
   "CLAUDE.md",
