@@ -2,6 +2,11 @@ const fs = require('fs')
 const path = require('path')
 const agents = require("../../agents")
 module.exports = async (req, ondata, kernel) => {
+  /*
+    req.input = {
+      aiPrompt: <str>
+    }
+  */
   await fs.promises.cp(path.resolve(__dirname, "static"), req.cwd, { recursive: true, force: true })
   await agents(req.cwd)
   await fs.promises.cp(path.resolve(__dirname, "../../gitignore_new"), path.resolve(req.cwd, ".gitignore"))

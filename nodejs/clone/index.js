@@ -1,13 +1,11 @@
 const fs = require('fs')
 const path = require('path')
+const agents = require("../../agents")
 module.exports = async (req, ondata, kernel) => {
 
   // 0. COPY STATIC FILES
   await fs.promises.cp(path.resolve(__dirname, "static"), req.cwd, { recursive: true })
-  await fs.promises.cp(path.resolve(__dirname, "../../AGENTS.md"), path.resolve(req.cwd, "AGENTS.md"))
-  await fs.promises.cp(path.resolve(__dirname, "../../AGENTS.md"), path.resolve(req.cwd, "CLAUDE.md"))
-  await fs.promises.cp(path.resolve(__dirname, "../../AGENTS.md"), path.resolve(req.cwd, "GEMINI.md"))
-  await fs.promises.cp(path.resolve(__dirname, "../../AGENTS.md"), path.resolve(req.cwd, "QWEN.md"))
+  await agents(req.cwd)
   await fs.promises.cp(path.resolve(__dirname, "../../gitignore"), path.resolve(req.cwd, ".gitignore"))
 
   // 1. INSTALL SCRIPT
@@ -73,7 +71,7 @@ module.exports = async (req, ondata, kernel) => {
 
   // 3. README (ai prompt)
   if (req.input.aiPrompt) {
-    await fs.promises.writeFile(path.resolve(req.cwd, "README.md"), req.input.aiPrompt + "\n")
+    await fs.promises.writeFile(path.resolve(req.cwd, "SPEC.md"), req.input.aiPrompt + "\n")
   }
 
   await kernel.exec({

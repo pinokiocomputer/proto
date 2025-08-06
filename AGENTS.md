@@ -56,8 +56,8 @@ If hooks already exist, skip this question entirely.
 ## Development Workflow
 
 ### 1. Understanding the Project
-- Read `README.md` in project root for project details
-- If no README exists, build based on user requirements
+- Read `SPEC.md` in project root to learn about the project details (what and how to build)
+- If no `SPEC.md` exists, build based on user requirements
 
 ### 2. Modifying Existing Projects
 - **Preserve existing functionality:** Only modify necessary parts
