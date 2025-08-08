@@ -1,5 +1,5 @@
 ---
-title: Build anything from any tutorial
+title: Build an app from any tutorial
 description: Given a tutorial url, understand its content and build a minimal app that works.
 url: Enter the url of the tutorial website to read and build the app from
 prompt: Enter the description of the app you would like to build based on this tutorial

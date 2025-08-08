@@ -1,7 +1,8 @@
 ---
-title: Launcher
+title: Launch any app
 description: Given a git url, analyize and build a launcher.
 url: Enter the url of the git repository to install from.
+.gitignore: /app/
 ---
 
 # Pinokio Launcher Specification
@@ -14,7 +15,7 @@ Create a Pinokio launcher for the existing open source project by analyzing its 
 
 ## Pinokio Script Requirements
 Create a Pinokio script that:
-- Clones the repository to the appropriate location
+- Clones the repository to the appropriate location (`app` folder)
 - Installs all required dependencies
 - Handles any setup or configuration steps
 - Launches the application as intended by the original developers
@@ -33,7 +34,8 @@ Create a Pinokio script that:
 - Any required configuration files
 
 ## Success Criteria
-- Script successfully clones the repository
+- Script successfully clones the repository into the `app` folder
+- Script successfully launches the project
 - All dependencies install without errors
 - Application launches as intended by original developers
 - All original functionality is preserved and accessible

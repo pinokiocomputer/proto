@@ -1,8 +1,9 @@
 ---
-title: Remix an app
+title: Remix any app
 description: Given a git url, clone, make the requested changes, and build a launcher.
 url: Enter the url of the git repository to install from.
 prompt: Enter the modifications to make to the existing app that's been cloned.
+.gitignore: /app/
 ---
 
 # Remix App Specification
@@ -16,7 +17,7 @@ Write a launcher that clones the existing Git project, understand its structure 
 
 ## Pinokio Script Requirements
 Create a Pinokio script that:
-- Clones the repository to the appropriate location
+- Clones the repository to the appropriate location (`app` folder)
 - Installs all required dependencies
 - Handles any setup or configuration steps
 - Launches the application as intended by the original developers
