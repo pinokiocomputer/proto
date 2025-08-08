@@ -9,6 +9,7 @@ module.exports = async (req, ondata, kernel) => {
   */
   await fs.promises.cp(path.resolve(__dirname, "static"), req.cwd, { recursive: true, force: true })
   await agents(req.cwd)
+  console.log("gitignore_new", await fs.promises.readFile(path.resolve(__dirname, "../../gitignore_new"), "utf8"))
   await fs.promises.cp(path.resolve(__dirname, "../../gitignore_new"), path.resolve(req.cwd, ".gitignore"))
   if (req.input.aiMeta) {
     if (req.input.aiMeta[".gitignore"]) {
@@ -16,6 +17,7 @@ module.exports = async (req, ondata, kernel) => {
         return x.trim()
       }).join("\n")
       console.log("write to gitignore", { items })
+      console.log("Existing content", await fs.promises.readFile(path.resolve(req.cwd, ".gitignore"), "utf8"))
       await fs.promises.appendFile(path.resolve(req.cwd, ".gitignore"), items + "\n")
     }
   }
