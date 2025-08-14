@@ -11,13 +11,14 @@ project-root/
 ├── app/                 # Self-contained app logic (can be standalone repo)
 │   ├── package.json     # Node.js projects
 │   ├── requirements.txt # Python projects
-│   └── ...             # Other language-specific files
-├── install.js          # Installation script
-├── start.js           # Launch script
-├── update.js          # Update script (for updating the scripts and app logic to the latest)
-├── reset.js           # Reset dependencies script
-├── pinokio.js         # UI generator script
-└── pinokio.json       # Metadata (title, description, icon)
+│   └── ...              # Other language-specific files
+├── README.md            # Documentation
+├── install.js           # Installation script
+├── start.js             # Launch script
+├── update.js            # Update script (for updating the scripts and app logic to the latest)
+├── reset.js             # Reset dependencies script
+├── pinokio.js           # UI generator script
+└── pinokio.json         # Metadata (title, description, icon)
 ```
 
 ## Key Rules
@@ -28,7 +29,16 @@ project-root/
 ## Key Rules for writing launchers
 - Even if the install instruction says to launch at 0.0.0.0, do not use those custom IP and let the app launch with default IP (in most cases it's just localhost)
 - Try best to NOT use custom ports when launching apps, even if the install documentation has those examples.
-- If you can't possibly figure out a way to launch WITHOUT a custom port, do not use hardcoded ports, but use the Pinokio `port` variable to use the dynamically available port, for example `"python app.py --port {{port}}".
+- Try as hard as possible to minimize launch flags and parameters when launching an app. For example, instead of `python app.py --port 8610`, try to do `python app.py`. The only exception is when the only way to launch the app is to specify the flags.
+- If you can't possibly figure out a way to launch WITHOUT a custom port, do not use hardcoded ports, but use the Pinokio `port` variable to use the dynamically available port, for example `"python app.py --port {{port}}"`.
+
+## Documentation
+
+ALWAYS write a documentation. A documentation must be stored as `README.md` in the project root folder, along with the rest of the pinokio launcher script files. A documentation file must contain:
+- What the app does
+- How to use the app
+- One or more screenshots of the app in use. Taking a screenshot can be achieved through the CLI command `browserless screenshot <URL> --path <FILE_PATH_TO_STORE_TO>`. For example, `browserless screenshot http://localhost:8610 --path github.png`
+- API documentation for programmatically accessing the app's main features (Javascript, Python, and Curl)
 
 ## Agent Workflow
 
