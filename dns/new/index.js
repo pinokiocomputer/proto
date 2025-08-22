@@ -10,9 +10,9 @@ module.exports = async (req, ondata, kernel) => {
           `:${req.input.dnsPort}`
         ]
       }
-      if (req.input.command) {
-        config.command = req.input.command
-      }
+    }
+    if (req.input.command) {
+      config.command = req.input.command
     }
     await fs.promises.writeFile(path.resolve(req.cwd, "config.json"), JSON.stringify(config, null, 2))
     await kernel.exec({
