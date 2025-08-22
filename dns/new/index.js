@@ -11,7 +11,7 @@ module.exports = async (req, ondata, kernel) => {
         message: req.input.command,
       }
     }]
-  }]
+  }
   let code = `module.exports = {
   version: "4.0",
   dns: {
