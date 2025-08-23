@@ -22,10 +22,12 @@ module.exports = async (req, ondata, kernel) => {
     method: async (req, ondata, kernel) => {
       await new Promise((resolve, reject) => {
         setInterval(() => {
-          let config = JSON.stringify(kernel.router.config)
-          let pattern = "${req.input.name}.localhost"
-          if (config.includes(pattern)) {
-            resolve()
+          if (kernel.router && kernel.router.config) {
+            let config = JSON.stringify(kernel.router.config)
+            let pattern = "${req.input.name}.localhost"
+            if (config.includes(pattern)) {
+              resolve()
+            }
           }
         }, 2000)
       })
