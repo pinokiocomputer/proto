@@ -16,27 +16,6 @@ module.exports = async (req, ondata, kernel) => {
   run: [{
     method: "loading.start",
     params: {
-      message: "waiting for http://localhost:${req.input.dnsPort}..."
-    }
-  }, {
-    method: async (req, ondata, kernel) => {
-      await new Promise((resolve, reject) => {
-        setInterval(() => {
-          let url = "https://${req.input.name}.localhost"
-          fetch(url).then((res) => {
-            clearInterval(interval)
-            resolve()
-          }).catch((res) => {
-            
-          })
-        }, 2000)
-      })
-    }
-  }, {
-    method: "loading.end",
-  }, {
-    method: "loading.start",
-    params: {
       message: "waiting for https://${req.input.name}.localhost"
     }
   }, {
@@ -51,6 +30,8 @@ module.exports = async (req, ondata, kernel) => {
         }, 2000)
       })
     }
+  }, {
+    method: "loading.end"
   }, {
     method: "browser.open",
     params: {
