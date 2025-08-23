@@ -23,7 +23,7 @@ module.exports = async (req, ondata, kernel) => {
       await new Promise((resolve, reject) => {
         setInterval(() => {
           let config = JSON.stringify(kernel.router.config)
-          let pattern = "https://${req.input.name}.localhost"
+          let pattern = "${req.input.name}.localhost"
           if (config.includes(pattern)) {
             resolve()
           }
