@@ -3,11 +3,7 @@ const path = require('path')
 module.exports = async (req, ondata, kernel) => {
   let code = `module.exports = {
   version: "4.0",
-  dns: {
-    "@": [
-  ":${req.input.dnsPort}"
-    ]
-  },
+  dns: { "@": [":${req.input.dnsPort}"] },
   menu: [{
     default: true,
     icon: 'fa-solid fa-link',
@@ -16,21 +12,37 @@ module.exports = async (req, ondata, kernel) => {
   }]
 }`
   await fs.promises.writeFile(path.resolve(req.cwd, "pinokio.js"), code)
-
   let runjs = `module.exports = {
   run: [{
-    method: "process.wait",
+    method: "loading.start",
     params: {
-      uri: "http://localhost:${req.input.dnsPort}",
-      message: "trying http://localhost:${req.input.dnsPort} ...",
+      message: "waiting for http://localhost:${req.input.dnsPort}..."
     }
   }, {
     method: async (req, ondata, kernel) => {
       await new Promise((resolve, reject) => {
         setInterval(() => {
-          ondata({
-            raw: "trying https://${req.input.name}.localhost ...\r\n"
+          let url = "https://${req.input.name}.localhost"
+          fetch(url).then((res) => {
+            clearInterval(interval)
+            resolve()
+          }).catch((res) => {
+            
           })
+        }, 2000)
+      })
+    }
+  }, {
+    method: "loading.end",
+  }, {
+    method: "loading.start",
+    params: {
+      message: "waiting for https://${req.input.name}.localhost"
+    }
+  }, {
+    method: async (req, ondata, kernel) => {
+      await new Promise((resolve, reject) => {
+        setInterval(() => {
           let config = JSON.stringify(kernel.router.config)
           let pattern = "https://${req.input.name}.localhost"
           if (config.includes(pattern)) {
