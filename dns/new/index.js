@@ -24,10 +24,19 @@ module.exports = async (req, ondata, kernel) => {
         message: `trying http://localhost:${req.input.dnsPort} ...`,
       }
     }, {
-      method: "process.wait",
-      params: {
-        uri: `https://${req.input.name}.localhost`,
-        message: `trying https://${req.input.name}.localhost ...`,
+      method: async (req, ondata, kernel) => {
+        await new Promise((resolve, reject) => {
+          setInterval(() => {
+            ondata({
+              raw: `trying https://${req.input.name}.localhost ...\r\n`
+            })
+            let config = JSON.stringify(kernel.router.config)
+            let pattern =`https://${req.input.name}.localhost`
+            if (config.includes(pattern)) {
+              resolve()
+            }
+          }, 2000)
+        })
       }
     }, {
       method: "browser.open",
