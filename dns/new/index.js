@@ -12,6 +12,6 @@ module.exports = async (req, ondata, kernel) => {
 }`
   await fs.promises.writeFile(path.resolve(req.cwd, "pinokio.js"), code)
   return {
-    success: "/p/" + req.params.name
+    success: "/p/" + req.input.name
   }
 }
