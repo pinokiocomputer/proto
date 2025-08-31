@@ -21,4 +21,38 @@ module.exports = async (req, ondata, kernel) => {
   // pinokio path
   const launcher_path = path.resolve(req.cwd, ".pinokio")
   await fs.promises.cp(path.resolve(__dirname, "static"), launcher_path, { recursive: true })
+  req.cwd = path.resolve(req.cwd, ".pinokio")
+
+  // write agents related files
+  await agents(kernel, req)
+
+  // write gitignore if it doesn't exist
+  let gitignore_path = path.resolve(req.cwd, ".gitignore")
+  let exists = await kernel.exists(gitignore_path)
+  if (exists) {
+    console.log("gitignore already exists. ignore.")
+  } else {
+    console.log("gitignore does not exist. create one.")
+    await fs.promises.writeFile(gitignore_path, [
+      "ENVIRONMENT",
+      "QWEN.md",
+      "CLAUDE.md",
+      "GEMINI.md",
+      "AGENTS.md",
+      "PINOKIO.md",
+      "PTERM.md",
+      "SPEC.md",
+      ".env"
+    ].join("\n"))
+  }
+  // git
+  await kernel.exec({
+    message: [
+      "git init",
+      "git add .",
+    ],
+    path: req.cwd
+  }, (e) => {
+    ondata(e) 
+  })
 }
