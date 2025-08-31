@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 module.exports = async (req, ondata, kernel) => {
+  await fs.promises.mkdir(req.cwd, { recursive: true })
   let code = `module.exports = {
   version: "4.0",
   dns: { "@": [":${req.input.dnsPort}"] },

@@ -14,7 +14,7 @@ module.exports = async (req, ondata, kernel) => {
   }
   
   await fs.promises.cp(path.resolve(__dirname, "static"), req.cwd, { recursive: true, force: true })
-  await agents(req.cwd)
+  await agents(kernel, req)
   await fs.promises.cp(path.resolve(__dirname, "../../gitignore"), path.resolve(req.cwd, ".gitignore"))
 
   config.basePath = "/repo/"

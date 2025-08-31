@@ -5,7 +5,7 @@ module.exports = async (req, ondata, kernel) => {
 
   // 0. COPY STATIC FILES
   await fs.promises.cp(path.resolve(__dirname, "static"), req.cwd, { recursive: true })
-  await agents(req.cwd)
+  await agents(kernel, req)
   await fs.promises.cp(path.resolve(__dirname, "../../gitignore_new"), path.resolve(req.cwd, ".gitignore"))
 
   // 1. INSTALL SCRIPT

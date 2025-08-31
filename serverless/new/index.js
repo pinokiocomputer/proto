@@ -2,12 +2,20 @@ const fs = require('fs')
 const path = require('path')
 const agents = require("../../agents")
 module.exports = async (req, ondata, kernel) => {
-  await fs.promises.cp(path.resolve(__dirname, "static"), req.cwd, { recursive: true, force: true })
-  await agents(kernel, req)
-  await fs.promises.cp(path.resolve(__dirname, "../../gitignore_new"), path.resolve(req.cwd, ".gitignore"))
+
+  // 0. COPY STATIC FILES
+  await fs.promises.cp(path.resolve(__dirname, "static"), req.cwd, { recursive: true })
+  await agents(kernel, {
+    recipe: "AGENTS_SERVERLESS.md",
+    ...req,
+  })
+//  await fs.promises.cp(path.resolve(__dirname, "../../gitignore_new"), path.resolve(req.cwd, ".gitignore"))
+
+  // 3. README (ai prompt)
   if (req.input.aiPrompt) {
     await fs.promises.writeFile(path.resolve(req.cwd, "SPEC.md"), req.input.aiPrompt + "\n")
   }
+
   await kernel.exec({
     message: [
       "git init",

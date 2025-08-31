@@ -8,7 +8,7 @@ module.exports = async (req, ondata, kernel) => {
     }
   */
   await fs.promises.cp(path.resolve(__dirname, "static"), req.cwd, { recursive: true, force: true })
-  await agents(req.cwd)
+  await agents(kernel, req)
   console.log("gitignore_new", await fs.promises.readFile(path.resolve(__dirname, "../../gitignore_new"), "utf8"))
   await fs.promises.cp(path.resolve(__dirname, "../../gitignore_new"), path.resolve(req.cwd, ".gitignore"))
   if (req.input.aiMeta) {
