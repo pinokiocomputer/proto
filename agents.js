@@ -20,6 +20,6 @@ module.exports = async (kernel, req) => {
   await fs.promises.cp(readme_path, path.resolve(cwd, "PINOKIO.md"))
 
   // copy pterm.md
-  let cli_readme_path = this.kernel.path("prototype/PTERM.md")
+  let cli_readme_path = kernel.path("prototype/PTERM.md")
   await fs.promises.cp(cli_readme_path, path.resolve(cwd, "PTERM.md"))
 }
