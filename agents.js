@@ -14,8 +14,8 @@ module.exports = async (kernel, req) => {
   const recipe = req.recipe || "AGENTS.md"
   const structure = req.structure || "clone"
   const app_root = req.app_root || "app"
-  const recipe_path = path.resolve(__dirname, "structure", recipe)
-  const structure_path = path.resolve(__dirname, structure)
+  const recipe_path = path.resolve(__dirname, recipe)
+  const structure_path = path.resolve(__dirname, "structure", structure)
   const structure_content = await fs.promises.readFile(structure_path, "utf-8")
   let rendered_recipe = await kernel.renderFile(recipe_path, {
     structure: structure_content,
