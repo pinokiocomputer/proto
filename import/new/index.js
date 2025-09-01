@@ -13,8 +13,9 @@ module.exports = async (req, ondata, kernel) => {
   } else if (req.input.importType === "download") {
     await kernel.exec({
       message: [
-        `git clone ${req.input.inputPath} ${req.cwd}`
+        `git clone ${req.input.importPath} ${req.input.name}`
       ],
+      path: kernel.path("api")
     }, (e) => {
       ondata(e) 
     })
