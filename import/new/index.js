@@ -24,6 +24,8 @@ module.exports = async (req, ondata, kernel) => {
   const launcher_path = path.resolve(req.cwd, ".pinokio")
   await fs.promises.cp(path.resolve(__dirname, "static"), launcher_path, { recursive: true })
   req.cwd = path.resolve(req.cwd, ".pinokio")
+  req.structure = "new"
+  req.app_root = "project-root"
 
   // write agents related files
   await agents(kernel, req)
@@ -47,14 +49,14 @@ module.exports = async (req, ondata, kernel) => {
       ".env"
     ].join("\n"))
   }
-  // git
-  await kernel.exec({
-    message: [
-      "git init",
-      "git add .",
-    ],
-    path: req.cwd
-  }, (e) => {
-    ondata(e) 
-  })
+//  // git
+//  await kernel.exec({
+//    message: [
+//      "git init",
+//      "git add .",
+//    ],
+//    path: req.cwd
+//  }, (e) => {
+//    ondata(e) 
+//  })
 }

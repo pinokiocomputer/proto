@@ -1,0 +1,23 @@
+## Project Structure
+
+Pinokio projects follow a standardized structure with app logic separated from launcher scripts:
+
+```
+project-root/
+├── app/                 # Self-contained app logic (can be standalone repo)
+│   ├── package.json     # Node.js projects
+│   ├── requirements.txt # Python projects
+│   └── ...              # Other language-specific files
+├── README.md            # Documentation
+├── install.js           # Installation script
+├── start.js             # Launch script
+├── update.js            # Update script (for updating the scripts and app logic to the latest)
+├── reset.js             # Reset dependencies script
+├── pinokio.js           # UI generator script
+└── pinokio.json         # Metadata (title, description, icon)
+```
+
+## Key Rules
+- Keep app code in `/app` folder only (never in root)
+- Store all launcher files in project root (never in `/app`)
+- `/app` folder should be self-contained and publishable

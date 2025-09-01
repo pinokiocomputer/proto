@@ -6,25 +6,7 @@ Make sure to keep this entire document and `PINOKIO.md` in memory with high prio
 
 Pinokio projects follow a standardized structure with app logic separated from launcher scripts:
 
-```
-project-root/
-├── app/                 # Self-contained app logic (can be standalone repo)
-│   ├── package.json     # Node.js projects
-│   ├── requirements.txt # Python projects
-│   └── ...              # Other language-specific files
-├── README.md            # Documentation
-├── install.js           # Installation script
-├── start.js             # Launch script
-├── update.js            # Update script (for updating the scripts and app logic to the latest)
-├── reset.js             # Reset dependencies script
-├── pinokio.js           # UI generator script
-└── pinokio.json         # Metadata (title, description, icon)
-```
-
-## Key Rules
-- Keep app code in `/app` folder only (never in root)
-- Store all launcher files in project root (never in `/app`)
-- `/app` folder should be self-contained and publishable
+<%=structure%>
 
 ## Key Rules for writing launchers
 - Even if the install instruction says to launch at 0.0.0.0, do not use those custom IP and let the app launch with default IP (in most cases it's just localhost)
@@ -89,7 +71,7 @@ If hooks already exist, skip this question entirely.
 
 **Writing launchers for existing projects:**
 - When writing or modifying pinokio launcher scripts, figure out the install/launch steps by reading the project folder `app`.
-- In most cases, the `README.md` file in the `app` folder contains the instructions needed to install and run the app, but if not, figure out by scanning the rest of the project files.
+- In most cases, the `README.md` file in the `<%=app_root%>` folder contains the instructions needed to install and run the app, but if not, figure out by scanning the rest of the project files.
 - Install scripts should work for each specific operating system, so ignore Docker related instructions. Instead use install/launch instructions for each platform.
 
 **Pinokio script**
@@ -98,7 +80,7 @@ If hooks already exist, skip this question entirely.
 - Pinokio accepts both JSON and JS script files, so when determining whether a script for a specific purpose already exists, check both JSON and JS files mentioned in the `pinokio.js` file. Do not create script files for rendundant purpose.
 - When installing python packages, use `uv` instead of `pip` even if the install instruction says to use pip. Instead of `pip install -r requirements.txt`, you can simply use `uv pip install -r requirements.txt` for example.
 - ALWAYS make sure the scripts are as cross platform as possible. This means do NOT use commands that only work on the current platform. Pinokio (see the `PINOKIO.md` documentation) provides various APIs for cross-platform way of calling commonly used system functions, or lets you selectively run commands depending on `platform`, `arch`, etc.
-- When building launchers for existing projects cloned from a repository, try to stay away from modifying the project folder (the `app` folder), even if installations are failing. Instead, try to work around it by creating additional files OUTSIDE of the project folder `app`, and using those files IN ADDITION to the default project.
+- When building launchers for existing projects cloned from a repository, try to stay away from modifying the project folder (the `<%=app_root%>` folder), even if installations are failing. Instead, try to work around it by creating additional files in the launcher folder, and using those files IN ADDITION to the default project.
 - The only exception when you may need to make changes to the project folder is when the user explicitly wants to modify the existing project. Otherwise if the purpose is to simply write a launcher, the app logic folder should never be touched.
 - Do NOT assume pinokio API, refer to the `PINOKIO.md` documentation file's `API` section for the list of available APIs. 
 - When running shell commands, take full advantage of the Pinokio `shell.run` API, which provides features like `env`, `venv`, `input`, `path`, `sudo`, `on`, etc. (See the `PINOKIO.md` file) instead of writing raw commands.
@@ -114,7 +96,7 @@ If hooks already exist, skip this question entirely.
 
 **pinokio.json**
 - Do not touch the `version` field since the version is the script schema version and the one pre-set in `pinokio.js` must be used.
-- `icon`: If the git repository for the `app` folder points to GitHub (for example https://github.com/<USERNAME>/<REPO_NAME>`, ask the user if they want to download the icon from GitHub, and if approved, get the `avatar_url` by fetching `https://api.github.com/users/<USERNAME>`, and then download the image to the root folder as `icon.png`, and set `icon.png` as the `icon` field of the `pinokio.json`. 
+- `icon`: If the git repository for the `<%=app_root%>` folder points to GitHub (for example https://github.com/<USERNAME>/<REPO_NAME>`, ask the user if they want to download the icon from GitHub, and if approved, get the `avatar_url` by fetching `https://api.github.com/users/<USERNAME>`, and then download the image to the root folder as `icon.png`, and set `icon.png` as the `icon` field of the `pinokio.json`. 
 
 ## AI Libraries (Pytorch, Xformers, Triton, Sageattention, etc.)
 
