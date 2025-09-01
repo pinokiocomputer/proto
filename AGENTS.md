@@ -8,6 +8,45 @@ Pinokio projects follow a standardized structure with app logic separated from l
 
 <%=structure%>
 
+## Launcher Project Working Directory
+
+- The project working directory for a script is always the same directory as the script location.
+- For example, when you run `shell.run` API inside `.pinokio/start.js`, the default path for shell execution is `.pinokio`.
+- If the launcher files are in the project root path, then the default path for shell execution is the project root.
+- Therefore, it is important to specify the correct `path` attribute when running `shell.run` API commands.
+
+Example: in the following project structure:
+
+```
+project-root/
+├── .pinokio/                 # Pinokio launcher folder
+│    ├── start.js             # Launch script
+│    ├── pinokio.js           # UI generator script
+│    └── pinokio.json         # Metadata (title, description, icon)
+└─── backend/
+     ├── requirements.txt          # App dependencies
+     └── app.py                    # App code
+```
+
+The `.pinokio/start.js` should use the correct path `../backend` as the `path` attribute, as follows:
+
+```
+{
+  run: [{
+    ...
+  }, {
+    method: "shell.run",
+    params: {
+      message: "python app.py",
+      venv: "env",
+      path: "../backend"
+    }
+  }, {
+    ...
+  }]
+}
+```
+
 ## Key Rules for writing launchers
 - Even if the install instruction says to launch at 0.0.0.0, do not use those custom IP and let the app launch with default IP (in most cases it's just localhost)
 - Try best to NOT use custom ports when launching apps, even if the install documentation has those examples.
