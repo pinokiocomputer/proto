@@ -21,9 +21,9 @@ module.exports = async (req, ondata, kernel) => {
     })
   }
   // pinokio path
-  const launcher_path = path.resolve(req.cwd, ".pinokio")
+  const launcher_path = path.resolve(req.cwd, "pinokio")
   await fs.promises.cp(path.resolve(__dirname, "static"), launcher_path, { recursive: true })
-  req.cwd = path.resolve(req.cwd, ".pinokio")
+  req.cwd = path.resolve(req.cwd, "pinokio")
   req.structure = "new"
   req.app_root = "project-root"
 

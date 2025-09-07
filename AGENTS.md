@@ -11,7 +11,7 @@ Pinokio projects follow a standardized structure with app logic separated from l
 ## Launcher Project Working Directory
 
 - The project working directory for a script is always the same directory as the script location.
-- For example, when you run `shell.run` API inside `.pinokio/start.js`, the default path for shell execution is `.pinokio`.
+- For example, when you run `shell.run` API inside `pinokio/start.js`, the default path for shell execution is `pinokio`.
 - If the launcher files are in the project root path, then the default path for shell execution is the project root.
 - Therefore, it is important to specify the correct `path` attribute when running `shell.run` API commands.
 
@@ -19,7 +19,7 @@ Example: in the following project structure:
 
 ```
 project-root/
-├── .pinokio/                 # Pinokio launcher folder
+├── pinokio/                 # Pinokio launcher folder
 │    ├── start.js             # Launch script
 │    ├── pinokio.js           # UI generator script
 │    └── pinokio.json         # Metadata (title, description, icon)
@@ -28,7 +28,7 @@ project-root/
      └── app.py                    # App code
 ```
 
-The `.pinokio/start.js` should use the correct path `../backend` as the `path` attribute, as follows:
+The `pinokio/start.js` should use the correct path `../backend` as the `path` attribute, as follows:
 
 ```
 {

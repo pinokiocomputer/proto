@@ -4,7 +4,7 @@ Pinokio projects follow a standardized structure with app logic separated from l
 
 ```
 project-root/
-├── .pinokio/                 # Pinokio launcher folder
+├── pinokio/                 # Pinokio launcher folder
 │    ├── README.md            # Documentation
 │    ├── install.js           # Installation script
 │    ├── start.js             # Launch script
@@ -16,5 +16,5 @@ project-root/
 ```
 
 ## Key Rules
-- Keep all the launcher related code inside the `.pinokio` folder.
-- App code can be stored outside of the `.pinokio` folder, just like any normal project.
+- Keep all the launcher related code inside the `pinokio` folder.
+- App code can be stored outside of the `pinokio` folder, just like any normal project.
