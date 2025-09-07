@@ -46,6 +46,7 @@ module.exports = async (req, ondata, kernel) => {
       "PINOKIO.md",
       "PTERM.md",
       "SPEC.md",
+      "logs",
       ".env"
     ].join("\n"))
   }
