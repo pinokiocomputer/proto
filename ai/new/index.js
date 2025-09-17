@@ -23,7 +23,7 @@ module.exports = async (req, ondata, kernel) => {
     }
   }
   if (req.input.aiPrompt) {
-    awit fs.promises.writeFile(path.resolve(req.cwd, "SPEC.md"), req.input.aiPrompt + "\n")
+    await fs.promises.writeFile(path.resolve(req.cwd, "SPEC.md"), req.input.aiPrompt + "\n")
   }
   await kernel.exec({
     message: [
@@ -35,7 +35,9 @@ module.exports = async (req, ondata, kernel) => {
   }, (e) => {
     ondata(e) 
   })
-  return {
-    success: `/p/${req.input.name}/dev?plugin=/plugin/code/${req.input.tool}/pinokio.js`
+  if (req.input.tool) {
+    return {
+      success: `/p/${req.input.name}/dev?plugin=/plugin/code/${req.input.tool}/pinokio.js`
+    }
   }
 }
