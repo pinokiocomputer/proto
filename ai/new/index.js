@@ -37,7 +37,7 @@ module.exports = async (req, ondata, kernel) => {
   })
   if (req.input.tool) {
     return {
-      success: `/p/${req.input.name}/dev?plugin=/plugin/code/${req.input.tool}/pinokio.js&prompt=${req.input.aiPrompt}`
+      success: `/p/${req.input.name}/dev?plugin=/plugin/code/${req.input.tool}/pinokio.js&prompt=${encodeURIComponent(req.input.aiPrompt)}`
     }
   }
 }
