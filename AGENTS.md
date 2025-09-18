@@ -250,6 +250,12 @@ logs/
 - Do not touch the `version` field since the version is the script schema version and the one pre-set in `pinokio.js` must be used.
 - `icon`: It's best if we have a user friendly icon to represent the app, so try to get an image and link it from `pinokio.json`.
   - If the git repository for the `<%=app_root%>` folder points to GitHub (for example https://github.com/<USERNAME>/<REPO_NAME>`, ask the user if they want to download the icon from GitHub, and if approved, get the `avatar_url` by fetching `https://api.github.com/users/<USERNAME>`, and then download the image to the root folder as `icon.png`, and set `icon.png` as the `icon` field of the `pinokio.json`. 
+### 12. Gitignore
+- When a launcher involves cloning 3rd party repositories, downloading files dynamically, or some files to be generated, these need to be included in the .gitignore file. This may include things like:
+  - Cloning git repositories
+  - Downloading files
+  - Dynamically creating files during installation or running, such as Sqlite Databases, or environment variables, or anything specific to the user.
+- Make sure these file paths are included in the .gitignore file, and if not, include them in .gitignore.
 
 ## AI Libraries (Pytorch, Xformers, Triton, Sageattention, etc.)
 If the launcher has a dedicated built-in script named `torch.js`, it can be used as follows:
