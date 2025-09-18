@@ -61,6 +61,8 @@ If we are starting with existing launcher script files, work with the existing f
 - Even if there are no relevant examples, check the examples to get inspiration for how you would structure the script files even if you have to write from scratch.
 ### 4. Writing from scratch as a last resort
 If there are relevant examples to adopt from, write the scripts from scratch, but just make sure to follow the requirements in the next section.
+### 5. Debugging
+When the user reports something is not working, ALWAYS inspect the logs folder to get all the execution logs. For more info on how this works, check the "Troubleshooting with Logs" section below.
 
 ## Script Requirements
 ### 1. 1-click launchable
