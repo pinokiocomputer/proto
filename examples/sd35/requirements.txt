@@ -1,0 +1,7 @@
+accelerate
+transformers
+git+https://github.com/huggingface/diffusers.git
+sentencepiece
+devicetorch
+gradio
+protobuf

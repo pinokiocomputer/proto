@@ -1,0 +1,14 @@
+{
+  "name": "diffrhythm",
+  "version": "0.0.1",
+  "description": "A pinokio script for https://huggingface.co/spaces/cocktailpeanut/DiffRhythm",
+  "main": "install.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fast-glob": "^3.3.3"
+  }
+}

@@ -1,0 +1,13 @@
+devicetorch
+opencv-python
+pillow
+numpy==1.26.4
+timm
+kornia
+prettytable
+typing
+scikit-image
+transformers>=4.39.1,<4.50.0
+gradio==4.44.0  #pinned for imageslider which isn't yet compatible with gradio 5
+gradio_imageslider==0.0.20
+loadimg>=0.1.1

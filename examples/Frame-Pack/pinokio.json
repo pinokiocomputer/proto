@@ -1,0 +1,29 @@
+{
+  "posts": [
+    "https://x.com/cocktailpeanut/status/1913004350970159464",
+    "https://x.com/cocktailpeanut/status/1912977698642907614",
+    "https://x.com/joesparks/status/1912986750282272861",
+    "https://x.com/matze2001/status/1912989768406679901",
+    "https://x.com/cocktailpeanut/status/1912998525274853592",
+    "https://x.com/cocktailpeanut/status/1913003111050018864",
+    "https://x.com/SUP3RMASS1VE/status/1912837447525822592",
+    "https://x.com/SUP3RMASS1VE/status/1912842398654210420",
+    "https://x.com/SUP3RMASS1VE/status/1912975317896921253"
+  ],
+  "links": [{
+    "title": "SUP3RMASS1VE (Wrote the launcher)",
+    "links": [{
+      "type": "bitcoin",
+      "value": "1N942jHr6vVuR2KAe2JEf3nN59eR21tpKv"
+    }, {
+      "title": "X",
+      "value": "https://x.com/SUP3RMASS1VE"
+    }, {
+      "title": "Github",
+      "value": "https://github.com/SUP3RMASS1VE"
+    }, {
+      "title": "Discord",
+      "value": "https://discord.gg/mvDcrA57AQ"
+    }]
+  }]
+}

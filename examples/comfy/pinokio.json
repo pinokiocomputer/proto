@@ -1,0 +1,43 @@
+{
+  "posts": [
+    "https://x.com/cocktailpeanut/status/1894936091461038228",
+    "https://x.com/cocktailpeanut/status/1866178187195015338",
+    "https://x.com/cocktailpeanut/status/1866166743531724954",
+    "https://x.com/cocktailpeanut/status/1854286359105835203",
+    "https://x.com/cocktailpeanut/status/1854239637742481860",
+    "https://x.com/cocktailpeanut/status/1854244458923004122",
+    "https://x.com/TheAwakenOne619/status/1854243068880515291",
+    "https://x.com/cocktailpeanut/status/1853947325540094460",
+    "https://x.com/TheAwakenOne619/status/1854000687132315726",
+    "https://x.com/cocktailpeanut/status/1853940949673505062",
+    "https://x.com/cocktailpeanut/status/1853931231185924096",
+    "https://x.com/cocktailpeanut/status/1853907183961886782",
+    "https://x.com/vectoravtech/status/1830861000436023706",
+    "https://x.com/cocktailpeanut/status/1824924122847350797",
+    "https://x.com/cocktailpeanut/status/1824899295927235064",
+    "https://x.com/cocktailpeanut/status/1824819762108440761",
+    "https://x.com/cocktailpeanut/status/1824819755435331932",
+    "https://x.com/cocktailpeanut/status/1819482952071323788",
+    "https://x.com/cocktailpeanut/status/1819439443394109837",
+    "https://x.com/cocktailpeanut/status/1800944955738685648",
+    "https://x.com/cocktailpeanut/status/1754244867159413001",
+    "https://x.com/cocktailpeanut/status/1729884460114727197",
+    "https://x.com/cocktailpeanut/status/1728075614807048208"
+  ],
+  "links": [{
+    "title": "cocktailpeanut (wrote the launcher)",
+    "links": [{
+      "type": "bitcoin",
+      "value": "bc1qx90z3ce9qz4p2pnt06gd0ytntl86qw4d6qv39k"
+    }, {
+      "title": "X",
+      "value": "https://x.com/cocktailpeanut"
+    }, {
+      "title": "Github",
+      "value": "https://github.com/cocktailpeanut"
+    }, {
+      "title": "Discord",
+      "value": "https://discord.gg/TQdNwadtE4"
+    }]
+  }]
+}

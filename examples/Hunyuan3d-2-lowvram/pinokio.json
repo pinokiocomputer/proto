@@ -1,0 +1,45 @@
+{
+  "posts": [
+    "https://x.com/cocktailpeanut/status/1903253911458418896",
+    "https://x.com/cocktailpeanut/status/1903893580097454440",
+    "https://x.com/cocktailpeanut/status/1903893120716361994",
+    "https://x.com/cocktailpeanut/status/1903885490476192133",
+    "https://x.com/cocktailpeanut/status/1903881544961581505",
+    "https://x.com/cocktailpeanut/status/1903878483367063829",
+    "https://x.com/cocktailpeanut/status/1903692727285658105",
+    "https://x.com/mauno_k/status/1903436710890852613",
+    "https://x.com/cocktailpeanut/status/1903493709955846210",
+    "https://x.com/cocktailpeanut/status/1903483076359123406",
+    "https://x.com/ssstylusss/status/1903282672371171522",
+    "https://x.com/cocktailpeanut/status/1903223851464659283",
+    "https://x.com/cocktailpeanut/status/1903231745035735322",
+    "https://x.com/cocktailpeanut/status/1903228857165164805",
+    "https://x.com/cocktailpeanut/status/1902470207291207721",
+    "https://x.com/cocktailpeanut/status/1883198608477917622"
+  ],
+  "links": [{
+    "title": "deepbeepmeep (wrote the app)",
+    "links": [{
+      "title": "X",
+      "value": "https://x.com/deepbeepmeep"
+    }, {
+      "title": "Github",
+      "value": "https://github.com/deepbeepmeep"
+    }]
+  }, {
+    "title": "cocktailpeanut (wrote the launcher)",
+    "links": [{
+      "type": "bitcoin",
+      "value": "bc1qx90z3ce9qz4p2pnt06gd0ytntl86qw4d6qv39k"
+    }, {
+      "title": "X",
+      "value": "https://x.com/cocktailpeanut"
+    }, {
+      "title": "Github",
+      "value": "https://github.com/cocktailpeanut"
+    }, {
+      "title": "Discord",
+      "value": "https://discord.gg/TQdNwadtE4"
+    }]
+  }]
+}

@@ -1,0 +1,32 @@
+{
+  "posts": [
+    "https://x.com/cocktailpeanut/status/1856075371449389217",
+    "https://x.com/cocktailpeanut/status/1856078269256229006",
+    "https://x.com/cocktailpeanut/status/1855326458203509177",
+    "https://x.com/cocktailpeanut/status/1855351405093232752",
+    "https://x.com/cocktailpeanut/status/1855327676695015911",
+    "https://x.com/cocktailpeanut/status/1853934189420188058",
+    "https://x.com/cocktailpeanut/status/1851742375619760365",
+    "https://x.com/cocktailpeanut/status/1851709359275102485",
+    "https://x.com/cocktailpeanut/status/1851689090267386000",
+    "https://x.com/EOlonov/status/1851690280459866239",
+    "https://x.com/cibernicola_es/status/1851682281062125859",
+    "https://x.com/cocktailpeanut/status/1851663576718508113"
+  ],
+  "links": [{
+    "title": "cocktailpeanut (wrote the launcher)",
+    "links": [{
+      "type": "bitcoin",
+      "value": "bc1qx90z3ce9qz4p2pnt06gd0ytntl86qw4d6qv39k"
+    }, {
+      "title": "X",
+      "value": "https://x.com/cocktailpeanut"
+    }, {
+      "title": "Github",
+      "value": "https://github.com/cocktailpeanut"
+    }, {
+      "title": "Discord",
+      "value": "https://discord.gg/TQdNwadtE4"
+    }]
+  }]
+}

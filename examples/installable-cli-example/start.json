@@ -1,0 +1,25 @@
+{
+  "run": [
+    {
+      "method": "input",
+      "params": {
+        "title": "Youtube URL",
+        "form": [{
+          "type": "url",
+          "key": "url",
+          "focus": true,
+          "placeholder": "Enter the Youtube URL to download"
+        }]
+      }
+    },
+    {
+      "method": "shell.run",
+      "params": {
+        "venv": "venv",
+        "message": [
+          "yt-dlp {{input.url}}"
+        ]
+      }
+    }
+  ]
+}

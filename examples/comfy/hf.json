@@ -1,0 +1,9 @@
+{
+  "run": [{
+    "method": "fs.download",
+    "params": {
+      "uri": "{{'https://huggingface.co/' + input.repo + '/resolve/main/' + input.files + '?download=true'}}",
+      "dir": "{{input.path}}"
+    }
+  }]
+}

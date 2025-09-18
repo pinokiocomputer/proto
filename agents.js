@@ -32,4 +32,8 @@ module.exports = async (kernel, req) => {
   // copy pterm.md
   let cli_readme_path = kernel.path("prototype/PTERM.md")
   await fs.promises.cp(cli_readme_path, path.resolve(cwd, "PTERM.md"))
+
+  // copy examples
+  let examples_path = kernel.path("prototype/examples")
+  await fs.promises.cp(examples_path, path.resolve(cwd, "examples"), { recursive: true })
 }

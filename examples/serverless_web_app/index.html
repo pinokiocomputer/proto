@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ollama Chat</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --accent: #2563eb;
+      --border: rgba(140, 140, 160, 0.4);
+      --bg: rgba(245, 246, 248, 0.9);
+      --bg-dark: rgba(32, 35, 42, 0.85);
+      --card: rgba(255, 255, 255, 0.8);
+      --card-dark: rgba(17, 20, 27, 0.8);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px;
+      color: inherit;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: var(--bg-dark);
+      }
+    }
+
+    main {
+      width: min(960px, 100%);
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 16px;
+      padding: 24px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 16px 60px -40px rgba(15, 23, 42, 0.65);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      main {
+        background: var(--card-dark);
+        box-shadow: 0 16px 60px -40px rgba(0, 0, 0, 0.9);
+      }
+    }
+
+    header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    #status {
+      font-size: 0.9rem;
+      color: rgba(80, 80, 90, 0.85);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #status {
+        color: rgba(200, 200, 220, 0.7);
+      }
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    label {
+      font-weight: 500;
+    }
+
+    select {
+      appearance: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: inherit;
+      min-width: 200px;
+      font-size: 1rem;
+    }
+
+    select:disabled {
+      opacity: 0.6;
+    }
+
+    #refreshModels {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.15s ease;
+    }
+
+    #refreshModels:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #refreshModels:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+
+    .chat-log {
+      overflow-y: auto;
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .chat-log {
+        background: rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    .message {
+      white-space: pre-wrap;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      border-radius: 12px;
+      line-height: 1.5;
+      border: 1px solid transparent;
+    }
+
+    .message.user {
+      align-self: flex-end;
+      background: rgba(37, 99, 235, 0.12);
+      border-color: rgba(37, 99, 235, 0.3);
+    }
+
+    .message.assistant {
+      background: rgba(15, 23, 42, 0.04);
+      border-color: rgba(15, 23, 42, 0.15);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .message.user {
+        background: rgba(37, 99, 235, 0.25);
+        border-color: rgba(37, 99, 235, 0.45);
+      }
+
+      .message.assistant {
+        background: rgba(148, 163, 184, 0.12);
+        border-color: rgba(148, 163, 184, 0.2);
+      }
+    }
+
+    .message:last-child {
+      margin-bottom: 0;
+    }
+
+    form {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 56px;
+      max-height: 180px;
+      resize: vertical;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font: inherit;
+      background: rgba(255, 255, 255, 0.5);
+      color: inherit;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      textarea {
+        background: rgba(0, 0, 0, 0.25);
+      }
+    }
+
+    textarea:disabled {
+      opacity: 0.6;
+    }
+
+    button[type="submit"] {
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: filter 0.15s ease, transform 0.15s ease;
+    }
+
+    button[type="submit"]:disabled {
+      filter: grayscale(0.4);
+      cursor: not-allowed;
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(1px);
+    }
+
+    .error {
+      color: #dc2626;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .error {
+        color: #f87171;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Ollama Chat</h1>
+      <span id="status"></span>
+    </header>
+
+    <div class="controls">
+      <label for="modelSelect">Model</label>
+      <select id="modelSelect" disabled>
+        <option>Loading models…</option>
+      </select>
+      <button id="refreshModels" type="button" title="Refresh model list">⟳</button>
+    </div>
+
+    <section id="chatLog" class="chat-log" aria-live="polite"></section>
+
+    <form id="chatForm">
+      <textarea id="prompt" name="prompt" placeholder="Ask something…" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </main>
+
+  <script>
+    const OLLAMA_BASE = 'http://localhost:11434';
+    const OLLAMA_API = `${OLLAMA_BASE}/api`;
+
+    const state = {
+      model: null,
+      messages: [],
+      pending: false,
+    };
+
+    const dom = {
+      status: document.getElementById('status'),
+      modelSelect: document.getElementById('modelSelect'),
+      refreshModels: document.getElementById('refreshModels'),
+      chatLog: document.getElementById('chatLog'),
+      form: document.getElementById('chatForm'),
+      prompt: document.getElementById('prompt'),
+      submit: document.querySelector('#chatForm button[type="submit"]'),
+    };
+
+    function setStatus(message, kind = 'info') {
+      dom.status.textContent = message || '';
+      dom.status.className = kind === 'error' ? 'error' : '';
+    }
+
+    function setPending(pending) {
+      state.pending = pending;
+      dom.prompt.disabled = pending;
+      dom.submit.disabled = pending;
+      dom.modelSelect.disabled = pending || dom.modelSelect.options.length === 0;
+      setStatus(pending ? 'Talking to Ollama…' : '');
+    }
+
+    function appendMessage(role, content = '') {
+      const bubble = document.createElement('div');
+      bubble.className = `message ${role}`;
+      bubble.textContent = content;
+      dom.chatLog.appendChild(bubble);
+      dom.chatLog.scrollTop = dom.chatLog.scrollHeight;
+      return bubble;
+    }
+
+    async function loadModels() {
+      setStatus('Loading models…');
+      dom.modelSelect.disabled = true;
+      try {
+        const response = await fetch(`${OLLAMA_API}/tags`);
+        if (!response.ok) {
+          throw new Error(`Failed to load models (${response.status})`);
+        }
+        const data = await response.json();
+        const models = (data.models || []).map((item) => item.name).filter(Boolean);
+        dom.modelSelect.innerHTML = '';
+        if (!models.length) {
+          dom.modelSelect.innerHTML = '<option value="">No models available</option>';
+          setStatus('No models found. Run `ollama pull <model>` first.', 'error');
+          return;
+        }
+        for (const name of models) {
+          const option = document.createElement('option');
+          option.value = name;
+          option.textContent = name;
+          dom.modelSelect.appendChild(option);
+        }
+        state.model = dom.modelSelect.value = models[0];
+        setStatus('Models loaded.');
+      } catch (error) {
+        dom.modelSelect.innerHTML = '<option value="">Error loading models</option>';
+        setStatus(error.message, 'error');
+      } finally {
+        dom.modelSelect.disabled = false;
+      }
+    }
+
+    async function sendChat(prompt) {
+      const selectedModel = dom.modelSelect.value;
+      if (!selectedModel) {
+        setStatus('Pick a model first.', 'error');
+        return;
+      }
+
+      state.model = selectedModel;
+      const userMessage = { role: 'user', content: prompt.trim() };
+      state.messages.push(userMessage);
+      appendMessage('user', userMessage.content);
+
+      const assistantBubble = appendMessage('assistant', '');
+      let assistantContent = '';
+
+      setPending(true);
+      try {
+        const response = await fetch(`${OLLAMA_API}/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: state.model,
+            messages: state.messages,
+          }),
+        });
+
+        if (!response.ok || !response.body) {
+          throw new Error(`Chat failed (${response.status})`);
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop();
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            try {
+              const payload = JSON.parse(line);
+              if (payload.message?.content) {
+                assistantContent += payload.message.content;
+                assistantBubble.textContent = assistantContent;
+                dom.chatLog.scrollTop = dom.chatLog.scrollHeight;
+              }
+              if (payload.error) {
+                throw new Error(payload.error);
+              }
+            } catch (parseError) {
+              console.warn('Could not parse chunk', parseError, line);
+            }
+          }
+        }
+
+        if (buffer.trim()) {
+          try {
+            const payload = JSON.parse(buffer);
+            if (payload.message?.content) {
+              assistantContent += payload.message.content;
+              assistantBubble.textContent = assistantContent;
+            }
+            if (payload.error) {
+              throw new Error(payload.error);
+            }
+          } catch (parseError) {
+            console.warn('Could not parse final chunk', parseError, buffer);
+          }
+        }
+
+        if (!assistantContent.trim()) {
+          assistantBubble.textContent = '[No response from model]';
+        }
+
+        state.messages.push({ role: 'assistant', content: assistantContent });
+        setStatus('');
+      } catch (error) {
+        assistantBubble.textContent = `⚠️ ${error.message || error}`;
+        state.messages.pop(); // remove the user message we just sent to keep history clean on failure
+        setStatus(error.message || 'Unexpected error', 'error');
+      } finally {
+        setPending(false);
+      }
+    }
+
+    dom.form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const input = dom.prompt.value.trim();
+      if (!input || state.pending) return;
+      dom.prompt.value = '';
+      sendChat(input);
+    });
+
+    dom.modelSelect.addEventListener('change', () => {
+      state.model = dom.modelSelect.value;
+    });
+
+    dom.refreshModels.addEventListener('click', () => {
+      loadModels();
+    });
+
+    loadModels();
+    dom.prompt.focus();
+  </script>
+</body>
+</html>

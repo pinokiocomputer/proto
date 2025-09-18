@@ -1,0 +1,8 @@
+{
+  "title": "ollama-chat",
+  "description": "Chat with ollama, no server needed",
+  "icon": "icon.png",
+  "plugin": {
+    "menu": []
+  }
+}

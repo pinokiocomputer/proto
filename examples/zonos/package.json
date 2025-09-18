@@ -1,0 +1,16 @@
+{
+  "name": "zonos-pinokio",
+  "version": "1.0.0",
+  "description": "A pinokio script for https://github.com/peanutcocktail/zonos",
+  "main": "install.js",
+  "scripts": {
+    "clear": "node clear_cache",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fast-glob": "^3.3.3",
+    "rimraf": "^6.0.1"
+  }
+}

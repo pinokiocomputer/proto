@@ -1,0 +1,14 @@
+torch
+spaces
+gradio==4.42.0
+gradio-imageslider
+numpy==1.26.4
+transformers
+accelerate
+diffusers==0.32.2
+fastapi<0.113.0
+opencv-python
+devicetorch
+pillow
+pydantic<2.11.0
+huggingface_hub==0.30.1
