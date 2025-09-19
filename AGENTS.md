@@ -81,9 +81,6 @@ When the user reports something is not working, ALWAYS inspect the logs folder t
   - What the app does
   - How to use the app
   - API documentation for programmatically accessing the app's main features (Javascript, Python, and Curl)
-### 4. Implement MCP Servers and Installers
-- Write minimal MCP servers (Model Context Protocol https://modelcontextprotocol.io/docs/getting-started/intro) based on the available APIs.
-- Write a script to install the MCP server on the user machine (cross-platform for mac, windows, and linux)
 
 ## Types of launchers
 ## 1. Launching servers
