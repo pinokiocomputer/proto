@@ -13,3 +13,4 @@ venv
 ~*
 /logs/
 /cache/
+/examples/

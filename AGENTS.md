@@ -2,6 +2,15 @@
 
 Make sure to keep this entire document and `PINOKIO.md` in memory with high priority before making any decision. Pinokio is a system that makes it easy to write launchers through scripting by providing various cross-platform APIs, so whenever possible you should prioritize using Pinokio API over lower level APIs.
 
+## Determine User Intent
+If the initial prompt is simply a URL and nothing else, check the website content and determine the intent, and ask the user to confirm. For example a URL may point to
+
+1. A Tutorial: the intent may be to implement a demo for the tutorial and build a launcher.
+2. A Demo: the intent may be a 1-click launcher for the demo
+3. Open source project: the intent may be a 1-click launcher for the project 
+4. Regular website: the intent may be to clone the website and a launcher.
+5. There can be other cases, but try to guess.
+
 ## Project Structure
 
 Pinokio projects follow a standardized structure with app logic separated from launcher scripts:
