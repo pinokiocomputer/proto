@@ -22,9 +22,9 @@ module.exports = async (req, ondata, kernel) => {
       await fs.promises.appendFile(path.resolve(req.cwd, ".gitignore"), items + "\n")
     }
   }
-//  if (req.input.aiPrompt) {
-//    await fs.promises.writeFile(path.resolve(req.cwd, "SPEC.md"), req.input.aiPrompt + "\n")
-//  }
+  if (req.input.aiPrompt) {
+    await fs.promises.writeFile(path.resolve(req.cwd, "SPEC.md"), req.input.aiPrompt + "\n")
+  }
   await kernel.exec({
     message: [
       "git init",
