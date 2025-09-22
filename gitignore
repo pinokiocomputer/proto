@@ -1,11 +1,4 @@
 ENVIRONMENT
-QWEN.md
-CLAUDE.md
-GEMINI.md
-AGENTS.md
-PINOKIO.md
-PTERM.md
-SPEC.md
 node_modules
 venv
 .env

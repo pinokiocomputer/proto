@@ -2,6 +2,10 @@
 
 Make sure to keep this entire document and `PINOKIO.md` in memory with high priority before making any decision. Pinokio is a system that makes it easy to write launchers through scripting by providing various cross-platform APIs, so whenever possible you should prioritize using Pinokio API over lower level APIs.
 
+When trying to fix something or figure out what's going on, ALWAYS start by checking the `logs` folder before doing anything else, as mentioned in the "Troubleshooting with Logs" section.
+
+Finally, make sure to ALWAYS follow all the items in the "best practices" section below.
+
 ## Determine User Intent
 If the initial prompt is simply a URL and nothing else, check the website content and determine the intent, and ask the user to confirm. For example a URL may point to
 
@@ -200,6 +204,8 @@ logs/
 - **Historical:** Use timestamped files for pattern analysis and the full history.
 
 ## Best practices
+### 0. Always reference the logs when debugging
+- When the user asks to fix something, ALWAYS check the logs folder first to check what went wrong. Check the "Troubleshooting with Logs" section.
 ### 1. Shell commands for launching programs
 - Launch flags related
   - Try as hard as possible to minimize launch flags and parameters when launching an app. For example, instead of `python app.py --port 8610`, try to do `python app.py` unless really necessary. The only exception is when the only way to launch the app is to specify the flags.
