@@ -189,13 +189,27 @@ The following package managers come pre-installed with Pinokio, so whenever you 
 
 ## Troubleshooting with Logs
 Pinokio stores the logs for everything that happened in terminal at the following locations, so you can make use of them to determine what's going on:
+
 ### Log Structure
+In case there is a `pinokio` folder in the project root folder, you should be able to find the logs folder here:
+
+```
+pinokio/
+└── logs/   # Direct user interaction logs
+    ├── api/     # Launcher script logs (install.js, start.js, etc.)
+    ├── dev/     # AI coding tool logs (organized by tool)
+    └── shell/   # Direct user interaction logs
+```
+
+Otherwise, the `logs` folder should be found at project root:
+
 ```
 logs/
 ├── api/     # Launcher script logs (install.js, start.js, etc.)
 ├── dev/     # AI coding tool logs (organized by tool)
 └── shell/   # Direct user interaction logs
 ```
+
 ### Log File Naming
 - Unix timestamps for each session
 - Special "latest" file contains most recent session logs
