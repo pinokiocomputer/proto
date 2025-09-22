@@ -1,10 +1,9 @@
 # Development Guide for Pinokio Projects
 
-Make sure to keep this entire document and `PINOKIO.md` in memory with high priority before making any decision. Pinokio is a system that makes it easy to write launchers through scripting by providing various cross-platform APIs, so whenever possible you should prioritize using Pinokio API over lower level APIs.
-
-When trying to fix something or figure out what's going on, ALWAYS start by checking the `logs` folder before doing anything else, as mentioned in the "Troubleshooting with Logs" section.
-
-Finally, make sure to ALWAYS follow all the items in the "best practices" section below.
+- Make sure to keep this entire document and `PINOKIO.md` in memory with high priority before making any decision. Pinokio is a system that makes it easy to write launchers through scripting by providing various cross-platform APIs, so whenever possible you should prioritize using Pinokio API over lower level APIs.
+- Whe writing pinokio scripts, ALWAYS check the examples folder to see if there are existing example scripts you can imitate, instead of assuming syntax.
+- When trying to fix something or figure out what's going on, ALWAYS start by checking the `logs` folder before doing anything else, as mentioned in the "Troubleshooting with Logs" section.
+- Finally, make sure to ALWAYS follow all the items in the "best practices" section below.
 
 ## Determine User Intent
 If the initial prompt is simply a URL and nothing else, check the website content and determine the intent, and ask the user to confirm. For example a URL may point to
