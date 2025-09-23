@@ -1,4 +1,5 @@
 ENVIRONMENT
+SPEC.md
 node_modules
 venv
 .env

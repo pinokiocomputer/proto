@@ -22,7 +22,11 @@ module.exports = async (req, ondata, kernel) => {
   }
   // pinokio path
   const launcher_path = path.resolve(req.cwd, "pinokio")
-  await fs.promises.cp(path.resolve(__dirname, "static"), launcher_path, { recursive: true })
+  let pinokio_exists = await kernel.exists(launcher_path)
+  // only copy if pinokio folder doesn't already exist => otherwise it overwrite existing files that are being used
+  if (!pinokio_exists) {
+    await fs.promises.cp(path.resolve(__dirname, "static"), launcher_path, { recursive: true })
+  }
   req.cwd = path.resolve(req.cwd, "pinokio")
   req.structure = "new"
   req.app_root = "project-root"
@@ -39,12 +43,6 @@ module.exports = async (req, ondata, kernel) => {
     console.log("gitignore does not exist. create one.")
     await fs.promises.writeFile(gitignore_path, [
       "ENVIRONMENT",
-      "QWEN.md",
-      "CLAUDE.md",
-      "GEMINI.md",
-      "AGENTS.md",
-      "PINOKIO.md",
-      "PTERM.md",
       "SPEC.md",
       "logs",
       ".env"
