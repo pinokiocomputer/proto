@@ -48,14 +48,21 @@ module.exports = async (req, ondata, kernel) => {
       ".env"
     ].join("\n"))
   }
-//  // git
-//  await kernel.exec({
-//    message: [
-//      "git init",
-//      "git add .",
-//    ],
-//    path: req.cwd
-//  }, (e) => {
-//    ondata(e) 
-//  })
+
+  let git_path = path.resolve(req.cwd, ".git")
+  let git_path_exists = await kernel.exists(git_path)
+  if (git_path_exists) {
+    console.log("git already exists. ignore.")
+  } else {
+    // git
+    await kernel.exec({
+      message: [
+        "git init",
+        "git add .",
+      ],
+      path: req.cwd
+    }, (e) => {
+      ondata(e) 
+    })
+  }
 }
