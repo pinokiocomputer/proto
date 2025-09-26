@@ -16,9 +16,20 @@ If the initial prompt is simply a URL and nothing else, check the website conten
 
 ## Project Structure
 
-Pinokio projects follow a standardized structure with app logic separated from launcher scripts:
+Pinokio projects normally follow a standardized structure with app logic separated from launcher scripts:
 
 <%=structure%>
+
+The only exceptions are serverless web apps---purely frontend only web applications that do NOT have a server component and connect to 3rd party API endpoints--in which case the folder structure looks like the following (No need for launcher scripts since the index.html will automatically launch. The only thing needed is the metadata file named pinokio.json):
+
+```
+project-root/
+├── index.html           # The serverless web app entry point
+├── ...
+├── README.md            # Documentation
+└── pinokio.json         # Metadata (title, description, icon)
+```
+
 
 ## Launcher Project Working Directory
 
@@ -96,7 +107,7 @@ When the user reports something is not working, ALWAYS inspect the logs folder t
   - `pinokio.json`: For metadata
 ## 2. Launching serverless web apps
 - In case of purely static web apps WITHOUT servers or backends (for example an HTML based app that connects to 3rd party servers--either remote or localhost), we do NOT need the launcher scripts.
-- In these cases, simply include `index.html` in the project root folder and everything should automatically work. No need for any of the pinokio launcher scripts.
+- In these cases, simply include `index.html` in the project root folder and everything should automatically work. No need for any of the pinokio launcher scripts. (Do 
 - You still need to include the metadata file so they show up properly on pinokio:
   - `pinokio.json`: For metadata
 ## 3. Launching quick scripts without web UI

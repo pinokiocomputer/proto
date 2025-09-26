@@ -1,5 +1,3 @@
-## Project Structure
-
 Pinokio projects follow a standardized structure with app logic separated from launcher scripts:
 
 ```
@@ -17,7 +15,6 @@ project-root/
 └── pinokio.json         # Metadata (title, description, icon)
 ```
 
-## Key Rules
 - Keep app code in `/app` folder only (never in root)
 - Store all launcher files in project root (never in `/app`)
 - `/app` folder should be self-contained and publishable
