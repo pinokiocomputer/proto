@@ -30,6 +30,7 @@ project-root/
 └── pinokio.json         # Metadata (title, description, icon)
 ```
 
+IMPORTANT: ALWAYS try to follow the best practices in the examples folder instead of trying to come up with your own structure. The examples have been optimized for the best user experience.
 
 ## Launcher Project Working Directory
 
@@ -105,11 +106,63 @@ When the user reports something is not working, ALWAYS inspect the logs folder t
   - `update.js`: a script to update the launcher AND the app in case there are new updates. Involves pulling in the relevant git repositories installed through `install.js` (often it's the script repo and some git repositories cloned through the install steps if any)
   - `pinokio.js`: the launcher script that ties all of the above scripts together by providing a UI that links to these scripts.
   - `pinokio.json`: For metadata
+
+Here's a basic server launcher script example (`start.js`). Unless there's a special reason you need to use another pattern, this is the most recommended pattern. Use this or adopt it as needed, but NEVER try something else unless there's a good reason you should not take this approach:
+
+```javascript
+module.exports = {
+  // By setting daemon: true, the script keeps running even after all items in the `run` array finishes running. Mandatory for launching servers, since otherwise the shells running the server process will get killed after the scripts finish running.
+  daemon: true,
+  run: [
+    {
+      // The "shell.run" API for running a shell session
+      method: "shell.run",
+      params: {
+        // Edit 'venv' to customize the venv folder path
+        venv: "env",
+        // Edit 'env' to customize environment variables (see documentation)
+        env: { },
+        // Edit 'path' to customize the path to start the shell from
+        path: "app",
+        // Edit 'message' to customize the commands, or to run multiple commands
+        message: [
+          "python app.py",
+        ],
+        on: [{
+          // The regular expression pattern to monitor.
+          // Whenever each "event" pattern occurs in the shell terminal, the shell will return,
+          // and the script will go onto the next step.
+          // The regular expression match object will be passed on to the next step as `input.event`
+          // Useful for capturing the URL at which the server is running (in case the server prints some message about where the server is running)
+          "event": "/(http:\/\/\\S+)/", 
+
+          // Use "done": true to move to the next step while keeping the shell alive.
+          // Use "kill": true to move to the next step after killing the shell.
+          "done": true
+        }]
+      }
+    },
+    {
+      // This step sets the local variable 'url'.
+      // This local variable will be used in pinokio.js to display the "Open WebUI" tab when the value is set.
+      method: "local.set",
+      params: {
+        // the input.event is the regular expression match object from the previous step
+        // In this example, since the pattern was "/(http:\/\/\\S+)/", input.event[1] will include the exact http url match caputred by the parenthesis.
+        // Therefore setting the local variable 'url'
+        url: "{{input.event[1]}}"
+      }
+    }
+  ]
+}
+```
+
 ## 2. Launching serverless web apps
 - In case of purely static web apps WITHOUT servers or backends (for example an HTML based app that connects to 3rd party servers--either remote or localhost), we do NOT need the launcher scripts.
 - In these cases, simply include `index.html` in the project root folder and everything should automatically work. No need for any of the pinokio launcher scripts. (Do 
 - You still need to include the metadata file so they show up properly on pinokio:
   - `pinokio.json`: For metadata
+
 ## 3. Launching quick scripts without web UI
 - In many cases, we may not even need a web UI, but instead just a simple way to run scripts.
 - In these cases, all we need is the launcher file `pinokio.js`, which may link to multiple scripts. In this case, there are no web apps (no serverless apsp, no servers), but instead just the default pinokio launcher UI that calls a bunch of scripts.
