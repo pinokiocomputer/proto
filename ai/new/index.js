@@ -12,6 +12,8 @@ module.exports = async (req, ondata, kernel) => {
   console.log("gitignore_new", await fs.promises.readFile(path.resolve(__dirname, "../../gitignore_new"), "utf8"))
   await fs.promises.cp(path.resolve(__dirname, "../../gitignore_new"), path.resolve(req.cwd, ".gitignore"))
   await agents(kernel, req)
+  let items = ["copy.md", "launch.md", "remix.md", "tutorial.md"].join("\n")
+  await fs.promises.appendFile(path.resolve(req.cwd, ".gitignore"), items + "\n")
   if (req.input.aiMeta) {
     if (req.input.aiMeta[".gitignore"]) {
       let items = req.input.aiMeta[".gitignore"].split(",").map((x) => {
