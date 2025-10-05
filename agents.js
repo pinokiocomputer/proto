@@ -19,21 +19,24 @@ module.exports = async (kernel, req) => {
   const structure_content = await fs.promises.readFile(structure_path, "utf-8")
   let rendered_recipe = await kernel.renderFile(recipe_path, {
     structure: structure_content,
+    examples: kernel.path("prototype/system/examples"),
+    PINOKIO_DOCUMENTATION: kernel.path("prototype/PINOKIO.md"),
+    PTERM_DOCUMENTATION: kernel.path("prototype/PTERM.md"),
     app_root
   })
   for(let agent of agents) {
     await fs.promises.writeFile(path.resolve(cwd, agent), rendered_recipe)
     //await fs.promises.cp(path.resolve(__dirname, recipe), path.resolve(cwd, agent))
   }
-  // copy readme
-  let readme_path = kernel.path("prototype/PINOKIO.md")
-  await fs.promises.cp(readme_path, path.resolve(cwd, "PINOKIO.md"))
+//  // copy readme
+//  let readme_path = kernel.path("prototype/PINOKIO.md")
+//  await fs.promises.cp(readme_path, path.resolve(cwd, "PINOKIO.md"))
 
-  // copy pterm.md
-  let cli_readme_path = kernel.path("prototype/PTERM.md")
-  await fs.promises.cp(cli_readme_path, path.resolve(cwd, "PTERM.md"))
+//  // copy pterm.md
+//  let cli_readme_path = kernel.path("prototype/PTERM.md")
+//  await fs.promises.cp(cli_readme_path, path.resolve(cwd, "PTERM.md"))
 
-  // copy examples
-  let examples_path = kernel.path("prototype/system/examples")
-  await fs.promises.cp(examples_path, path.resolve(cwd, "examples"), { recursive: true })
+//  // copy examples
+//  let examples_path = kernel.path("prototype/system/examples")
+//  await fs.promises.cp(examples_path, path.resolve(cwd, "examples"), { recursive: true })
 }

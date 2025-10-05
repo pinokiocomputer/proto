@@ -1,7 +1,7 @@
 # Development Guide for Pinokio Projects
 
-- Make sure to keep this entire document and `PINOKIO.md` in memory with high priority before making any decision. Pinokio is a system that makes it easy to write launchers through scripting by providing various cross-platform APIs, so whenever possible you should prioritize using Pinokio API over lower level APIs.
-- Whe writing pinokio scripts, ALWAYS check the examples folder to see if there are existing example scripts you can imitate, instead of assuming syntax.
+- Make sure to keep this entire document and `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> in memory with high priority before making any decision. Pinokio is a system that makes it easy to write launchers through scripting by providing various cross-platform APIs, so whenever possible you should prioritize using Pinokio API over lower level APIs.
+- Whe writing pinokio scripts, ALWAYS check the examples folder (in <%=examples%> folder) to see if there are existing example scripts you can imitate, instead of assuming syntax.
 - When trying to fix something or figure out what's going on, ALWAYS start by checking the `logs` folder before doing anything else, as mentioned in the "Troubleshooting with Logs" section.
 - Finally, make sure to ALWAYS follow all the items in the "best practices" section below.
 
@@ -30,7 +30,7 @@ project-root/
 └── pinokio.json         # Metadata (title, description, icon)
 ```
 
-IMPORTANT: ALWAYS try to follow the best practices in the examples folder instead of trying to come up with your own structure. The examples have been optimized for the best user experience.
+IMPORTANT: ALWAYS try to follow the best practices in the examples folder (<%=examples%>) instead of trying to come up with your own structure. The examples have been optimized for the best user experience.
 
 ## Launcher Project Working Directory
 
@@ -81,7 +81,7 @@ If we are starting with existing launcher script files, work with the existing f
 - **Don't touch working scripts:** Unless adding/updating specific commands
 - **Follow existing conventions:** Match the style and structure already present
 ### 3. Try to adopt from examples as much as possible
-- If starting from scratch, first determine what type of project you will be building, and then check the examples folder to see if you can adopt them instead of coming up everything from scratch.
+- If starting from scratch, first determine what type of project you will be building, and then check the examples folder (<%=examples%>) to see if you can adopt them instead of coming up everything from scratch.
 - Even if there are no relevant examples, check the examples to get inspiration for how you would structure the script files even if you have to write from scratch.
 ### 4. Writing from scratch as a last resort
 If there are relevant examples to adopt from, write the scripts from scratch, but just make sure to follow the requirements in the next section.
@@ -180,8 +180,8 @@ module.exports = {
 
 ## API
 This section lists all the script APIs available on Pinokio. To learn the details of how they are used, you can:
-1. Check the examples in the `examples` folder
-2. Read the `PINOKIO.md` further documentation on the full syntax
+1. Check the examples in the <%=examples%> folder
+2. Read the `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> further documentation on the full syntax
 ### Script API
 These APIs can be used to describe each step in a pinokio script:
 - shell.run: run shell commands
@@ -328,7 +328,7 @@ logs/
     - during the install process, the `install.js` menu item needs to be set as the `default`, so it automatically executes the script
     - when launching the `start.js` menu item needs to be set as the `default`, so it automatically executes the script
     - after the app has launched, the `default` needs to be set on the web UI URL, so the user is sent to the actual app automatically.
-  - Check the examples in the `examples` folder to see how these are being used.
+  - Check the examples in the <%=examples%> folder to see how these are being used.
 ### 8. No need for stop scripts
 - `pinokio.js` does NOT need a separate `stop` script. Every script that can be started can also be natively stopped through the Pinokio UI, therefore you do not need a separate stop script for start script
 ### 9. Writing launchers for existing projects
@@ -389,9 +389,9 @@ The `torch.js` script also includes ways to install pytorch dependent libraries 
 
 ## Quick Reference
 ### Essential Documentation
-- **Pinokio Programming:** See `PINOKIO.md` → "Programming Pinokio" section
-- **Dynamic Menus:** See `PINOKIO.md` → "Dynamic menu rendering" section  
-- **CLI Commands:** See `PTERM.md` in project root
+- **Pinokio Programming:** See `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> → "Programming Pinokio" section
+- **Dynamic Menus:** See `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> → "Dynamic menu rendering" section  
+- **CLI Commands:** See `PTERM.md` at <%=PTERM_DOCUMENTATION%>
 ### Common Patterns
 - **Python Virtual Env:** `shell.run` with `venv` attribute
 - **Cross-platform Commands:** Always test on multiple platforms
