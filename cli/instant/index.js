@@ -3,8 +3,8 @@ const path = require('path')
 const agents = require("../../agents")
 module.exports = async (req, ondata, kernel) => {
   await fs.promises.cp(path.resolve(__dirname, "static"), req.cwd, { recursive: true })
-  await agents(kernel, req)
   await fs.promises.cp(path.resolve(__dirname, "../../gitignore"), path.resolve(req.cwd, ".gitignore"))
+  await agents(kernel, req)
 
   let start = {
     run: [{

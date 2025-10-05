@@ -4,8 +4,8 @@ const agents = require("../../agents")
 module.exports = async (req, ondata, kernel) => {
   console.log(">REQ", req)
   await fs.promises.cp(path.resolve(__dirname, "static"), req.cwd, { recursive: true })
-  await agents(kernel, req)
   await fs.promises.cp(path.resolve(__dirname, "../../gitignore"), path.resolve(req.cwd, ".gitignore"))
+  await agents(kernel, req)
 
   // install script
   let install = {

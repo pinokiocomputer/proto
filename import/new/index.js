@@ -31,8 +31,6 @@ module.exports = async (req, ondata, kernel) => {
   req.structure = "new"
   req.app_root = "project-root"
 
-  // write agents related files
-  await agents(kernel, req)
 
   // write gitignore if it doesn't exist
   let gitignore_path = path.resolve(req.cwd, ".gitignore")
@@ -48,6 +46,9 @@ module.exports = async (req, ondata, kernel) => {
       ".env"
     ].join("\n"))
   }
+
+  // write agents related files
+  await agents(kernel, req)
 
   let git_path = path.resolve(req.cwd, ".git")
   let git_path_exists = await kernel.exists(git_path)

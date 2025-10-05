@@ -14,8 +14,8 @@ module.exports = async (req, ondata, kernel) => {
   }
   
   await fs.promises.cp(path.resolve(__dirname, "static"), req.cwd, { recursive: true, force: true })
-  await agents(kernel, req)
   await fs.promises.cp(path.resolve(__dirname, "../../gitignore"), path.resolve(req.cwd, ".gitignore"))
+  await agents(kernel, req)
 
   config.basePath = "/repo/"
   await fs.promises.writeFile(path.resolve(req.cwd, "docs/docsify.config.json"), JSON.stringify(config, null, 2))
