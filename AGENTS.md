@@ -1,7 +1,8 @@
 # Development Guide for Pinokio Projects
 
 - Make sure to keep this entire document and `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> in memory with high priority before making any decision. Pinokio is a system that makes it easy to write launchers through scripting by providing various cross-platform APIs, so whenever possible you should prioritize using Pinokio API over lower level APIs.
-- Whe writing pinokio scripts, ALWAYS check the examples folder (in <%=examples%> folder) to see if there are existing example scripts you can imitate, instead of assuming syntax.
+- When writing pinokio scripts, ALWAYS check the examples folder (in <%=examples%> folder) to see if there are existing example scripts you can imitate, instead of assuming syntax.
+- When implementing pinokio script APIs and you cannot infer the syntax just based on the examples, always search the API documentation `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> to use the correct syntax instead of assuming the syntax.
 - When trying to fix something or figure out what's going on, ALWAYS start by checking the `logs` folder before doing anything else, as mentioned in the "Troubleshooting with Logs" section.
 - Finally, make sure to ALWAYS follow all the items in the "best practices" section below.
 

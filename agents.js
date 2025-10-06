@@ -27,10 +27,6 @@ module.exports = async (kernel, req) => {
   const gitignore_path = path.resolve(req.cwd, ".gitignore")
   for(let agent of agents) {
     await fs.promises.writeFile(path.resolve(cwd, agent), rendered_recipe)
-    try {
-      await fs.promises.appendFile(gitignore_path, "\n/" + agent)
-    } catch (e) {
-    }
     //await fs.promises.cp(path.resolve(__dirname, recipe), path.resolve(cwd, agent))
   }
 //  // copy readme

@@ -1,5 +1,4 @@
 ENVIRONMENT
-SPEC.md
 node_modules
 venv
 .env
@@ -8,3 +7,8 @@ venv
 /logs/
 /cache/
 /examples/
+/AGENTS.md
+/CLAUDE.md
+/GEMINI.md
+/QWEN.md
+/SPEC.md
