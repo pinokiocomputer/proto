@@ -4,7 +4,7 @@
 - When writing pinokio scripts, ALWAYS check the examples folder (in <%=examples%> folder) to see if there are existing example scripts you can imitate, instead of assuming syntax.
 - When implementing pinokio script APIs and you cannot infer the syntax just based on the examples, always search the API documentation `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> to use the correct syntax instead of assuming the syntax.
 - When trying to fix something or figure out what's going on, ALWAYS start by checking the logs folder before doing anything else, as mentioned in the "Troubleshooting with Logs" section.
-- Before making any code or documentation change, open `<%=/Users/x/pinokio/logs/browser.log`, review the most recent entries, and note any errors or warnings. If the file is missing, explicitly state that in your response.
+- Before making any code or documentation change, open `<%=pinokio_logs%>`, review the most recent entries, and note any errors or warnings. If the file is missing, explicitly state that in your response.
 - Finally, make sure to ALWAYS follow all the items in the "best practices" section below.
 
 
