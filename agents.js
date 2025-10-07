@@ -20,6 +20,7 @@ module.exports = async (kernel, req) => {
   let rendered_recipe = await kernel.renderFile(recipe_path, {
     structure: structure_content,
     examples: kernel.path("prototype/system/examples"),
+    browser_logs: kernel.path("logs/browser.log"),
     PINOKIO_DOCUMENTATION: kernel.path("prototype/PINOKIO.md"),
     PTERM_DOCUMENTATION: kernel.path("prototype/PTERM.md"),
     app_root
