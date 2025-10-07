@@ -3,10 +3,8 @@
 - Make sure to keep this entire document and `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> in memory with high priority before making any decision. Pinokio is a system that makes it easy to write launchers through scripting by providing various cross-platform APIs, so whenever possible you should prioritize using Pinokio API over lower level APIs.
 - When writing pinokio scripts, ALWAYS check the examples folder (in <%=examples%> folder) to see if there are existing example scripts you can imitate, instead of assuming syntax.
 - When implementing pinokio script APIs and you cannot infer the syntax just based on the examples, always search the API documentation `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> to use the correct syntax instead of assuming the syntax.
-- When trying to fix something or figure out what's going on, ALWAYS start by checking the logs folder before doing anything else, as mentioned in the "Troubleshooting with Logs" section.
-- Before making any code or documentation change, open `<%=browser_logs%>`, review the most recent entries, and note any errors or warnings. If the file is missing, explicitly state that in your response.
+- When trying to fix something or figure out what's going on, ALWAYS start by checking the `logs` folder before doing anything else, as mentioned in the "Troubleshooting with Logs" section.
 - Finally, make sure to ALWAYS follow all the items in the "best practices" section below.
-
 
 ## Determine User Intent
 If the initial prompt is simply a URL and nothing else, check the website content and determine the intent, and ask the user to confirm. For example a URL may point to
@@ -283,17 +281,9 @@ logs/
 - **Default:** Use "latest" files for current issues
 - **Historical:** Use timestamped files for pattern analysis and the full history.
 
-### Browser Logs
-- In addition to each app-specific logs, Pinokio keeps track of the latest browser developer console logs inside <%=browser_logs%> log file. When debuggin frontend errors, look for error messages in this log file.
-- Before proposing any fix for frontend/serverless issues, open this file, read the newest entries, and document the findings (or state explicitly that no file / no errors exist).
-
-- Treat any JavaScript error in this log as the top debugging lead unless proven otherwise.
-
 ## Best practices
 ### 0. Always reference the logs when debugging
 - When the user asks to fix something, ALWAYS check the logs folder first to check what went wrong. Check the "Troubleshooting with Logs" section.
-- Additionally, when debugging a frontend issue, open `<%=browser_logs%>` and summarize any errors/warnings (or state that the file is missing/empty) before modifying code.
-
 ### 1. Shell commands for launching programs
 - Launch flags related
   - Try as hard as possible to minimize launch flags and parameters when launching an app. For example, instead of `python app.py --port 8610`, try to do `python app.py` unless really necessary. The only exception is when the only way to launch the app is to specify the flags.
