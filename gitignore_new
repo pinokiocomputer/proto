@@ -6,7 +6,6 @@ venv
 ~*
 /logs/
 /cache/
-/examples/
 /AGENTS.md
 /CLAUDE.md
 /GEMINI.md
