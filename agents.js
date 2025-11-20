@@ -30,6 +30,11 @@ module.exports = async (kernel, req) => {
     await fs.promises.writeFile(path.resolve(cwd, agent), rendered_recipe)
     //await fs.promises.cp(path.resolve(__dirname, recipe), path.resolve(cwd, agent))
   }
+  await fs.promises.writeFile(path.resolve(cwd, ".geminiignore"), `ENVIRONMENT
+!/logs
+!/GEMINI.md
+!/SPEC.md
+!/app`)
 //  // copy readme
 //  let readme_path = kernel.path("prototype/PINOKIO.md")
 //  await fs.promises.cp(readme_path, path.resolve(cwd, "PINOKIO.md"))
