@@ -34,7 +34,8 @@ module.exports = async (kernel, req) => {
 !/logs
 !/GEMINI.md
 !/SPEC.md
-!/app`)
+!/app
+!${kernel.homedir}`)
 //  // copy readme
 //  let readme_path = kernel.path("prototype/PINOKIO.md")
 //  await fs.promises.cp(readme_path, path.resolve(cwd, "PINOKIO.md"))

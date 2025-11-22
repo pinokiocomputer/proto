@@ -111,6 +111,7 @@ The `pinokio/start.js` should use the correct path `../backend` as the `path` at
 ```
 
 ## Development Workflow
+
 ### 1. Understanding the Project
 - Check `SPEC.md` in project root. If the file exists, use that to learn about the project details (what and how to build)
 - If no `SPEC.md` exists, build based on user requirements
@@ -128,8 +129,10 @@ If there are relevant examples to adopt from, write the scripts from scratch, bu
 When the user reports something is not working, ALWAYS inspect the logs folder to get all the execution logs. For more info on how this works, check the "Troubleshooting with Logs" section below.
 
 ## Script Requirements
+
 ### 1. 1-click launchable
 - The main purpose of Pinokio is to provide an easy interface to invoke commands, which may include launching servers, installing programs, etc. Make sure the final product provides ways to install, launch, reset, and update whatever is needed.
+
 ### 2. Write Documentation
 - ALWAYS write a documentation. A documentation must be stored as `README.md` in the project root folder, along with the rest of the pinokio launcher script files. A documentation file must contain:
   - What the app does
@@ -197,13 +200,16 @@ module.exports = {
 ```
 
 ## 2. Launching serverless web apps
+
 - In case of purely static web apps WITHOUT servers or backends (for example an HTML based app that connects to 3rd party servers--either remote or localhost), we do NOT need the launcher scripts.
 - In these cases, simply include `index.html` in the project root folder and everything should automatically work. No need for any of the pinokio launcher scripts. (Do 
 - You still need to include the metadata file so they show up properly on pinokio:
   - `pinokio.json`: For metadata
 
 ## 3. Launching quick scripts without web UI
+
 - In many cases, we may not even need a web UI, but instead just a simple way to run scripts.
+- This may include TUI (Terminal User Interface) apps, a simple launcher 
 - In these cases, all we need is the launcher file `pinokio.js`, which may link to multiple scripts. In this case, there are no web apps (no serverless apsp, no servers), but instead just the default pinokio launcher UI that calls a bunch of scripts.
 - Here are some examples:
   - A pinokio script to toggle the desktop theme between dark and light
@@ -218,10 +224,13 @@ module.exports = {
   - `pinokio.json`: For metadata
 
 ## API
+
 This section lists all the script APIs available on Pinokio. To learn the details of how they are used, you can:
 1. Check the examples in the <%=examples%> folder
 2. Read the `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> further documentation on the full syntax
+
 ### Script API
+
 These APIs can be used to describe each step in a pinokio script:
 - shell.run: run shell commands
 - input: accept user input
