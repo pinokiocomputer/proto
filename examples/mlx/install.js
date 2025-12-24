@@ -16,7 +16,7 @@ module.exports = {
         venv: "env",                // Edit this to customize the venv folder path
         path: "app",                // Edit this to customize the path to start the shell from
         message: [
-          "pip install -e ."
+          "uv pip install -e ."
         ]
       }
     },
@@ -26,7 +26,7 @@ module.exports = {
         venv: "env",                // Edit this to customize the venv folder path
         path: "app",                // Edit this to customize the path to start the shell from
         message: [
-          "pip install -U huggingface-hub==0.24.7"
+          "uv pip install -U huggingface-hub==0.24.7"
         ]
       }
     },

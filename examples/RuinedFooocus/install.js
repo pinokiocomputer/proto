@@ -9,6 +9,17 @@ module.exports = {
         ]
       }
     },
+    // Edit this step with your custom install commands
+    {
+      method: "shell.run",
+      params: {
+        venv: "env",                // Edit this to customize the venv folder path
+        path: "app",                // Edit this to customize the path to start the shell from
+        message: [
+          "uv pip install gradio devicetorch"
+        ]
+      }
+    },
     // Delete this step if your project does not use torch
     {
       method: "script.start",
@@ -21,17 +32,6 @@ module.exports = {
           // triton: true   // uncomment this line if your project requires triton
           // sageattention: true   // uncomment this line if your project requires sageattention
         }
-      }
-    },
-    // Edit this step with your custom install commands
-    {
-      method: "shell.run",
-      params: {
-        venv: "env",                // Edit this to customize the venv folder path
-        path: "app",                // Edit this to customize the path to start the shell from
-        message: [
-          "uv pip install gradio devicetorch"
-        ]
       }
     },
     {

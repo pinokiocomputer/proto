@@ -9,16 +9,6 @@ module.exports = {
       }
     },
     {
-      method: "script.start",
-      params: {
-        uri: "torch.js",
-        params: {
-          venv: "env",
-          path: "app",
-        }
-      }
-    },
-    {
       method: "shell.run",
       params: {
         venv: "env",
@@ -28,6 +18,16 @@ module.exports = {
           "uv pip install gradio==5.34.0 numpy==1.26.4"
         ]
       }
-    }
+    },
+    {
+      method: "script.start",
+      params: {
+        uri: "torch.js",
+        params: {
+          venv: "env",
+          path: "app",
+        }
+      }
+    },
   ]
 }

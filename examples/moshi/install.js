@@ -8,7 +8,15 @@ module.exports = {
       }
     },
     {
-      when: "{{platform !== 'darwin'}}",
+      method: "shell.run",
+      params: {
+        venv: "env",                // Edit this to customize the venv folder path
+        message: [
+          "{{platform === 'darwin' ? 'uv pip install moshi_mlx': 'uv pip install moshi'}}"
+        ],
+      }
+    },
+    {
       method: "script.start",
       params: {
         uri: "torch.js",
@@ -16,15 +24,6 @@ module.exports = {
           venv: "env",                // Edit this to customize the venv folder path
           // xformers: true   // uncomment this line if your project requires xformers
         }
-      }
-    },
-    {
-      method: "shell.run",
-      params: {
-        venv: "env",                // Edit this to customize the venv folder path
-        message: [
-          "{{platform === 'darwin' ? 'pip install moshi_mlx': 'pip install moshi'}}"
-        ],
       }
     },
 

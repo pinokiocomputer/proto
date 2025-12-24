@@ -1,119 +1,87 @@
 module.exports = {
   run: [
-    // nvidia 50 series
+    // nvidia windows 
     {
-      "when": "{{platform === 'win32' && gpu === 'nvidia' && kernel.gpu_model && / 50.+/.test(kernel.gpu_model) }}",
+      "when": "{{gpu === 'nvidia' && platform === 'win32'}}",
       "method": "shell.run",
       "params": {
         "venv": "{{args && args.venv ? args.venv : null}}",
         "path": "{{args && args.path ? args.path : '.'}}",
         "message": [
-          "uv pip install torch torchvision torchaudio {{args && args.xformers ? 'xformers' : ''}} --index-url https://download.pytorch.org/whl/cu128",
-          "uv pip install -U --pre triton-windows",
-          "uv pip install torchao"
+          "uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 {{args && args.xformers ? 'xformers==0.0.30' : ''}} --index-url https://download.pytorch.org/whl/cu128 --force-reinstall --no-deps",
+          "{{args && args.triton ? 'uv pip install triton-windows==3.3.1.post19' : ''}}",
+          "{{args && args.sageattention ? 'uv pip install https://huggingface.co/cocktailpeanut/wheels/resolve/main/sageattention-2.1.1-cu128-torch2.7.1-cp310-win_amd64.whl --force-reinstall' : ''}}",
+          "{{args && args.flashattention ? 'uv pip install https://huggingface.co/cocktailpeanut/wheels/resolve/main/flash_attn-2.7.4.post1-cu128-torch2.7.0-cp310-win_amd64.whl' : ''}}"
         ]
       },
       "next": null
     },
-    // windows nvidia
+    // nvidia linux
     {
-      "when": "{{platform === 'win32' && gpu === 'nvidia'}}",
+      "when": "{{gpu === 'nvidia' && platform === 'linux'}}",
       "method": "shell.run",
       "params": {
         "venv": "{{args && args.venv ? args.venv : null}}",
         "path": "{{args && args.path ? args.path : '.'}}",
         "message": [
-          "uv pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 {{args && args.xformers ? 'xformers' : ''}} --index-url https://download.pytorch.org/whl/cu124",,
-          "uv pip install triton-windows==3.2.0.post18",
-          "uv pip install torchao"
-        ]
-      }
-    },
-    // windows amd
-    {
-      "when": "{{platform === 'win32' && gpu === 'amd'}}",
-      "method": "shell.run",
-      "params": {
-        "venv": "{{args && args.venv ? args.venv : null}}",
-        "path": "{{args && args.path ? args.path : '.'}}",
-        "message": [
-          "uv pip install torch-directml torchaudio torchvision numpy==1.26.4",
-          "uv pip install torchao"
-        ]
-      }
-    },
-    // windows cpu
-    {
-      "when": "{{platform === 'win32' && (gpu !== 'nvidia' && gpu !== 'amd')}}",
-      "method": "shell.run",
-      "params": {
-        "venv": "{{args && args.venv ? args.venv : null}}",
-        "path": "{{args && args.path ? args.path : '.'}}",
-        "message": [
-          "uv pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0",
-          "uv pip install torchao"
-        ]
-      }
-    },
-    // mac
-    {
-      "when": "{{platform === 'darwin'}}",
-      "method": "shell.run",
-      "params": {
-        "venv": "{{args && args.venv ? args.venv : null}}",
-        "path": "{{args && args.path ? args.path : '.'}}",
-        "message": [
-          "uv pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0",
-          "uv pip install torchao"
-        ]
-      }
-    },
-    // nvidia 50 series linux
-    {
-      "when": "{{platform === 'linux' && gpu === 'nvidia' && kernel.gpu_model && / 50.+/.test(kernel.gpu_model) }}",
-      "method": "shell.run",
-      "params": {
-        "venv": "{{args && args.venv ? args.venv : null}}",
-        "path": "{{args && args.path ? args.path : '.'}}",
-        "message": [
-          "uv pip install torch torchvision torchaudio {{args && args.xformers ? 'xformers' : ''}} --index-url https://download.pytorch.org/whl/cu128",
-          "uv pip install triton"
+          "uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 {{args && args.xformers ? 'xformers==0.0.30' : ''}} --index-url https://download.pytorch.org/whl/cu128 --force-reinstall",
+          "{{args && args.triton ? 'uv pip install triton' : ''}}",
+          "{{args && args.sageattention ? 'uv pip install https://huggingface.co/cocktailpeanut/wheels/resolve/main/sageattention-2.1.1-cu128-torch2.7.1-cp310-linux_x86_64.whl' : ''}}",
+          "{{args && args.flashattention ? 'uv pip install https://huggingface.co/cocktailpeanut/wheels/resolve/main/flash_attn-2.7.4.post1-cu128-torch2.7.0-cp310-linux_x86_64.whl' : ''}}"
         ]
       },
       "next": null
     },
-    // linux nvidia
+    // amd windows
     {
-      "when": "{{platform === 'linux' && gpu === 'nvidia'}}",
+      "when": "{{gpu === 'amd' && platform === 'win32'}}",
       "method": "shell.run",
       "params": {
         "venv": "{{args && args.venv ? args.venv : null}}",
         "path": "{{args && args.path ? args.path : '.'}}",
-        "message": [
-          "uv pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 {{args && args.xformers ? 'xformers' : ''}} --index-url https://download.pytorch.org/whl/cu124",
-          "uv pip install triton",
-          "uv pip install torchao --index-url https://download.pytorch.org/whl/cu124"
-        ]
+        "message": "uv pip install torch torch-directml torchaudio torchvision numpy==1.26.4 --force-reinstall"
+      },
+      "next": null
+    },
+    // amd linux (rocm)
+    {
+      "when": "{{gpu === 'amd' && platform === 'linux'}}",
+      "method": "shell.run",
+      "params": {
+        "venv": "{{args && args.venv ? args.venv : null}}",
+        "path": "{{args && args.path ? args.path : '.'}}",
+        "message": "uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/rocm6.3 --force-reinstall --no-deps"
+      },
+      "next": null
+    },
+    // apple silicon mac
+    {
+      "when": "{{platform === 'darwin' && arch === 'arm64'}}",
+      "method": "shell.run",
+      "params": {
+        "venv": "{{args && args.venv ? args.venv : null}}",
+        "path": "{{args && args.path ? args.path : '.'}}",
+        "message": "uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu --force-reinstall --no-deps"
+      },
+      "next": null
+    },
+    // intel mac
+    {
+      "when": "{{platform === 'darwin' && arch !== 'arm64'}}",
+      "method": "shell.run",
+      "params": {
+        "venv": "{{args && args.venv ? args.venv : null}}",
+        "path": "{{args && args.path ? args.path : '.'}}",
+        "message": "uv pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cpu --force-reinstall --no-deps"
       }
     },
-    // linux rocm (amd)
+    // cpu
     {
-      "when": "{{platform === 'linux' && gpu === 'amd'}}",
       "method": "shell.run",
       "params": {
         "venv": "{{args && args.venv ? args.venv : null}}",
         "path": "{{args && args.path ? args.path : '.'}}",
-        "message": "uv pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/rocm6.2.4"
-      }
-    },
-    // linux cpu
-    {
-      "when": "{{platform === 'linux' && (gpu !== 'amd' && gpu !=='nvidia')}}",
-      "method": "shell.run",
-      "params": {
-        "venv": "{{args && args.venv ? args.venv : null}}",
-        "path": "{{args && args.path ? args.path : '.'}}",
-        "message": "uv pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu"
+        "message": "uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0  --index-url https://download.pytorch.org/whl/cpu --force-reinstall --no-deps"
       }
     }
   ]

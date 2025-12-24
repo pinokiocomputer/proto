@@ -1,34 +1,6 @@
 module.exports = {
   run: [
-    // nvidia 50 series
-    {
-      "when": "{{gpu === 'nvidia' && platform === 'win32' && kernel.gpu_model && / 50.+/.test(kernel.gpu_model) }}",
-      "method": "shell.run",
-      "params": {
-        "venv": "{{args && args.venv ? args.venv : null}}",
-        "path": "{{args && args.path ? args.path : '.'}}",
-        "message": [
-          "uv pip install torch torchvision torchaudio {{args && args.xformers ? 'xformers' : ''}} --index-url https://download.pytorch.org/whl/cu128 --force-reinstall",
-          "uv pip install -U --pre triton-windows",
-          "uv pip install https://github.com/woct0rdho/SageAttention/releases/download/v2.1.1-windows/sageattention-2.1.1+cu128torch2.7.0-cp310-cp310-win_amd64.whl"
-        ]
-      },
-      "next": null
-    },
-    // nvidia 50 series
-    {
-      "when": "{{gpu === 'nvidia' && platform === 'linux' && kernel.gpu_model && / 50.+/.test(kernel.gpu_model) }}",
-      "method": "shell.run",
-      "params": {
-        "venv": "{{args && args.venv ? args.venv : null}}",
-        "path": "{{args && args.path ? args.path : '.'}}",
-        "message": [
-          "uv pip install torch torchvision torchaudio {{args && args.xformers ? 'xformers' : ''}} --index-url https://download.pytorch.org/whl/cu128 --force-reinstall",
-          "uv pip install git+https://github.com/thu-ml/SageAttention.git"
-        ]
-      },
-      "next": null
-    },
+    // nvidia windows 
     {
       "when": "{{gpu === 'nvidia' && platform === 'win32'}}",
       "method": "shell.run",
@@ -36,13 +8,15 @@ module.exports = {
         "venv": "{{args && args.venv ? args.venv : null}}",
         "path": "{{args && args.path ? args.path : '.'}}",
         "message": [
-          "uv pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 {{args && args.xformers ? 'xformers' : ''}} --index-url https://download.pytorch.org/whl/cu124 --force-reinstall",
-          "uv pip install triton-windows==3.2.0.post18",
-          "uv pip install https://github.com/deepbeepmeep/SageAttention/raw/refs/heads/main/releases/sageattention-2.1.0-cp310-cp310-win_amd64.whl --force-reinstall"
+          "uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 {{args && args.xformers ? 'xformers==0.0.30' : ''}} --index-url https://download.pytorch.org/whl/cu128 --force-reinstall --no-deps",
+          "{{args && args.triton ? 'uv pip install triton-windows==3.3.1.post19' : ''}}",
+          "{{args && args.sageattention ? 'uv pip install https://huggingface.co/cocktailpeanut/wheels/resolve/main/sageattention-2.1.1-cu128-torch2.7.1-cp310-win_amd64.whl --force-reinstall' : ''}}",
+          "{{args && args.flashattention ? 'uv pip install https://huggingface.co/cocktailpeanut/wheels/resolve/main/flash_attn-2.7.4.post1-cu128-torch2.7.0-cp310-win_amd64.whl' : ''}}"
         ]
       },
       "next": null
     },
+    // nvidia linux
     {
       "when": "{{gpu === 'nvidia' && platform === 'linux'}}",
       "method": "shell.run",
@@ -50,73 +24,64 @@ module.exports = {
         "venv": "{{args && args.venv ? args.venv : null}}",
         "path": "{{args && args.path ? args.path : '.'}}",
         "message": [
-          "uv pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 {{args && args.xformers ? 'xformers' : ''}} --index-url https://download.pytorch.org/whl/cu124 --force-reinstall",
-          "uv pip install git+https://github.com/thu-ml/SageAttention.git"
+          "uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 {{args && args.xformers ? 'xformers==0.0.30' : ''}} --index-url https://download.pytorch.org/whl/cu128 --force-reinstall",
+          "{{args && args.triton ? 'uv pip install triton' : ''}}",
+          "{{args && args.sageattention ? 'uv pip install https://huggingface.co/cocktailpeanut/wheels/resolve/main/sageattention-2.1.1-cu128-torch2.7.1-cp310-linux_x86_64.whl' : ''}}",
+          "{{args && args.flashattention ? 'uv pip install https://huggingface.co/cocktailpeanut/wheels/resolve/main/flash_attn-2.7.4.post1-cu128-torch2.7.0-cp310-linux_x86_64.whl' : ''}}"
         ]
       },
       "next": null
     },
-    // windows amd
+    // amd windows
     {
-      "when": "{{platform === 'win32' && gpu === 'amd'}}",
+      "when": "{{gpu === 'amd' && platform === 'win32'}}",
       "method": "shell.run",
       "params": {
         "venv": "{{args && args.venv ? args.venv : null}}",
         "path": "{{args && args.path ? args.path : '.'}}",
-        // torch-directml
-        "message": "uv pip install torch-directml torchaudio torchvision numpy==1.26.4 --force-reinstall"
-      }
+        "message": "uv pip install torch torch-directml torchaudio torchvision numpy==1.26.4 --force-reinstall"
+      },
+      "next": null
     },
-    // windows cpu
+    // amd linux (rocm)
     {
-      "when": "{{platform === 'win32' && (gpu !== 'nvidia' && gpu !== 'amd')}}",
+      "when": "{{gpu === 'amd' && platform === 'linux'}}",
       "method": "shell.run",
       "params": {
         "venv": "{{args && args.venv ? args.venv : null}}",
         "path": "{{args && args.path ? args.path : '.'}}",
-        "message": "uv pip install torch torchvision torchaudio --force-reinstall"
-      }
+        "message": "uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/rocm6.3 --force-reinstall --no-deps"
+      },
+      "next": null
     },
-    // arm64 mac
+    // apple silicon mac
     {
       "when": "{{platform === 'darwin' && arch === 'arm64'}}",
       "method": "shell.run",
       "params": {
         "venv": "{{args && args.venv ? args.venv : null}}",
         "path": "{{args && args.path ? args.path : '.'}}",
-        // torch nightly
-        //"message": "pip install --pre torch==2.3.1 torchvision torchaudio==2.3.1 --extra-index-url https://download.pytorch.org/whl/nightly/cpu"
-        "message": "uv pip install --pre torch==2.3.1 torchvision torchaudio==2.3.1 --force-reinstall"
-      }
+        "message": "uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu --force-reinstall --no-deps"
+      },
+      "next": null
     },
     // intel mac
     {
-      "when": "{{platform === 'darwin' && arch === 'x64'}}",
+      "when": "{{platform === 'darwin' && arch !== 'arm64'}}",
       "method": "shell.run",
       "params": {
         "venv": "{{args && args.venv ? args.venv : null}}",
         "path": "{{args && args.path ? args.path : '.'}}",
-        "message": "uv pip install torch torchvision torchaudio numpy==1.26.4 --force-reinstall"
+        "message": "uv pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cpu --force-reinstall --no-deps"
       }
     },
-    // linux rocm (amd)
+    // cpu
     {
-      "when": "{{platform === 'linux' && gpu === 'amd'}}",
       "method": "shell.run",
       "params": {
         "venv": "{{args && args.venv ? args.venv : null}}",
         "path": "{{args && args.path ? args.path : '.'}}",
-        "message": "uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm6.3 --force-reinstall"
-      }
-    },
-    // linux cpu
-    {
-      "when": "{{platform === 'linux' && (gpu !== 'amd' && gpu !=='nvidia')}}",
-      "method": "shell.run",
-      "params": {
-        "venv": "{{args && args.venv ? args.venv : null}}",
-        "path": "{{args && args.path ? args.path : '.'}}",
-        "message": "uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu --force-reinstall"
+        "message": "uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0  --index-url https://download.pytorch.org/whl/cpu --force-reinstall --no-deps"
       }
     }
   ]

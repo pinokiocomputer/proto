@@ -19,6 +19,17 @@ module.exports = async (kernel) => {
           ]
         }
       },
+      // Edit this step with your custom install commands
+      {
+        method: "shell.run",
+        params: {
+          venv: "env",                // Edit this to customize the venv folder path
+          path: "app",                // Edit this to customize the path to start the shell from
+          message: [
+            "uv pip install -e .",
+          ]
+        }
+      },
       {
         method: "script.start",
         params: {
@@ -60,17 +71,6 @@ module.exports = async (kernel) => {
         params: {
           src: "cpp_builder.py",
           dest: "app/env/lib/python3.10/site-packages/torch/_inductor/cpp_builder.py"
-        }
-      },
-      // Edit this step with your custom install commands
-      {
-        method: "shell.run",
-        params: {
-          venv: "env",                // Edit this to customize the venv folder path
-          path: "app",                // Edit this to customize the path to start the shell from
-          message: [
-            "uv pip install -e .",
-          ]
         }
       },
       {

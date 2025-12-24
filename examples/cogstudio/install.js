@@ -23,7 +23,7 @@ module.exports = {
         venv: "../../env",                // Edit this to customize the venv folder path
         path: "app/inference/gradio_composite_demo",                // Edit this to customize the path to start the shell from
         message: [
-          "pip install -r requirements.txt",
+          "uv pip install -r requirements.txt",
         ]
       }
     },
@@ -33,7 +33,7 @@ module.exports = {
       params: {
         venv: "app/env",
         message: [
-          "pip install -r requirements.txt",
+          "uv pip install -r requirements.txt",
         ]
       }
     },

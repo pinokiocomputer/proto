@@ -100,17 +100,6 @@ module.exports = {
       }
     },
     {
-      id: "torch",
-      method: "script.start",
-      params: {
-        uri: "torch.js",
-        params: {
-          conda: "conda_env",
-          path: "app"
-        }
-      }
-    },
-    {
       method: "shell.run",
       params: {
         env: {
@@ -124,6 +113,17 @@ module.exports = {
           "uv pip install -U gradio==4.32.2 fastapi==0.112.2 pydantic==2.10.6",
           "uv pip install -r ./system/requirements/requirements_parler.txt"
         ]
+      }
+    },
+    {
+      id: "torch",
+      method: "script.start",
+      params: {
+        uri: "torch.js",
+        params: {
+          conda: "conda_env",
+          path: "app"
+        }
       }
     },
     {

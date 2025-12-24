@@ -54,6 +54,16 @@ module.exports = async (req, ondata, kernel) => {
           }
         },
         {
+          "method": "shell.run",
+          "params": {
+            "venv": "venv",
+            "path": "app",
+            "chain": true,
+            "input": req.input.allowInstallUserInput,
+            "message": req.input.cloneInstallCommand
+          }
+        },
+        {
           "method": "script.start",
           "params": {
             "uri": "torch.js",
@@ -66,16 +76,6 @@ module.exports = async (req, ondata, kernel) => {
             }
           }
         },
-        {
-          "method": "shell.run",
-          "params": {
-            "venv": "venv",
-            "path": "app",
-            "chain": true,
-            "input": req.input.allowInstallUserInput,
-            "message": req.input.cloneInstallCommand
-          }
-        }
       ]
     }
   } else {

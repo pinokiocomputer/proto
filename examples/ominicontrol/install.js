@@ -9,6 +9,17 @@ module.exports = {
         ]
       }
     },
+    // Edit this step with your custom install commands
+    {
+      method: "shell.run",
+      params: {
+        venv: "env",                // Edit this to customize the venv folder path
+        path: "app",                // Edit this to customize the path to start the shell from
+        message: [
+          "uv pip install -r requirements.txt"
+        ]
+      }
+    },
     // Delete this step if your project does not use torch
     {
       method: "script.start",
@@ -31,19 +42,7 @@ module.exports = {
 //        },
         path: "app",                // Edit this to customize the path to start the shell from
         message: [
-//          "pip install git+https://github.com/pytorch/ao"
-          "pip install --pre torchao --index-url https://download.pytorch.org/whl/nightly/cu121"
-        ]
-      }
-    },
-    // Edit this step with your custom install commands
-    {
-      method: "shell.run",
-      params: {
-        venv: "env",                // Edit this to customize the venv folder path
-        path: "app",                // Edit this to customize the path to start the shell from
-        message: [
-          "pip install -r requirements.txt"
+          "uv pip install --pre torchao --index-url https://download.pytorch.org/whl/cu128"
         ]
       }
     },

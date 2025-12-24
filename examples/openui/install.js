@@ -14,8 +14,8 @@ module.exports = {
         venv: "env",
         path: "app/backend",
         message: [
-          "pip install .",
-          "pip install tiktoken"
+          "uv pip install .",
+          "uv pip install tiktoken"
         ],
       }
     },

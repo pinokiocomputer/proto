@@ -9,18 +9,6 @@ module.exports = {
         ]
       }
     },
-    // Delete this step if your project does not use torch
-    {
-      method: "script.start",
-      params: {
-        uri: "torch.js",
-        params: {
-          venv: "env",                // Edit this to customize the venv folder path
-          path: "app",                // Edit this to customize the path to start the shell from
-          // xformers: true   // uncomment this line if your project requires xformers
-        }
-      }
-    },
     {
       when: "{{gpu === 'nvidia'}}",
       method: "shell.run",
@@ -35,10 +23,22 @@ module.exports = {
         venv: "env",                // Edit this to customize the venv folder path
         path: "app",                // Edit this to customize the path to start the shell from
         message: [
-          "pip install gradio devicetorch",
-          "pip install git+https://github.com/peanutcocktail/transformers.git",
-          "pip install -r requirements.txt"
+          "uv pip install gradio devicetorch",
+          "uv pip install git+https://github.com/peanutcocktail/transformers.git",
+          "uv pip install -r requirements.txt"
         ]
+      }
+    },
+    // Delete this step if your project does not use torch
+    {
+      method: "script.start",
+      params: {
+        uri: "torch.js",
+        params: {
+          venv: "env",                // Edit this to customize the venv folder path
+          path: "app",                // Edit this to customize the path to start the shell from
+          // xformers: true   // uncomment this line if your project requires xformers
+        }
       }
     },
     {
