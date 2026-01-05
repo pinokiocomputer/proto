@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.7",
+  version: "5.0",
   title: "FramePack",
   description: "[NVIDIA ONLY] Generate Video Progressively. FramePack is a next-frame (next-frame-section) prediction neural network structure that generates videos progressively. https://github.com/lllyasviel/FramePack",
   icon: "icon.png",

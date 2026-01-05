@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.6",
+  version: "5.0",
   title: "DiffRhythm",
   description: "Generate songs with AI (up to 4 min 45 sec). Both with lyrics or instrumental https://github.com/ASLP-lab/DiffRhythm",
   icon: "icon.jpg",

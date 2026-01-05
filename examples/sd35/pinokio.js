@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "2.0",
+  version: "5.0",
   title: "stable diffusion 3.5",
   description: "Stable Diffusion 3.5 Gradio UI",
   icon: "icon.jpeg",

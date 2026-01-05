@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.7",
+  version: "5.0",
   title: "Kokoro-TTS",
   description: "",
   icon: "icon.png",

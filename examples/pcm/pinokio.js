@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.0",
+  version: "5.0",
   title: "PCM",
   description: "Phased Consistency Model - generate high quality images with 2 steps https://huggingface.co/spaces/radames/Phased-Consistency-Model-PCM",
   icon: "icon.png",

@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "2.0",
+  version: "5.0",
   title: "ditto",
   description: "the simplest self-building coding agent https://github.com/yoheinakajima/ditto",
   icon: "icon.jpeg",

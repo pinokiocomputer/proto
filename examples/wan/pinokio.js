@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.7",
+  version: "5.0",
   title: "Wan 2.1",
   description: "[NVIDIA ONLY] Super Optimized Gradio UI for Wan2.1 video for GPU poor machines (5GB+ VRAM). Generate up to 12 sec videos https://github.com/deepbeepmeep/Wan2GP",
   icon: "icon.jpg",

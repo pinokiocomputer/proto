@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.6",
+  version: "5.0",
   title: "cube",
   description: "Roblox Foundation Model for 3D Intelligence --- Cross Platform (Mac, Windows, Linux): Requires 16GB+ VRAM PC or 18GB+ Memory Macs https://github.com/Roblox/cube",
   icon: "icon.png",

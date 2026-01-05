@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "2.0",
+  version: "5.0",
   title: "diamond",
   description: "Diffusion for World Modeling https://diamond-wm.github.io/",
   icon: "icon.gif",

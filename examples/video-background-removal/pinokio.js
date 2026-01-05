@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "2.0",
+  version: "5.0",
   title: "video-background-removal",
   description: "remove or change any video background https://huggingface.co/spaces/innova-ai/video-background-removal",
   icon: "icon.webp",

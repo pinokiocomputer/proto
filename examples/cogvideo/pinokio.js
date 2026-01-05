@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "2.1",
+  version: "5.0",
   title: "cogvideo",
   description: "[NVIDIA ONLY] Generate videos with less than 10GB VRAM https://github.com/THUDM/CogVideo",
   icon: "icon.png",

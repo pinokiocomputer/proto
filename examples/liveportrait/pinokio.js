@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "2.0",
+  version: "5.0",
   title: "LivePortrait",
   description: "Bring portraits to life! https://github.com/KwaiVGI/LivePortrait",
   icon: "icon.png",

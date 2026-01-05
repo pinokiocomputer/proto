@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.7",
+  version: "5.0",
   title: "HunyuanVideo",
   description: "[NVIDIA ONLY] Super Optimized Gradio UI for Hunyuan Video Generator that works on GPU poor machines. Generate up to 10~14 sec videos https://github.com/deepbeepmeep/HunyuanVideoGP",
   icon: "icon.png",

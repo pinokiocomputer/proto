@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 module.exports = {
-  version: "1.5",
+  version: "5.0",
   title: "openui",
   description: "Describe UI and see it rendered live. Ask for changes and convert HTML to React, Svelte, Web Components, etc. Like vercel v0, but open source https://github.com/wandb/openui",
   icon: "icon.png",

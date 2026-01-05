@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.3",
+  version: "5.0",
   title: "MatAnyone",
   description: "MatAnyone AI is a tool for editing videos by separating objects from their backgrounds. It is an AI to remove the background from videos effectively. Stable Video Matting with Consistent Memory Propagation:  https://github.com/pq-yang/MatAnyone.git",
   icon: "icon.png",

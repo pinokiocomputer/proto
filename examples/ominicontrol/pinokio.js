@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "2.0",
+  version: "5.0",
   title: "OminiControl",
   description: "A minimal and universal controller for FLUX.1 https://github.com/Yuanshi9815/OminiControl",
   icon: "icon.png",

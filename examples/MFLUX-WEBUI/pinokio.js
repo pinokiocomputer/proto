@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "2.1",
+  version: "5.0",
   title: "MFLUX-WEBUI",
   description: "[MAC ONLY] A powerful and user-friendly web interface for FLUX, powered by MLX and Gradio via MFLUX",
   icon: "icon.png",

@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "2.0",
+  version: "5.0",
   title: "florence-sam",
   description: "Integrates Florence2 and SAM2 models for detailed image captioning and object detection. Florence2 generates detailed captions that are then used to perform phrase grounding. The Segment Anything Model 2 (SAM2) converts these phrase-grounded boxes into masks. https://huggingface.co/spaces/SkalskiP/florence-sam",
   icon: "icon.webp",

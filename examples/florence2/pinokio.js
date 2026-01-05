@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "1.5",
+  version: "5.0",
   title: "Florence2",
   description: "An advanced vision foundation model from MicroSoft https://huggingface.co/spaces/gokaygokay/Florence-2",
   icon: "icon.webp",

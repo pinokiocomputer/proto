@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.6",
+  version: "5.0",
   title: "macOS-use",
   description: "[Mac Only] We make AI agents that control Mac apps: https://github.com/browser-use/macOS-use",
   icon: "icon.png",

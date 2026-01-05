@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.0",
+  version: "5.0",
   title: "omnigen",
   description: "A unified image generation model that you can use to perform various tasks, including but not limited to text-to-image generation, subject-driven generation, Identity-Preserving Generation, and image-conditioned generation. https://huggingface.co/spaces/Shitao/OmniGen",
   icon: "icon.png",

@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "2.0",
+  version: "5.0",
   title: "RC Stable Audio Tools",
   description: "Advanced Gradio UI for Stable Audio https://github.com/RoyalCities/RC-stable-audio-tools",
   icon: "icon.webp",

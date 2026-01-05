@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.7",
+  version: "5.0",
   title: "uno",
   description: "[NVIDIA ONLY] Generate an image from multiple images https://github.com/bytedance/UNO",
   icon: "icon.png",

@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.7",
+  version: "5.0",
   title: "ACE-Step",
   description: "A Step Towards Music Generation Foundation Model",
   icon: "icon.JPEG",

@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "2.0",
+  version: "5.0",
   title: "augmentoolkit",
   description: "Turn any raw text into a high-quality dataset for AI finetuning https://github.com/e-p-armstrong/augmentoolkit",
   icon: "icon.jpeg",

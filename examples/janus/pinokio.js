@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.2",
+  version: "5.0",
   title: "Janus Pro",
   description: "Unified Image Understanding and Image Generation with Data and Model Scaling https://github.com/peanutcocktail/Janus",
   icon: "icon.png",

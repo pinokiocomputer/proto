@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.0",
+  version: "5.0",
   title: "text2midi",
   description: "",
   icon: "icon.jpeg",

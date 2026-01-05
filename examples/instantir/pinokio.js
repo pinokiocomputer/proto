@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "2.0",
+  version: "5.0",
   title: "InstantIR",
   description: "restore low-res images, restore broken images, recreate a new version of the image with a prompt https://huggingface.co/spaces/fffiloni/InstantIR",
   icon: "icon.jpeg",

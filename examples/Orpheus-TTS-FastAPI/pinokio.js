@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.7",
+  version: "5.0",
   title: "Orpheus-TTS-FastAPI",
   description: "Orpheus TTS is an open-source text-to-speech system built on the Llama-3b backbone. Orpheus demonstrates the emergent capabilities of using LLMs for speech synthesis https://github.com/canopyai/Orpheus-TTS",
   icon: "icon.png",
