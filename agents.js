@@ -14,6 +14,8 @@ module.exports = async (kernel, req) => {
   const recipe = req.recipe || "AGENTS.md"
   const structure = req.structure || "clone"
   const app_root = req.app_root || "app"
+  const proto_path = kernel.path("prototype")
+  const home_path = kernel.homedir
   const recipe_path = path.resolve(__dirname, recipe)
   const structure_path = path.resolve(__dirname, "structure", structure)
   const structure_content = await fs.promises.readFile(structure_path, "utf-8")
@@ -23,7 +25,9 @@ module.exports = async (kernel, req) => {
     browser_logs: kernel.path("logs/browser.log"),
     PINOKIO_DOCUMENTATION: kernel.path("prototype/PINOKIO.md"),
     PTERM_DOCUMENTATION: kernel.path("prototype/PTERM.md"),
-    app_root
+    app_root,
+    proto_path,
+    home_path,
   })
   const gitignore_path = path.resolve(req.cwd, ".gitignore")
   for(let agent of agents) {
