@@ -11,18 +11,7 @@ To guarantee every contribution follows this guide precisely, obey this checklis
 
 If any step cannot be completed, stop immediately and ask the user how to proceed. These five steps are mandatory for every session.
 
-## Workspace Root Policy (Mandatory)
-
-- Primary workspace root (default CWD) is `<%=app_root%>`.
-- `<%=home_path%>` and `<%=proto_path%>` are allowed paths for permission/supplemental access only.
-- Never treat allowed/include directories as the project root or default CWD.
-- Do not infer CWD from `--include-directories` (or similar allowlist flags).
-- Use `<%=home_path%>` or `<%=proto_path%>` only when explicitly needed; otherwise operate in `<%=app_root%>`.
-
-This is additive in behavior intent.
-Important: this only guides the agent; actual CWD enforcement still must be done in the launcher process (cwd passed to spawn).
-
-## Critical Pattern Lock: Capturing Web UI URLs
+### Critical Pattern Lock: Capturing Web UI URLs
 
 When writing `start.js` (or any script that needs to surface a web URL for a server):
 
