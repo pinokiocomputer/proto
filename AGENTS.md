@@ -53,6 +53,35 @@ If the initial prompt is simply a URL and nothing else, check the website conten
 4. Regular website: the intent may be to clone the website and a launcher.
 5. There can be other cases, but try to guess.
 
+## Working With Launchers
+
+Apply this section only when the task is to create, modify, debug, review, or document a Pinokio launcher project.
+
+If the request is not about launcher work, do not force an app-launcher vs plugin-launcher decision.
+
+When the task does involve launcher work, first determine whether the request is for an app launcher or a plugin launcher. These are separate project types and must not be mixed.
+
+### 1. App launchers
+- App launchers must live under `PINOKIO_HOME/api/<unique_name>`.
+- App launchers are usually project-local launchers that manage one app in its own launcher/app folder.
+- If you are already inside the target app launcher folder, build in that folder.
+- If you are not already inside an app launcher folder, create a new folder under `PINOKIO_HOME/api/<unique_name>`.
+- If the folder name is not obvious from the project or the user has not provided one, ask the user to confirm the folder name before creating it.
+- Do not place app launchers under `PINOKIO_HOME/plugin`.
+
+### 2. Plugin launchers
+- Plugin launchers must live under `PINOKIO_HOME/plugin/<unique_name>`.
+- Plugin launchers are reusable shared tools that are installed once and then used across many different folders.
+- If you are already inside the target plugin launcher folder, build in that folder.
+- If you are not already inside a plugin launcher folder, create a new folder under `PINOKIO_HOME/plugin/<unique_name>`.
+- If the folder name is not obvious from the project or the user has not provided one, ask the user to confirm the folder name before creating it.
+- Do not place plugin launchers under `PINOKIO_HOME/api`.
+- When a plugin is meant to operate on the user's current project, its `run` step should target the caller's folder with `{{args.cwd}}` instead of the plugin folder itself.
+
+### 3. Apply structure rules only after choosing the launcher type
+- App launchers and plugin launchers are peers. Do not treat a plugin launcher as a special case of an app launcher, or vice versa.
+- Decide the launcher type and destination folder first, then apply the project structure and script rules below.
+
 ## Project Structure
 
 Pinokio projects normally follow a standardized structure with app logic separated from launcher scripts:
