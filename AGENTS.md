@@ -272,7 +272,7 @@ The following variables are accessible inside template expressions (example `{{a
 - current: The current variable points to the index of the currently executing instruction within the run array.
 - next: The next variable points to the index of the next instruction to be executed. (null if the current instruction is the final instruction in the run array)
 - envs: You can access the environment variables of the currently running process with envs object.
-- which: Check whether a command exists (example: `{{which('winget')}}`. Can be used in the `when` attribute of a script step to run commands or install first.
+- which: Check whether a command exists and return its absolute path (example: `{{which('winget')}}`). This is the correct way to resolve command paths inside reproducible Pinokio scripts, including custom shell selection such as `shell: "{{which('bash')}}"`. If you are outside a Pinokio-managed shell and only need to inspect Pinokio's environment manually, use `pterm which <command>`, but do NOT copy that user-specific absolute path into launcher scripts.
 - exists: Check whether a file or folder exists at the specified relative path (example: `"when": "{{!exists('app')}}"`). Can be used with the `when` attribute to determine a path's existence and trigger custom logic. Use relative paths and it will resolve automatically to the current execution folder. 
 - running: Check whether a script file is running (example: `"when": "{{!running('start.js')}}"`). Can be used with the `when` attribute to determine a path's existence and trigger custom logic. Use relative paths and it will resolve automatically to the current execution folder. 
 - os: Pinokio exposes the node.js os module through the os variable.
@@ -286,6 +286,7 @@ The following package managers come pre-installed with Pinokio, so whenever you 
 3. **Conda** - For cross-platform 3rd party binaries
 4. **Brew** - Mac-only fallback when other options unavailable
 5. **Git** - Full access to git is available.
+6. **Bun** - For managing bun packages
 **Important:** Include all install commands in the install script for reproducibility.
 ### HTTPS Proxy Support
 - All HTTP servers automatically get HTTPS endpoints
@@ -296,6 +297,7 @@ The following package managers come pre-installed with Pinokio, so whenever you 
 - **Notifications:** Send desktop alerts via pinokio pterm CLI (`pterm push` command.)
 - **Script Testing:** Run launcher scripts via pinokio pterm CLI (`pterm start` command.)
 - **File Selection:** Use built-in filepicker for user file/folder input (`pterm filepicker` command.)
+- **Command Path Resolution:** Inspect the absolute path of any command as seen by Pinokio via `pterm which <command>`. Use this for debugging or external local tooling, especially when a helper process did not inherit Pinokio's `PATH`, for example `pterm which bash` on Windows. Do NOT hardcode the returned absolute path into launcher scripts; use `which()` or `kernel.which()` in the script itself instead.
 - **Git Operations:** Clone repositories, push to GitHub
 - **GitHub Integration:** Full GitHub CLI support (`gh` commands)
 
@@ -343,6 +345,10 @@ logs/
   - Note that the `{{port}}` expression always returns the next immediately available port for each step, so if you have multiple steps in a script and use `{{port}}` in multiple steps, the value will be different. So if you want to launch at the next available port and then later reuse that port, you will need to first use `{{port}}` to get the next available port, and save the value in local variable using `local.set`, and then use the `{{local.<variable_name>}}` expression later.
 ### 2. shell.run API
 - When writing `shell.run` API requests, always use relative paths (no absolute paths) for the `path` field. For example, if you need to run a command from `app` folder, the `path` attribute should simply be `app`, instead of its full absolute path.
+- If a launcher needs to use a command that Pinokio already provides, prefer resolving it with `{{which('command')}}` inside the script instead of assuming the command name will always be on `PATH`.
+- Do NOT automatically avoid `bash`-based install commands on Windows. Pinokio's Windows environment includes `bash` through its bundled toolchain, so commands such as `curl -fsSL ... | bash` are acceptable when they run inside a Pinokio-managed shell and there is no simpler cross-platform alternative.
+- If a Windows launcher needs to run the shell itself in bash instead of the default `cmd.exe`, set `shell: "{{which('bash')}}"` on the `shell.run` step.
+- If a separate debugging process or external local tool did not inherit Pinokio's environment, you may use `pterm which <command>` to inspect what Pinokio would resolve. Do NOT turn that result into a hardcoded script path; for launcher scripts, always use `which()` or `kernel.which()` so the script stays reproducible across machines.
 ### 2. Package managers
 - When installing python packages, try best to use `uv` instead of `pip` even if the install instruction says to use pip. Instead of `pip install -r requirements.txt`, you can simply use `uv pip install -r requirements.txt` for example. Even if the project's own README says use pip or poetry, first check if there's a way to use uv instead.
 - When you need to install some global package, try to use `conda` as much as possible. Even on macs, `brew` should be only used if there are no `conda` options.
