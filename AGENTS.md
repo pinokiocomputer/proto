@@ -4,12 +4,13 @@
 
 To guarantee every contribution follows this guide precisely, obey this checklist **before any edits** and **again before finalizing**. Do not skip or reorder.
 1. **AGENTS Snapshot:** Re-open this file and write down (in your working notes or response draft) the exact sections relevant to the requested task. No work begins until this snapshot exists.
-2. **Example Lock-in:** Identify the closest matching script in `<%=examples%>`. Record its path and keep it open while editing. Every launcher change must mirror that reference unless the user explicitly instructs otherwise.
-3. **Pre-flight Checklist:** Convert the applicable rules from this document and `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> into a task-specific checklist (install/start/reset/update structure, regex patterns, menu defaults, log checks, etc.). Confirm each item is ticked **before** making changes.
-4. **Mid-task Verification:** Any time you touch a Pinokio script, cross-check the corresponding example line to ensure syntax and structure match. Document the reference (example path + line) in your reasoning.
-5. **Exit Checklist:** Before responding to the user, revisit the pre-flight checklist and explicitly confirm every item is satisfied. If anything diverges from the example or these rules, fix it first.
+2. **Destination Resolution:** Before creating or editing any Pinokio launcher files, resolve `PINOKIO_HOME` to an absolute path and record the intended destination root. If running outside Pinokio's own managed runtime, resolve in this order: `~/.pinokio/config.json` `home`, then `GET http://127.0.0.1:42000/pinokio/home` and use its `path` value, and if loopback is unreachable but `access` exists in `~/.pinokio/config.json`, retry the same request against `<protocol>://<host>:<port>/pinokio/home`, then the `PINOKIO_HOME` environment variable. If `PINOKIO_HOME` is still unresolved, stop and ask the user. Never silently use the current workspace as the launcher destination.
+3. **Example Lock-in:** Identify the closest matching script in `<%=examples%>`. Record its path and keep it open while editing. Every launcher change must mirror that reference unless the user explicitly instructs otherwise.
+4. **Pre-flight Checklist:** Convert the applicable rules from this document and `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> into a task-specific checklist (install/start/reset/update structure, regex patterns, menu defaults, log checks, destination path, etc.). Confirm each item is ticked **before** making changes.
+5. **Mid-task Verification:** Any time you touch a Pinokio script, cross-check the corresponding example line to ensure syntax and structure match. Document the reference (example path + line) in your reasoning.
+6. **Exit Checklist:** Before responding to the user, revisit the pre-flight checklist and explicitly confirm every item is satisfied. If anything diverges from the example or these rules, fix it first.
 
-If any step cannot be completed, stop immediately and ask the user how to proceed. These five steps are mandatory for every session.
+If any step cannot be completed, stop immediately and ask the user how to proceed. These six steps are mandatory for every session.
 
 ### Critical Pattern Lock: Capturing Web UI URLs
 
@@ -60,6 +61,21 @@ Apply this section only when the task is to create, modify, debug, review, or do
 If the request is not about launcher work, do not force an app-launcher vs plugin-launcher decision.
 
 When the task does involve launcher work, first determine whether the request is for an app launcher or a plugin launcher. These are separate project types and must not be mixed.
+
+### Mandatory Destination Resolution
+- Before creating, editing, or moving any launcher files, resolve `PINOKIO_HOME` to an absolute path.
+- If running outside Pinokio's own managed runtime, resolve `PINOKIO_HOME` in this order:
+  1. `~/.pinokio/config.json` -> `home`
+  2. `GET http://127.0.0.1:42000/pinokio/home` -> `path`
+  3. If loopback is unreachable but `access` exists in `~/.pinokio/config.json`, retry the same request against `<protocol>://<host>:<port>/pinokio/home`
+  4. `PINOKIO_HOME` environment variable
+- Normalize the resolved value to an absolute path before using it.
+- If neither source yields a valid `PINOKIO_HOME`, stop immediately and ask the user how to proceed. Do not guess. Do not silently fall back to the current workspace.
+- If the current workspace is outside the resolved `PINOKIO_HOME/api` and `PINOKIO_HOME/plugin` trees, treat the current workspace only as source material, reference material, or evidence. Do not create the launcher in that workspace.
+- Before any file creation, record and verify the exact target path:
+  - app launcher: `PINOKIO_HOME/api/<unique_name>`
+  - plugin launcher: `PINOKIO_HOME/plugin/<unique_name>`
+- If the unique folder name is not obvious, ask the user before creating the target folder.
 
 ### 1. App launchers
 - App launchers must live under `PINOKIO_HOME/api/<unique_name>`.
@@ -423,7 +439,7 @@ logs/
 - In this case, treat the current working setup and the successful session context as the highest priority source of truth. Do NOT restart from scratch if the app is already working.
 - First capture the exact install and launch steps that already succeeded: cloned repositories, package manager commands, environment variables, model downloads, ports, working directories, helper scripts, and any fixes that were required.
 - Then convert that knowledge into reproducible Pinokio scripts (`install.js`, `start.js`, `reset.js`, `update.js`, `pinokio.js`, `pinokio.json`) instead of telling the user to manually repeat the ad-hoc process.
-- When the successful setup lives in a non-Pinokio folder, use that folder as evidence, but produce the final launcher in the proper Pinokio location (`PINOKIO_HOME/api/<unique_name>` or `PINOKIO_HOME/plugin/<unique_name>`) unless the user explicitly asks for another layout.
+- When the successful setup lives in a non-Pinokio folder, use that folder as evidence only. Resolve `PINOKIO_HOME` first, then produce the final launcher in the proper Pinokio location (`PINOKIO_HOME/api/<unique_name>` or `PINOKIO_HOME/plugin/<unique_name>`) unless the user explicitly asks for another layout.
 - Replace machine-specific state with reproducible steps. Never hardcode absolute paths, user-specific cache locations, session-only ports, or one-off manual edits if they can be expressed in the launcher.
 - Do not simply encode whatever happened to work on the current machine. Generalize the result into the broadest practical cross-platform, cross-machine launcher, and if limitations are unavoidable, declare them explicitly in `pinokio.json` instead of silently baking in local assumptions.
 - If the app is already installed but the exact setup steps are partially missing, inspect the current working tree, generated files, dependency manifests, shell history when available, and logs to reconstruct the smallest reliable install and start flow.
