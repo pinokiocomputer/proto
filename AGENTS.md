@@ -418,13 +418,23 @@ logs/
 - When writing or modifying pinokio launcher scripts, figure out the install/launch steps by reading the project folder `app`.
 - In most cases, the `README.md` file in the `<%=app_root%>` folder contains the instructions needed to install and run the app, but if not, figure out by scanning the rest of the project files.
 - Install scripts should work for each specific operating system, so ignore Docker related instructions. Instead use install/launch instructions for each platform.
-### 10. Don't use Docker unless really necessary
+### 10. Retrofitting an already-working setup
+- Sometimes the user starts outside Pinokio, gets an app working through ad-hoc commands, and only later asks to turn that work into a Pinokio launcher.
+- In this case, treat the current working setup and the successful session context as the highest priority source of truth. Do NOT restart from scratch if the app is already working.
+- First capture the exact install and launch steps that already succeeded: cloned repositories, package manager commands, environment variables, model downloads, ports, working directories, helper scripts, and any fixes that were required.
+- Then convert that knowledge into reproducible Pinokio scripts (`install.js`, `start.js`, `reset.js`, `update.js`, `pinokio.js`, `pinokio.json`) instead of telling the user to manually repeat the ad-hoc process.
+- When the successful setup lives in a non-Pinokio folder, use that folder as evidence, but produce the final launcher in the proper Pinokio location (`PINOKIO_HOME/api/<unique_name>` or `PINOKIO_HOME/plugin/<unique_name>`) unless the user explicitly asks for another layout.
+- Replace machine-specific state with reproducible steps. Never hardcode absolute paths, user-specific cache locations, session-only ports, or one-off manual edits if they can be expressed in the launcher.
+- Do not simply encode whatever happened to work on the current machine. Generalize the result into the broadest practical cross-platform, cross-machine launcher, and if limitations are unavoidable, declare them explicitly in `pinokio.json` instead of silently baking in local assumptions.
+- If the app is already installed but the exact setup steps are partially missing, inspect the current working tree, generated files, dependency manifests, shell history when available, and logs to reconstruct the smallest reliable install and start flow.
+- Verify from as clean a state as practical. A launcher is only done when another user could reproduce the working result without relying on undocumented steps from the original ad-hoc session.
+### 11. Don't use Docker unless really necessary
 - Some projects suggest docker as installation options. But even in these cases, try to find "development" options to launch the app without relying on Docker, as much as possible. We do not need Docker since we can automatically install and launch apps specifically for the user's platform, since we can write scripts that run cross platform.
-### 11. pinokio.json
+### 12. pinokio.json
 - Do not touch the `version` field since the version is the script schema version and the one pre-set in `pinokio.js` must be used.
 - `icon`: It's best if we have a user friendly icon to represent the app, so try to get an image and link it from `pinokio.json`.
   - If the git repository for the `<%=app_root%>` folder points to GitHub (for example https://github.com/<USERNAME>/<REPO_NAME>`, ask the user if they want to download the icon from GitHub, and if approved, get the `avatar_url` by fetching `https://api.github.com/users/<USERNAME>`, and then download the image to the root folder as `icon.png`, and set `icon.png` as the `icon` field of the `pinokio.json`. 
-### 12. Gitignore
+### 13. Gitignore
 - When a launcher involves cloning 3rd party repositories, downloading files dynamically, or some files to be generated, these need to be included in the .gitignore file. This may include things like:
   - Cloning git repositories
   - Downloading files
