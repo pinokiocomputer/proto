@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "5.0",
+  version: "7.0",
   title: "facepoke",
   description: "[NVIDIA Only] Select a portrait, click to move the head around https://github.com/jbilcke-hf/FacePoke",
   icon: "icon.gif",

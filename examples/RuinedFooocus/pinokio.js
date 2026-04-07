@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "5.0",
+  version: "7.0",
   title: "RuinedFooocus",
   description: "Forget everything you thought you knew about AI art generation - RuinedFooocus is here to completely reinvent the game!",
   icon: "icon.png",

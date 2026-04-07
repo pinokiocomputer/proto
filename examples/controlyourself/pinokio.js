@@ -1,5 +1,5 @@
 module.exports = {
-  version: "5.0",
+  version: "7.0",
   title: "Browser Control",
   description: "Control browsers",
   icon: "icon.png",

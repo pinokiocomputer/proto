@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "5.0",
+  version: "7.0",
   title: "Whisper-WebUI",
   description: "A Web UI for easy subtitle using whisper model.",
   icon: "icon.png",

@@ -22,7 +22,7 @@ Do not use this folder as the reference for app launchers under `PINOKIO_HOME/ap
 - Do not add a separate `pinokio.json`.
 - Do not create `install.js`, `start.js`, `reset.js`, or `update.js`.
 - Keep `path: "plugin"` in `pinokio.js`.
-- Keep `version: "6.0"` in `pinokio.js`.
+- Keep `version: "7.0"` in `pinokio.js`.
 - Plugin launchers are shared tools, so the `run` step should target the caller's folder with `{{args.cwd}}` when the plugin is meant to operate on the user's current project.
 
 ## Adaptation Checklist

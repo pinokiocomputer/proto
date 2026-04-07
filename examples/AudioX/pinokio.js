@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "5.0",
+  version: "7.0",
   title: "AudioX",
   description: "AudioX Diffusion Transformer for Anything-to-Audio Generation",
   icon: "icon.png",

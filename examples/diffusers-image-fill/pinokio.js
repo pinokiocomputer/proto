@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "5.0",
+  version: "7.0",
   title: "diffusers-image-fill",
   description: "Remove objects from an image https://huggingface.co/spaces/OzzyGT/diffusers-image-fill",
   icon: "icon.gif",

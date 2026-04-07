@@ -1,5 +1,5 @@
 module.exports = {
-  version: "6.0",
+  version: "7.0",
 
   // Plugin launchers keep their metadata in the root `pinokio.js`.
   // Do not split this example into a separate `pinokio.json`.

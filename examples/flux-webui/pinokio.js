@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "5.0",
+  version: "7.0",
   title: "flux-webui",
   description: "Minimal Flux Web UI powered by Gradio & Diffusers (Flux Schnell + Flux Merged)",
   icon: "icon.png",

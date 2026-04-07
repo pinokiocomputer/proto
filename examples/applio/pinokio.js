@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "5.0",
+  version: "7.0",
   title: "Applio",
   description: "A simple, high-quality voice conversion tool focused on ease of use and performance.",
   icon: "icon.png",
