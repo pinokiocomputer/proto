@@ -88,6 +88,7 @@ When the task does involve launcher work, first determine whether the request is
 ### 2. Plugin launchers
 - Plugin launchers must live under `PINOKIO_HOME/plugin/<unique_name>`.
 - Plugin launchers are reusable shared tools that are installed once and then used across many different folders.
+- Standalone plugin launchers should keep `path: "plugin"` in the root `pinokio.js` so Pinokio installs them into `PINOKIO_HOME/plugin`.
 - If you are already inside the target plugin launcher folder, build in that folder.
 - If you are not already inside a plugin launcher folder, create a new folder under `PINOKIO_HOME/plugin/<unique_name>`.
 - If the folder name is not obvious from the project or the user has not provided one, ask the user to confirm the folder name before creating it.
