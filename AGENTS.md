@@ -1,20 +1,8 @@
 # Development Guide for Pinokio Projects
 
-## User Instruction Overrides (SOUL.md)
-
-Before acting, check the user's Soul file at `<%=home_path%>/SOUL.md`.
-
-Rules:
-- If `SOUL.md` does not exist or is empty, ignore this section.
-- If `SOUL.md` contains instructions, treat them as the user's personal Pinokio agent preferences.
-- If `SOUL.md` conflicts with Pinokio defaults elsewhere in this document, follow `SOUL.md`.
-- If there is no conflict, follow both.
-- Do not modify `SOUL.md` unless the user explicitly asks.
-
 ## Non-Negotiable Execution Workflow
 
 To guarantee every contribution follows this guide precisely, obey this checklist **before any edits** and **again before finalizing**. Do not skip or reorder.
-0. **Soul Check:** Read `<%=home_path%>/SOUL.md` first if it exists and is non-empty. Apply it as an override when it conflicts with the defaults in this document.
 1. **AGENTS Snapshot:** Re-open this file and write down (in your working notes or response draft) the exact sections relevant to the requested task. No work begins until this snapshot exists.
 2. **Destination Resolution:** Before creating or editing any Pinokio launcher files, resolve `PINOKIO_HOME` to an absolute path and record the intended destination root. If running outside Pinokio's own managed runtime, resolve in this order: `~/.pinokio/config.json` `home`, then `GET http://127.0.0.1:42000/pinokio/home` and use its `path` value, and if loopback is unreachable but `access` exists in `~/.pinokio/config.json`, retry the same request against `<protocol>://<host>:<port>/pinokio/home`, then the `PINOKIO_HOME` environment variable. If `PINOKIO_HOME` is still unresolved, stop and ask the user. Never silently use the current workspace as the launcher destination.
 3. **Example Lock-in:** Identify the closest matching script in `<%=examples%>`. Record its path and keep it open while editing. Every launcher change must mirror that reference unless the user explicitly instructs otherwise.
@@ -22,7 +10,7 @@ To guarantee every contribution follows this guide precisely, obey this checklis
 5. **Mid-task Verification:** Any time you touch a Pinokio script, cross-check the corresponding example line to ensure syntax and structure match. Document the reference (example path + line) in your reasoning.
 6. **Exit Checklist:** Before responding to the user, revisit the pre-flight checklist and explicitly confirm every item is satisfied. If anything diverges from the example or these rules, fix it first.
 
-If any step cannot be completed, stop immediately and ask the user how to proceed. These seven steps are mandatory for every session.
+If any step cannot be completed, stop immediately and ask the user how to proceed. These six steps are mandatory for every session.
 
 ### Critical Pattern Lock: Capturing Web UI URLs
 
