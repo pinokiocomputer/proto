@@ -270,7 +270,6 @@ module.exports = {
 //            icon: "fa-solid fa-question",
 //            text: "How to use these LoRAs",
 //            href: "https://huggingface.co/collections/Remade-AI/wan21-14b-480p-i2v-loras-67d0e26f08092436b585919b",
-//            popout: true
 //          }, {
 //            icon: "fa-solid fa-compact-disc",
 //            text: "Squish",
