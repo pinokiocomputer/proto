@@ -210,5 +210,10 @@ module.exports = async (kernel, info) => {
 //      }
 //    },
 //  ])
-  return { run }
+  return {
+    requires: {
+      bundle: "ai"
+    },
+    run
+  }
 }

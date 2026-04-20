@@ -7,5 +7,6 @@ This sets up a project for a python server app by cloning from a remote git URL.
 1. Clones the given git URL into `app`.
 2. Run custom install command to install
 3. Run custom launch command to launch
+4. When the launcher is configured to install PyTorch, the generated `install.json` also includes `requires.bundle = "ai"`.
 
 ![form.png](form.png)

@@ -44,6 +44,9 @@ module.exports = async (req, ondata, kernel) => {
   let install
   if (req.input.pythonOptions && req.input.pythonOptions.length > 0 && req.input.pythonOptions.includes("torch")) {
     install = {
+      "requires": {
+        "bundle": "ai"
+      },
       "run": [
         {
           "method": "shell.run",

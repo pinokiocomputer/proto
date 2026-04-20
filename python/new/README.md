@@ -9,6 +9,7 @@ This sets up a project for a python server app that uses Pytorch.
 3. Creates an empty `app/requirements.txt` file
 4. Adds basic launcher script for installing the `requirements.txt` file and running the `app.py` file.
 5. Automatically install the correct version of PyTorch based on the platform.
+6. Adds `requires.bundle = "ai"` so Pinokio installs the local AI prerequisites before `install.js` runs.
 
 ## Usage
 

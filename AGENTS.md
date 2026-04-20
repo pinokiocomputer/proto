@@ -459,11 +459,30 @@ logs/
 - Make sure these file paths are included in the .gitignore file, and if not, include them in .gitignore.
 
 ## AI Libraries (Pytorch, Xformers, Triton, Sageattention, etc.)
+If the launcher is for running AI models locally, the install script must declare the AI bundle so Pinokio can install the machine-level prerequisites before the script runs:
+
+```
+// install.js
+module.exports = {
+  requires: {
+    bundle: "ai"
+  },
+  run: [
+    ...
+  ]
+}
+```
+
+This is required even when the script also uses `torch.js`. The AI bundle is what triggers installation of common local AI prerequisites such as CUDA on NVIDIA systems and Hugging Face CLI.
+
 If the launcher has a dedicated built-in script named `torch.js`, it can be used as follows:
 
 ```
 // install.js
 module.exports = {
+  requires: {
+    bundle: "ai"
+  },
   run: [
     // Edit this step with your custom install commands
     {
