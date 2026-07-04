@@ -3,6 +3,7 @@
 ## Non-Negotiable Execution Workflow
 
 To guarantee every contribution follows this guide precisely, obey this checklist **before any edits** and **again before finalizing**. Do not skip or reorder.
+
 1. **AGENTS Snapshot:** Re-open this file and write down (in your working notes or response draft) the exact sections relevant to the requested task. No work begins until this snapshot exists.
 2. **Destination Resolution:** Before creating or editing any Pinokio launcher files, resolve `PINOKIO_HOME` to an absolute path and record the intended destination root. If running outside Pinokio's own managed runtime, resolve in this order: `~/.pinokio/config.json` `home`, then `GET http://127.0.0.1:42000/pinokio/home` and use its `path` value, and if loopback is unreachable but `access` exists in `~/.pinokio/config.json`, retry the same request against `<protocol>://<host>:<port>/pinokio/home`, then the `PINOKIO_HOME` environment variable. If `PINOKIO_HOME` is still unresolved, stop and ask the user. Never silently use the current workspace as the launcher destination.
 3. **Example Lock-in:** Identify the closest matching script in `<%=examples%>`. Record its path and keep it open while editing. Every launcher change must mirror that reference unless the user explicitly instructs otherwise.
@@ -161,16 +162,20 @@ The `pinokio/start.js` should use the correct path `../backend` as the `path` at
 ### 1. Understanding the Project
 - Check `SPEC.md` in project root. If the file exists, use that to learn about the project details (what and how to build)
 - If no `SPEC.md` exists, build based on user requirements
+
 ### 2. Modifying Existing Launcher Projects
 If we are starting with existing launcher script files, work with the existing files instead of coming up with your own.
 - **Preserve existing functionality:** Only modify necessary parts
 - **Don't touch working scripts:** Unless adding/updating specific commands
 - **Follow existing conventions:** Match the style and structure already present
+
 ### 3. Try to adopt from examples as much as possible
 - If starting from scratch, first determine what type of project you will be building, and then check the examples folder (<%=examples%>) to see if you can adopt them instead of coming up everything from scratch.
 - Even if there are no relevant examples, check the examples to get inspiration for how you would structure the script files even if you have to write from scratch.
+
 ### 4. Writing from scratch as a last resort
 If there are relevant examples to adopt from, write the scripts from scratch, but just make sure to follow the requirements in the next section.
+
 ### 5. Debugging
 When the user reports something is not working, ALWAYS inspect the logs folder to get all the execution logs. For more info on how this works, check the "Troubleshooting with Logs" section below.
 
@@ -271,7 +276,7 @@ module.exports = {
 
 ## API
 
-This section lists all the script APIs available on Pinokio. To learn the details of how they are used, you can:
+This section lists common script APIs available on Pinokio. To learn the details of how they are used, you can:
 1. Check the examples in the <%=examples%> folder
 2. Read the `PINOKIO.md` at <%=PINOKIO_DOCUMENTATION%> further documentation on the full syntax
 
@@ -301,7 +306,7 @@ These APIs can be used to describe each step in a pinokio script:
 - script.stop: stop a script
 - script.return: return values if the current script was called by a caller script, so the caller script can utilize the return value as `input`
 - web.open: open a url in web browser
-- hf.download: huggingfac-cli download API
+- hf.download: Hugging Face CLI download API
 ### Template variables
 The following variables are accessible inside template expressions (example `{{args.command}` in scripts, resulting in dynamic behaviors of scripts:
 - input: An input is a variable that gets passed from one RPC call to the next
@@ -313,8 +318,8 @@ The following variables are accessible inside template expressions (example `{{a
 - cwd: The current script execution folder path
 - platform: The current operating system. May be one of the following: `darwin`, `win32`, `linux`
 - arch: The current system architecture. May be one of the following: x32, x64, arm, arm64, s390, s390x, mipsel, ia32, mips, ppc, ppc64
-- gpus: array of available GPUs on the machine (example: `['apple']`, `['nvidia']`)
-- gpu: the first available GPU (example: `nvidia`)
+- gpus: array of available GPU controller objects on the machine (example: `{ name, model, driver }`)
+- gpu: the primary GPU vendor (example: `nvidia`)
 - current: The current variable points to the index of the currently executing instruction within the run array.
 - next: The next variable points to the index of the next instruction to be executed. (null if the current instruction is the final instruction in the run array)
 - envs: You can access the environment variables of the currently running process with envs object.
@@ -322,7 +327,7 @@ The following variables are accessible inside template expressions (example `{{a
 - exists: Check whether a file or folder exists at the specified relative path (example: `"when": "{{!exists('app')}}"`). Can be used with the `when` attribute to determine a path's existence and trigger custom logic. Use relative paths and it will resolve automatically to the current execution folder. 
 - running: Check whether a script file is running (example: `"when": "{{!running('start.js')}}"`). Can be used with the `when` attribute to determine a path's existence and trigger custom logic. Use relative paths and it will resolve automatically to the current execution folder. 
 - os: Pinokio exposes the node.js os module through the os variable.
-- path: Pinokio exposes the node.js path module through the os variable (example: `{{path.resolve(...)}}`
+- path: Pinokio exposes the Node.js path module through the path variable (example: `{{path.resolve(...)}}`
 
 ## System Capabilities
 ### Package Management (Use in Order of Preference)
@@ -372,7 +377,7 @@ logs/
 
 ### Log File Naming
 - Unix timestamps for each session
-- Special "latest" file contains most recent session logs
+- Special "latest" file contains the most recent log file for that script; session bundles are tracked under `logs/sessions/`
 - **Default:** Use "latest" files for current issues
 - **Historical:** Use timestamped files for pattern analysis and the full history.
 
