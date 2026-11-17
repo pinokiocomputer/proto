@@ -94,7 +94,11 @@ When the task does involve launcher work, first determine whether the request is
 - If you are not already inside a plugin launcher folder, create a new folder under `PINOKIO_HOME/plugin/<unique_name>`.
 - If the folder name is not obvious from the project or the user has not provided one, ask the user to confirm the folder name before creating it.
 - Do not place plugin launchers under `PINOKIO_HOME/api`.
-- When a plugin is meant to operate on the user's current project, its `run` step should target the caller's folder with `{{args.cwd}}` instead of the plugin folder itself.
+- A plugin's `run` step must set `path: "{{args.cwd}}"`. That is the folder the user chose. Do not run in the plugin's own folder.
+- A plugin's `run` step must pass the user's request, `{{args.prompt}}`, to the tool whenever the tool can start with a first message. Check the tool's documentation or `--help` to find how: a positional argument, or a flag such as `--prompt`. Pinokio delivers the request no other way. Without it, an Ask from the agent bar opens the tool empty.
+- Pass it with a structured `message`, so Pinokio escapes it and omits it when there is no request: `message: { _: ["<tool>", "{{args.prompt || undefined}}"] }` or `message: { _: ["<tool>"], prompt: "{{args.prompt || undefined}}" }`.
+- If the tool cannot take a first message at all, say so in the plugin's `description`.
+- Before finishing, launch the plugin once with a request and once without, and confirm both work.
 
 ### 3. Apply structure rules only after choosing the launcher type
 - App launchers and plugin launchers are peers. Do not treat a plugin launcher as a special case of an app launcher, or vice versa.
