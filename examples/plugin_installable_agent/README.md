@@ -10,8 +10,11 @@ For the exact rules agents should follow when adapting this folder, see `SPEC.md
 
 - plugin launcher metadata stored directly in `pinokio.js`
 - keeping `path: "plugin"` in the root `pinokio.js` for standalone plugin installation
-- top-level `install`, `uninstall`, `update`, and `run` action arrays
+- top-level `install`, `uninstall`, `update`, `run`, and `job` action arrays
+- an `installed` check that looks for the program itself
 - running the plugin inside the caller's current working directory with `{{args.cwd}}`
+- passing the user's request to the tool with `{{args.prompt}}`
+- a `job`: the same tool working once and exiting, which Pinokio runs in the background
 - using a Windows-only shell override when the plugin expects bash
 
 ## How To Adapt It
@@ -26,6 +29,7 @@ For the exact rules agents should follow when adapting this folder, see `SPEC.md
 - Plugin launchers are shared tools installed once and then reused across many folders.
 - Standalone plugin launchers should keep `path: "plugin"` in root `pinokio.js` so Pinokio installs them into `PINOKIO_HOME/plugin`.
 - A plugin launcher should usually run against the user's current working folder with `{{args.cwd}}`, instead of running against the plugin folder itself.
+- A plugin launcher receives the user's request as `{{args.prompt}}` and passes it to the tool. Pinokio delivers the request no other way.
 - This is why plugin launchers are useful for common tools such as coding agents, linters, helpers, or generators that should work across many different apps.
 - This example keeps its schema in `pinokio.js` instead of using the multi-file app-launcher pattern.
 

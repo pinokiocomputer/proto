@@ -99,6 +99,21 @@ When the task does involve launcher work, first determine whether the request is
 - Pass it with a structured `message`, so Pinokio escapes it and omits it when there is no request: `message: { _: ["<tool>", "{{args.prompt || undefined}}"] }` or `message: { _: ["<tool>"], prompt: "{{args.prompt || undefined}}" }`.
 - If the tool cannot take a first message at all, say so in the plugin's `description`.
 - Before finishing, launch the plugin once with a request and once without, and confirm both work.
+- A plugin must include a `job` action next to `run` whenever the tool can work once and exit: it takes one request, carries it out without asking anything, and ends. Pinokio uses `job` to run the tool in the background, with no terminal on screen and nobody to answer it. A plugin without `job` cannot be used for that.
+- Do not skip `job` because the tool's one-off mode is not obvious. Check the tool's documentation and `--help` for it first, for example `-p`, `--print`, `exec` or `run`. Leave `job` out only when the tool has no such mode at all, such as a desktop editor.
+- Write `job` exactly like `run`: an array of steps, or a function returning one. It holds the tool's one-off command in place of its interactive one.
+- A `job` holds only the tool's one-off command. Do not set `input: true`. A one-off command can only do what it is allowed to do when it starts, because nobody is there to allow more; without that it ends without doing the work. Give the tool the permission its work needs in the command itself, the way its unattended or auto mode does.
+- Every `job` step must set `path: "{{args.cwd}}"` and must pass `{{args.prompt}}` to the tool. A job always has a prompt, so write `"{{args.prompt}}"` without `|| undefined`. Example: `job: [{ method: "shell.run", params: { message: { _: ["<tool>", "<one-off flag>", "{{args.prompt}}"] }, path: "{{args.cwd}}" } }]`.
+- A `job` ends when its steps are over. `daemon` does not apply to it, and its steps cannot use `trigger` to start another action.
+- A `job` returns nothing. Pinokio only notices that its steps ended and keeps what they printed. Do not write an answer to a file or print it in a special format.
+- Before finishing, run the one-off command once in a terminal and confirm it finishes and returns to the shell prompt without waiting for a key.
+- If the tool comes as a program file through the vendor's own installer (not `npm`, `pip` or `conda`), prefer installing it into a folder inside the plugin, such as `runtime`, when the installer has an option for choosing the folder.
+- Where the installer has options to skip `PATH` and shell profile changes, use them. Setting `HOME` (macOS and Linux) or `LOCALAPPDATA` (Windows) to the plugin's folder for that step is acceptable only if the tool still installs and runs correctly.
+- These are preferences, not requirements. If the installer does not support them, run it as it is. Do NOT patch the installer, move its files afterwards, or build a workaround to force it into the plugin's folder.
+- `installed` checks for the program itself, wherever it is. Do not use a marker file when the program can be checked directly.
+- Call the program where it is: by its full path when it is in the plugin's folder, for example `{{path.resolve(dirname, 'runtime', platform === 'win32' ? 'tool.exe' : 'tool')}}`, and by its name when it is on `PATH`.
+- `update` uses the tool's own updater when it has one. `uninstall` removes what the plugin installed.
+- When the installer fails, print a line that starts with `Error:` so the step fails. Build that text from two pieces (`printf "Error%s\n" ": install failed"`), or the command itself would contain it.
 
 ### 3. Apply structure rules only after choosing the launcher type
 - App launchers and plugin launchers are peers. Do not treat a plugin launcher as a special case of an app launcher, or vice versa.
@@ -327,7 +342,7 @@ The following variables are accessible inside template expressions (example `{{a
 - current: The current variable points to the index of the currently executing instruction within the run array.
 - next: The next variable points to the index of the next instruction to be executed. (null if the current instruction is the final instruction in the run array)
 - envs: You can access the environment variables of the currently running process with envs object.
-- which: Check whether a command exists and return its absolute path (example: `{{which('winget')}}`). This is the correct way to resolve command paths inside reproducible Pinokio scripts, including custom shell selection such as `shell: "{{which('bash')}}"`. If you are outside a Pinokio-managed shell and only need to inspect Pinokio's environment manually, use `pterm which <command>`, but do NOT copy that user-specific absolute path into launcher scripts.
+- which: Check whether a command exists and return its absolute path (example: `{{which('winget')}}`). Use it in a `when` condition to ask whether a command is installed, or where a setting needs the full path of a program as its value. Do NOT use it to call a command: inside a `shell.run` step every tool Pinokio provides is already on `PATH`, so write the command by its name (`uv pip install ...`, never `{{which('uv')}} pip install ...`). If you are outside a Pinokio-managed shell and only need to inspect Pinokio's environment manually, use `pterm which <command>`, but do NOT copy that user-specific absolute path into launcher scripts.
 - exists: Check whether a file or folder exists at the specified relative path (example: `"when": "{{!exists('app')}}"`). Can be used with the `when` attribute to determine a path's existence and trigger custom logic. Use relative paths and it will resolve automatically to the current execution folder. 
 - running: Check whether a script file is running (example: `"when": "{{!running('start.js')}}"`). Can be used with the `when` attribute to determine a path's existence and trigger custom logic. Use relative paths and it will resolve automatically to the current execution folder. 
 - os: Pinokio exposes the node.js os module through the os variable.
@@ -342,7 +357,23 @@ The following package managers come pre-installed with Pinokio, so whenever you 
 4. **Brew** - Mac-only fallback when other options unavailable
 5. **Git** - Full access to git is available.
 6. **Bun** - For managing bun packages
-**Important:** Include all install commands in the install script for reproducibility.
+**Important:** Include all install commands in the install script for reproducibility, except for the tools below.
+
+### Tools That Are Already Installed
+Every Pinokio has these tools, and they are on `PATH` inside every `shell.run` step. Call them by name. NEVER add a step that installs one of them, even when the project's own README lists it as a requirement: no `conda install ffmpeg`, no `brew install git`, no `npm install -g pnpm`.
+- `ffmpeg` and `ffprobe`
+- `git`, `git lfs` and `gh`
+- `node`, `npm`, `npx` and `pnpm`
+- `uv`
+- `conda`, and the `python` that comes with it
+- `hf` (the Hugging Face CLI)
+- `7z` (on Windows the command is `7zz`)
+- `bash`, on Windows too
+- `tmux` (macOS and Linux only)
+- `brew` (macOS only)
+- `pterm`
+
+Only install a tool yourself when it is not in this list, or when the project needs one specific version or build of it that differs from what Pinokio has. In that case say why in a comment next to the step.
 ### HTTPS Proxy Support
 - All HTTP servers automatically get HTTPS endpoints
 - Convention: `http://localhost:<PORT>` → `https://<PORT>.localhost`
@@ -352,7 +383,7 @@ The following package managers come pre-installed with Pinokio, so whenever you 
 - **Notifications:** Send desktop alerts via pinokio pterm CLI (`pterm push` command.)
 - **Script Testing:** Run launcher scripts via pinokio pterm CLI (`pterm start` command.)
 - **File Selection:** Use built-in filepicker for user file/folder input (`pterm filepicker` command.)
-- **Command Path Resolution:** Inspect the absolute path of any command as seen by Pinokio via `pterm which <command>`. Use this for debugging or external local tooling, especially when a helper process did not inherit Pinokio's `PATH`, for example `pterm which bash` on Windows. Do NOT hardcode the returned absolute path into launcher scripts; use `which()` or `kernel.which()` in the script itself instead.
+- **Command Path Resolution:** Inspect the absolute path of any command as seen by Pinokio via `pterm which <command>`. Use this for debugging or external local tooling, especially when a helper process did not inherit Pinokio's `PATH`, for example `pterm which bash` on Windows. Do NOT hardcode the returned absolute path into launcher scripts; call the command by its name in the script itself instead.
 - **Git Operations:** Clone repositories, push to GitHub
 - **GitHub Integration:** Full GitHub CLI support (`gh` commands)
 
@@ -400,13 +431,13 @@ logs/
   - Note that the `{{port}}` expression always returns the next immediately available port for each step, so if you have multiple steps in a script and use `{{port}}` in multiple steps, the value will be different. So if you want to launch at the next available port and then later reuse that port, you will need to first use `{{port}}` to get the next available port, and save the value in local variable using `local.set`, and then use the `{{local.<variable_name>}}` expression later.
 ### 2. shell.run API
 - When writing `shell.run` API requests, always use relative paths (no absolute paths) for the `path` field. For example, if you need to run a command from `app` folder, the `path` attribute should simply be `app`, instead of its full absolute path.
-- If a launcher needs to use a command that Pinokio already provides, prefer resolving it with `{{which('command')}}` inside the script instead of assuming the command name will always be on `PATH`.
+- Call every command by its name. Inside a `shell.run` step the tools Pinokio provides are already on `PATH`, so write `uv pip install -r requirements.txt`, `git clone ...`, `ffmpeg -i ...`. Do NOT write `{{which('uv')}} pip install ...` or any other `{{which('command')}}` in front of a command: it adds nothing. The exception is a program the launcher installed into its own folder: that one is called by its path.
 - Do NOT automatically avoid `bash`-based install commands on Windows. Pinokio's Windows environment includes `bash` through its bundled toolchain, so commands such as `curl -fsSL ... | bash` are acceptable when they run inside a Pinokio-managed shell and there is no simpler cross-platform alternative.
-- If a Windows launcher needs to run the shell itself in bash instead of the default `cmd.exe`, set `shell: "{{which('bash')}}"` on the `shell.run` step.
-- If a separate debugging process or external local tool did not inherit Pinokio's environment, you may use `pterm which <command>` to inspect what Pinokio would resolve. Do NOT turn that result into a hardcoded script path; for launcher scripts, always use `which()` or `kernel.which()` so the script stays reproducible across machines.
+- If a Windows launcher needs to run the shell itself in bash instead of the default `cmd.exe`, set `shell: "bash"` on the `shell.run` step. Pinokio resolves the name to its bundled Bash. Do NOT write a full path or `{{which('bash')}}` there.
+- If a separate debugging process or external local tool did not inherit Pinokio's environment, you may use `pterm which <command>` to inspect what Pinokio would resolve. Do NOT turn that result into a hardcoded script path: in launcher scripts, call the command by its name so the script stays reproducible across machines.
 ### 2. Package managers
 - When installing python packages, try best to use `uv` instead of `pip` even if the install instruction says to use pip. Instead of `pip install -r requirements.txt`, you can simply use `uv pip install -r requirements.txt` for example. Even if the project's own README says use pip or poetry, first check if there's a way to use uv instead.
-- When you need to install some global package, try to use `conda` as much as possible. Even on macs, `brew` should be only used if there are no `conda` options.
+- When you need to install some global package that Pinokio does not already have (see "Tools That Are Already Installed"), try to use `conda` as much as possible. Even on macs, `brew` should be only used if there are no `conda` options.
 ### 3. Minimal Always
 - If you are starting with existing script files, before modifying, creating, or removing any script files, first look at `pinokio.js` to understand which script files are actually used in the launcher. The only script files used are the ones mentioned in the `pinokio.js` file. The `pinokio.js` file is the file that constructs the UI dynamically.
 - Do not create a redundant script file that does something that already exists. Instead modify the existing script file for the feature. For example, do not create an `install.json` file for installation if `install.js` already exists. Instead, modify the `install.js` file.

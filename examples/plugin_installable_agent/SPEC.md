@@ -23,15 +23,19 @@ Do not use this folder as the reference for app launchers under `PINOKIO_HOME/ap
 - Do not create `install.js`, `start.js`, `reset.js`, or `update.js`.
 - Keep `path: "plugin"` in `pinokio.js`.
 - Keep `version: "7.0"` in `pinokio.js`.
-- Plugin launchers are shared tools, so the `run` step should target the caller's folder with `{{args.cwd}}` when the plugin is meant to operate on the user's current project.
+- Plugin launchers are shared tools, so the `run` and `job` steps should target the caller's folder with `{{args.cwd}}` when the plugin is meant to operate on the user's current project.
 
 ## Adaptation Checklist
 
 - Replace the metadata fields in `pinokio.js`: `title`, `icon`, `description`, `link`.
-- Replace the commands inside `install`, `uninstall`, `update`, and `run`.
-- Keep the top-level action array names: `install`, `uninstall`, `update`, `run`.
-- If the plugin should operate on the user's current project, keep `path: "{{args.cwd}}"` in the `run` step.
-- If Windows requires bash, use Pinokio's bundled bash path in the Windows-only branch.
+- Replace the commands inside `install`, `uninstall`, `update`, `run`, and `job`, and the program name in `installed`.
+- Keep the top-level action array names: `install`, `uninstall`, `update`, `run`, `job`.
+- If the plugin should operate on the user's current project, keep `path: "{{args.cwd}}"` in the `run` and `job` steps.
+- Keep `{{args.prompt || undefined}}` in the `run` step whenever the tool can start with a first message. Check the tool's `--help` for how it takes one: a positional argument, or a flag such as `--prompt`.
+- Keep the `job` whenever the tool can work once and exit. Replace its command with the tool's one-off command (for example `-p`, `--print`, `exec` or `run`), pass `{{args.prompt}}`, and do not set `input: true`. Leave `job` out only when the tool has no such mode at all.
+- Give the `job` command the permission its work needs, the way the tool's unattended or auto mode does. Nobody is there to allow more.
+- Keep `installed` checking for the program itself, not for a marker file.
+- If Windows requires bash, set `shell: "bash"` in the Windows-only branch. Write the name, not a path.
 - Prefer adding comments in `pinokio.js` for plugin-specific behavior that is easy to get wrong.
 
 ## Reference Files

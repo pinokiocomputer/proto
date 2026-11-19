@@ -13,6 +13,13 @@ module.exports = {
   // Do not convert this example into an app launcher under /api.
   path: "plugin",
 
+  // Tells Pinokio whether the tool is there. Check for the program itself,
+  // not for a marker file. Pinokio asks before `run` and `job`, and shows
+  // "not installed" instead of starting a tool that is missing.
+  async installed(kernel) {
+    return Boolean(kernel.which("opencode"))
+  },
+
   // Plugin launchers use top-level action arrays instead of install.js/start.js.
   // Replace the command, but keep the overall `install` structure.
   install: [{
@@ -55,8 +62,17 @@ module.exports = {
     method: "shell.run",
     params: {
       // Use Pinokio's bundled bash on Windows when the plugin expects a bash shell.
+      // Write the name `bash`, not a path.
       shell: "bash",
-      message: "opencode",
+      // Pass the user's request to the tool as its first message. Written this
+      // way, Pinokio escapes it and leaves it out when there is no request.
+      // Find how the tool takes a first message in its `--help`: here it is
+      // the `--prompt` flag. A positional one goes inside `_`:
+      // `_: ["<tool>", "{{args.prompt || undefined}}"]`.
+      message: {
+        _: ["opencode"],
+        prompt: "{{args.prompt || undefined}}"
+      },
       path: "{{args.cwd}}",
       // Keep stdin attached for interactive terminal agents.
       input: true
@@ -66,9 +82,44 @@ module.exports = {
     id: "run",
     method: "shell.run",
     params: {
-      message: "opencode",
+      message: {
+        _: ["opencode"],
+        prompt: "{{args.prompt || undefined}}"
+      },
       path: "{{args.cwd}}",
       input: true
+    }
+  }],
+
+  // The same tool working once and exiting: it takes the request, does the
+  // work, prints its answer and ends. Pinokio uses `job` to run the tool in the
+  // background, with no terminal on screen and nobody to answer it.
+  // - Use the tool's one-off command (here `opencode run`), not its interactive one.
+  // - Do not set `input: true`.
+  // - A job always has a request, so `{{args.prompt}}` needs no `|| undefined`.
+  // - Give the tool the permission its work needs in the command itself
+  //   (here `--auto`), because nobody is there to allow more.
+  // Leave `job` out only when the tool has no one-off mode at all.
+  job: [{
+    when: "{{platform === 'win32'}}",
+    method: "shell.run",
+    params: {
+      shell: "bash",
+      message: {
+        _: ["opencode", "run", "{{args.prompt}}"],
+        auto: true
+      },
+      path: "{{args.cwd}}"
+    }
+  }, {
+    when: "{{platform !== 'win32'}}",
+    method: "shell.run",
+    params: {
+      message: {
+        _: ["opencode", "run", "{{args.prompt}}"],
+        auto: true
+      },
+      path: "{{args.cwd}}"
     }
   }]
 }

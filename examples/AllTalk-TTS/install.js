@@ -55,8 +55,7 @@ module.exports = {
         },
         path: "app",
         message: [
-          "conda install -y -c conda-forge git-lfs",
-          "conda install -y conda-forge::ffmpeg=*=*gpl*"
+          "python --version"
         ]
       }
     },
@@ -67,7 +66,6 @@ module.exports = {
         conda: "conda_env",
         path: "app",
         message: [
-          "conda install -y -c conda-forge 'ffmpeg=*=h*_*' --no-deps",
           "mkdir .\\models\\xtts",
           "uv pip install https://github.com/erew123/alltalk_tts/releases/download/DeepSpeed-14.0/deepspeed-0.14.0+ce78a63-cp311-cp311-win_amd64.whl"
         ]
@@ -81,7 +79,6 @@ module.exports = {
         conda: "conda_env",
         path: "app",
         message: [
-          "conda install -y -c conda-forge ffmpeg",
           "conda install -y -c conda-forge cxx-compiler",
           "conda install -y -c conda-forge gcc",
           "mkdir -p ./models/xtts",
