@@ -89,7 +89,8 @@ When the task does involve launcher work, first determine whether the request is
 ### 2. Plugin launchers
 - Plugin launchers must live under `PINOKIO_HOME/plugin/<unique_name>`.
 - Plugin launchers are reusable shared tools that are installed once and then used across many different folders.
-- Standalone plugin launchers should keep `path: "plugin"` in the root `pinokio.js` so Pinokio installs them into `PINOKIO_HOME/plugin`.
+- Every plugin launcher must set `path: "plugin"` in the root `pinokio.js`. Pinokio does not list a plugin without it, and it is what sends a download into `PINOKIO_HOME/plugin`.
+- A plugin stands on its own. Everything it needs is in its own folder. Never load a file from another plugin's folder, even to reuse the same steps: write them out again.
 - If you are already inside the target plugin launcher folder, build in that folder.
 - If you are not already inside a plugin launcher folder, create a new folder under `PINOKIO_HOME/plugin/<unique_name>`.
 - If the folder name is not obvious from the project or the user has not provided one, ask the user to confirm the folder name before creating it.
@@ -110,8 +111,8 @@ When the task does involve launcher work, first determine whether the request is
 - If the tool comes as a program file through the vendor's own installer (not `npm`, `pip` or `conda`), prefer installing it into a folder inside the plugin, such as `runtime`, when the installer has an option for choosing the folder.
 - Where the installer has options to skip `PATH` and shell profile changes, use them. Setting `HOME` (macOS and Linux) or `LOCALAPPDATA` (Windows) to the plugin's folder for that step is acceptable only if the tool still installs and runs correctly.
 - These are preferences, not requirements. If the installer does not support them, run it as it is. Do NOT patch the installer, move its files afterwards, or build a workaround to force it into the plugin's folder.
-- `installed` checks for the program itself, wherever it is. Do not use a marker file when the program can be checked directly.
-- Call the program where it is: by its full path when it is in the plugin's folder, for example `{{path.resolve(dirname, 'runtime', platform === 'win32' ? 'tool.exe' : 'tool')}}`, and by its name when it is on `PATH`.
+- `installed` checks for the program itself, wherever it is. Do not use a marker file when the program can be checked directly. Pinokio also calls `installed` with only `(kernel, info)` to show the plugin's state in its lists, so do not rely on a third argument.
+- Call the program where it is: by its full path when it is in the plugin's folder, and by its name when it is on `PATH`. A plugin's `pinokio.js` is ordinary JavaScript, so it finds its own folder with `__dirname`, for example `path.join(__dirname, "runtime", process.platform === "win32" ? "tool.exe" : "tool")`.
 - `update` uses the tool's own updater when it has one. `uninstall` removes what the plugin installed.
 - When the installer fails, print a line that starts with `Error:` so the step fails. Build that text from two pieces (`printf "Error%s\n" ": install failed"`), or the command itself would contain it.
 
